@@ -408,25 +408,84 @@ function biomeTerrain(world,r){
   }
  }
 }
+
+// ISLAND ART DIRECTION: a shaped shoreline and ocean replace the generic square pedestal.
+function islandAdventureTerrain(r){
+ const make=(c,rough=.88)=>new T.MeshStandardMaterial({color:c,roughness:rough,flatShading:true});
+ const ext=(size-1)*1.48/2+.88;
+ const ocean=mesh(groundGroup,new T.CylinderGeometry(ext*1.72,ext*1.72,.13,64),new T.MeshStandardMaterial({color:0x0a91b4,roughness:.3,metalness:.06}),0,-1.12,0);
+ ocean.receiveShadow=true;
+ const lagoon=mesh(groundGroup,new T.CylinderGeometry(ext*1.42,ext*1.42,.09,64),make(0x22c8c6,.4),0,-1.025,0);
+ lagoon.receiveShadow=true;
+ // Organic polygon coast: no hard-edged square slab, no white floating board.
+ const N=72, radii=[];
+ for(let i=0;i<N;i++){const a=i*2*Math.PI/N;radii.push(ext*(1.12+.055*Math.sin(3*a+.6)+.035*Math.cos(7*a)))}
+ const verts=[],indices=[],uv=[];
+ const rings=[{scale:0,y:-.36},{scale:.89,y:-.36},{scale:1,y:-.40},{scale:1.035,y:-.63},{scale:1.08,y:-.80}];
+ for(let k=0;k<rings.length;k++)for(let i=0;i<N;i++){
+  const a=i*2*Math.PI/N,rr=radii[i]*rings[k].scale;
+  verts.push(Math.cos(a)*rr,rings[k].y,Math.sin(a)*rr);uv.push((Math.cos(a)*rr/ext+1)/2,(Math.sin(a)*rr/ext+1)/2);
+ }
+ for(let k=0;k<rings.length-1;k++)for(let i=0;i<N;i++){
+  const j=(i+1)%N,A=k*N+i,B=k*N+j,C=(k+1)*N+i,D=(k+1)*N+j;
+  indices.push(A,C,B,B,C,D);
+ }
+ const geo=new T.BufferGeometry();geo.setAttribute('position',new T.Float32BufferAttribute(verts,3));geo.setAttribute('uv',new T.Float32BufferAttribute(uv,2));geo.setIndex(indices);geo.computeVertexNormals();
+ const coast=mesh(groundGroup,geo,new T.MeshStandardMaterial({color:0xf2bc68,roughness:.95,side:T.DoubleSide,flatShading:true}),0,0,0);
+ coast.receiveShadow=true;
+ // Island soil under playable cells, physically integrated into the shoreline.
+ cube(groundGroup,ext*1.98,.16,ext*1.98,make(0xd6a35e),0,-.38,0);
+ // Scattered smooth coastal boulders, shell clusters, and small patches of vegetation.
+ for(let i=0;i<30;i++){
+  const a=r()*Math.PI*2,rad=ext*(.95+r()*.16),x=Math.cos(a)*rad,z=Math.sin(a)*rad;
+  const rock=mesh(groundGroup,new T.DodecahedronGeometry(.11+r()*.17,1),make(i%3?0xffdb9d:0xc58e60),x,-.26,z);
+  rock.scale.set(1.4,.5,.8);rock.rotation.y=r()*6.28;
+ }
+ for(let i=0;i<18;i++){
+  const a=r()*6.283,rad=ext*(.95+r()*.18),x=Math.cos(a)*rad,z=Math.sin(a)*rad;
+  const grass=mesh(groundGroup,new T.ConeGeometry(.10,.32,4),make(i%2?0x1f9d77:0x54b37c),x,-.16,z);
+  grass.rotation.z=(r()-.5)*.6;
+ }
+ // Palm silhouettes at four corners, away from walkable tiles.
+ const palms=[[-1,-1],[1,-1],[-1,1],[1,1]];
+ palms.forEach(([sx,sz],i)=>{
+  const x=sx*(ext+.20),z=sz*(ext+.20),g=new T.Group();g.position.set(x,-.35,z);g.scale.setScalar(i%2?.85:1.06);groundGroup.add(g);
+  const trunk=mesh(g,new T.CylinderGeometry(.095,.17,1.55,9),make(0x956239),0,.77,0);trunk.rotation.z=sx*.18;
+  for(let j=0;j<7;j++){
+   const a=j*Math.PI*2/7,leaf=mesh(g,new T.SphereGeometry(.58,12,8),make(j%2?0x138d66:0x24b777),Math.cos(a)*.49,1.62,Math.sin(a)*.49);
+   leaf.scale.set(1.32,.12,.40);leaf.rotation.y=-a;
+  }
+  for(let j=0;j<3;j++)ball(g,.12,make(0x88502e),.1+(j-1)*.13,1.45,.06);
+ });
+ // Treasure props, never inside a playable cell.
+ for(let i=0;i<4;i++){
+  const a=(i+.4)*Math.PI/2,rr=ext*1.12,x=Math.cos(a)*rr,z=Math.sin(a)*rr;
+  const chest=new T.Group();chest.position.set(x,-.25,z);chest.rotation.y=a;groundGroup.add(chest);
+  cube(chest,.43,.27,.30,make(0x8c4d2b),0,.14,0);
+  cube(chest,.47,.08,.34,make(0x5b3328),0,.32,0);
+  cube(chest,.07,.30,.35,make(0xf5c55b),0,.20,0);
+ }
+}
+
 function biomeTile(world,x,z){
  const palettes=[
  [0x579b70,0x64aa79,0x4d8d67],[0xa0c976,0xb3d989,0x8cbf6b],
  [0xcba17d,0xd9b08b,0xb98d6b],[0xe4f5f8,0xcbe9f0,0xf1fcff],
- [0xe7cc94,0xf2dbac,0xd8bb85],[0x7f95d2,0x9cb1e6,0x687dbb],
+ [0xcda66d,0xe0bd83,0xb9945e],[0x7f95d2,0x9cb1e6,0x687dbb],
  [0x9975af,0xb28bc6,0x83649d],[0xe0b777,0xf0cd92,0xcfa16b],
  [0xe3f6fa,0xf6ffff,0xcceaf5],[0xb5a7c9,0xd0c3df,0x9b8ab8]][world];
  return palettes[(x*7+z*11+level*3)%3];
 }
 function renderBoard(){clearGroup(groundGroup);let r=rng(level*97+3),world=Math.floor((level-1)/10),colors=[0x69bd74,0xa6d66d,0xb6a18a,0xe9f4fa,0xe9d292,0x6e91d2,0x8d71ae,0xe5c47f,0xd9efff,0xa59ac9];let grass=mat(colors[world]);const accent=[0x367d4b,0x8cd36a,0x8e7966,0xb5e2ef,0x4daac5,0x415fb0,0x674a96,0xe7a75b,0xf8fbff,0x74649d][world];
- biomeTerrain(world,r);const skies=[0x9cdbf6,0xbceefc,0xe7d4b7,0xccecff,0x8cd6f2,0x8d9ee8,0x564b8e,0xffd9a1,0x8bd4fc,0xaaa0d7];scene.background=panorama(world);scene.fog.color.setHex(skies[world]);scene.fog.near=Math.max(26,size*4.2);scene.fog.far=Math.max(56,size*8.2);sun.color.setHex([0xfff1d4,0xfff2c4,0xffe2c6,0xe4f5ff,0xfff0c7,0xc9dcff,0xf2d6ff,0xffd7a3,0xf5fbff,0xf4e0ff][world]);
+ if(world===4)islandAdventureTerrain(r);else biomeTerrain(world,r);const skies=[0x9cdbf6,0xbceefc,0xe7d4b7,0xccecff,0x8cd6f2,0x8d9ee8,0x564b8e,0xffd9a1,0x8bd4fc,0xaaa0d7];scene.background=panorama(world);scene.fog.color.setHex(skies[world]);scene.fog.near=Math.max(26,size*4.2);scene.fog.far=Math.max(56,size*8.2);renderer.toneMappingExposure=world===4?.80:1.02;sun.intensity=world===4?1.45:2.15;sun.color.setHex([0xfff1d4,0xfff2c4,0xffe2c6,0xe4f5ff,0xfff0c7,0xc9dcff,0xf2d6ff,0xffd7a3,0xf5fbff,0xf4e0ff][world]);
  for(let z=0;z<size;z++)for(let x=0;x<size;x++){let X=cell(x),Z=cell(z);const tileMat=mat(biomeTile(world,x,z));
  const tile=cube(groundGroup,1.405,.20,1.405,tileMat,X,-.09,Z);tile.receiveShadow=true;
  // inset surface and edge shadow: grid remains clearly legible at any zoom
  const topMat=new T.MeshStandardMaterial({color:biomeTile(world,x,z),roughness:world===3||world===5?.43:.88});
  const cap=cube(groundGroup,1.31,.025,1.31,topMat,X,.021,Z);cap.receiveShadow=true;
- const seam=mesh(groundGroup,new T.PlaneGeometry(1.20,1.20),new T.MeshBasicMaterial({color:0xffffff,transparent:true,opacity:.075,depthWrite:false}),X,.037,Z,false);seam.rotation.x=-Math.PI/2;
- const edge=new T.LineSegments(new T.EdgesGeometry(new T.BoxGeometry(1.405,.20,1.405)),new T.LineBasicMaterial({color:[0x24533d,0x6b9557,0x86644c,0x8db9c9,0xa98959,0x394b89,0x62497c,0xa17a4e,0x98c6d9,0x675481][world],transparent:true,opacity:.55}));edge.position.set(X,-.09,Z);groundGroup.add(edge);
- const inset=mesh(groundGroup,new T.PlaneGeometry(1.24,1.24),new T.MeshBasicMaterial({color:0xffffff,transparent:true,opacity:.075,depthWrite:false}),X,.014,Z,false);inset.rotation.x=-Math.PI/2;
+ const seam=mesh(groundGroup,new T.PlaneGeometry(1.20,1.20),new T.MeshBasicMaterial({color:world===4?0x865e33:0xffffff,transparent:true,opacity:world===4?.035:.075,depthWrite:false}),X,.037,Z,false);seam.rotation.x=-Math.PI/2;
+ const edge=new T.LineSegments(new T.EdgesGeometry(new T.BoxGeometry(1.405,.20,1.405)),new T.LineBasicMaterial({color:[0x24533d,0x6b9557,0x86644c,0x8db9c9,0xa98959,0x394b89,0x62497c,0xa17a4e,0x98c6d9,0x675481][world],transparent:true,opacity:world===4?.22:.55}));edge.position.set(X,-.09,Z);groundGroup.add(edge);
+ const inset=mesh(groundGroup,new T.PlaneGeometry(1.24,1.24),new T.MeshBasicMaterial({color:0xffffff,transparent:true,opacity:world===4?.018:.075,depthWrite:false}),X,.014,Z,false);inset.rotation.x=-Math.PI/2;
  if(world===3||world===5||world===8){const top=mesh(groundGroup,new T.PlaneGeometry(1.24,1.24),new T.MeshStandardMaterial({color:world===3?0xffffff:world===5?0x94c8ff:0xf7ffff,transparent:true,opacity:.25,roughness:.28}),X,.003,Z,false);top.rotation.x=-Math.PI/2;}
  
  
@@ -453,7 +512,7 @@ function renderBoard(){clearGroup(groundGroup);let r=rng(level*97+3),world=Math.
  sceneryCorners.forEach(([sx,sz],k)=>{
   // Props are placed outside the grid. Two diagonally opposite focal points
   // reduce visual noise while still giving each world a recognizable identity.
-  if(k===0||k===3){
+  if(world!==4&&(k===0||k===3)){
     const X=sx*(edgeLimit+1.12),Z=sz*(edgeLimit+1.12);
     const piece=glbWorlds.has(world)?glbWorlds.get(world).clone(true):biomeSetPiece(world,X,Z,r);
     if(glbWorlds.has(world)){piece.traverse(o=>{if(o.isMesh){o.geometry=o.geometry.clone();o.material=o.material.clone()}});groundGroup.add(piece);piece.position.set(X,0,Z)}
