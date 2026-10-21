@@ -1,0 +1,412 @@
+<!doctype html><html lang="el"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>CodeQuest Studio 3D v14.0 — Η περιπέτεια της Αλεπούς</title><style>
+:root{font-family:system-ui,'Segoe UI',sans-serif;color:#20314b}*{box-sizing:border-box}body{margin:0;background:linear-gradient(145deg,#d9eff5,#f4f4ff)}header{background:#fffdf5;display:flex;align-items:center;justify-content:space-between;padding:12px 20px;gap:12px;flex-wrap:wrap;box-shadow:0 3px 20px #2b456018;position:relative;z-index:2}h1{font-size:23px;margin:0;color:#216b63}small{color:#637383}.pill{background:#e4f6df;padding:9px 14px;border-radius:30px;font-weight:700}.layout{display:grid;grid-template-columns:minmax(340px,1.65fr) minmax(300px,1fr);gap:16px;max-width:1450px;margin:18px auto;padding:0 16px}.scene{isolation:isolate;position:relative;background:linear-gradient(#9cddff,#e3f7fc);border-radius:24px;overflow:hidden;min-height:540px;box-shadow:0 14px 35px #31617c26}.scene canvas{width:100%;height:100%;display:block}.worldtag{z-index:1;box-shadow:0 4px 18px #0002;backdrop-filter:blur(8px);position:absolute;top:16px;left:16px;background:#ffffffdf;padding:10px 15px;border-radius:18px;font-weight:800}.help{z-index:1;position:absolute;bottom:14px;left:14px;background:#ffffffdc;border-radius:12px;padding:9px 13px;font-size:13px}.panel{background:white;border-radius:24px;padding:18px;box-shadow:0 14px 35px #31617c20}.panel h2{margin:0 0 6px;color:#216b63;font-size:21px}.panel p{margin:5px 0 14px;color:#64758a}.commands{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.cmd{background:#e7f4ff;color:#205783;border:2px solid #b9dcf7;border-radius:14px;padding:12px 4px;font-weight:800;cursor:pointer;font-size:14px}.cmd:hover{background:#cdeaff}.program{min-height:94px;border:2px dashed #b8d5df;background:#f8fcff;border-radius:15px;margin:13px 0;padding:10px;display:flex;gap:7px;flex-wrap:wrap;align-content:flex-start}.token.selected{outline:3px solid #287cc9;background:#d9f0ff}.token{border:0;border-radius:10px;background:#fff0ca;padding:9px;cursor:pointer;font-weight:700}.actions{display:grid;grid-template-columns:1fr 1fr;gap:9px}.action{border:0;border-radius:14px;padding:13px;font-weight:800;cursor:pointer;font-size:15px}.run{background:#2eb77e;color:white}.reset{background:#e9edf4;color:#40506b}.next{background:#ffbd50;color:#4b3400}.status{margin-top:13px;min-height:49px;border-radius:13px;background:#f2f8fa;padding:12px;font-weight:650}.levels{display:flex;gap:6px;align-items:center;margin:12px 0}.levels button{border:0;background:#dceeea;border-radius:10px;padding:9px;cursor:pointer}.levels input{width:76px;border:1px solid #c6d5e1;border-radius:10px;padding:8px;font-size:16px}.footer{font-size:12px;color:#72849a;text-align:center;padding:12px}button:disabled{opacity:.5;cursor:not-allowed}@media(max-width:850px){.layout{grid-template-columns:1fr}.scene{min-height:390px}header h1{font-size:19px}}
+.toolrow{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0}.toolrow button{border:1px solid #c6d5e1;background:#f0f7fb;color:#234e66;border-radius:10px;padding:9px 12px;font-weight:750;cursor:pointer}.toolrow button:disabled{opacity:.4}.hint{font-size:13px;color:#566e82;margin:7px 0}.token.active{background:#a9e8c9!important;outline:2px solid #239d70}.program{max-height:200px;overflow:auto} .cmd,.token{touch-action:none;user-select:none;-webkit-user-select:none}.drag-ghost{position:fixed;pointer-events:none;z-index:10001;background:#fff4ce;border:2px solid #f1b949;border-radius:12px;padding:12px;font-weight:800;box-shadow:0 7px 22px #0004}.program.drag-target{outline:3px dashed #31ae83;outline-offset:2px}.token.drop-before{box-shadow:-5px 0 0 #19bd8a}.token.drop-after{box-shadow:5px 0 0 #19bd8a} .teacher-area{margin:10px 0 16px;border:1px solid #b7dcd3;border-radius:15px;padding:10px;background:#f2fbf7}.teacher-toggle,.teacher-exit{border:0;border-radius:11px;padding:11px;background:#216b63;color:white;font-weight:750;cursor:pointer;width:100%}.teacher-worlds{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px;margin:10px 0}.teacher-levels{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin:10px 0}.teacher-worlds button,.teacher-levels button{border:1px solid #a6cfc7;background:white;padding:8px 4px;border-radius:8px;cursor:pointer;font-weight:650}.teacher-worlds button.active,.teacher-levels button.active{background:#216b63;color:white}.teacher-exit{background:#52687b}#teacherPanel[hidden]{display:none}.teacher-area p{font-size:12px;margin:8px 0}@media(max-width:400px){.teacher-worlds{grid-template-columns:1fr}} </style><style id="experience-style">
+.scene:after{content:"";pointer-events:none;position:absolute;inset:0;border:2px solid #ffffff66;border-radius:24px}
+.scene .scene-caption{position:absolute;right:15px;bottom:15px;z-index:2;background:#102f4dcc;color:white;padding:9px 13px;border-radius:13px;font-size:12px;font-weight:700;backdrop-filter:blur(6px)}
+.scene .worldtag{max-width:calc(100% - 32px)}.token{transition:background .15s,transform .15s}.token:hover{transform:translateY(-2px)}
+.cmd:focus-visible,.token:focus-visible,.action:focus-visible{outline:3px solid #ffbd50;outline-offset:3px}
+@media(max-width:850px){.scene{min-height:450px}.scene .scene-caption{font-size:11px;right:9px;bottom:9px}.help{max-width:65%}}
+@media(prefers-reduced-motion:reduce){.token{transition:none}}
+ .repeat-tools{margin-top:12px;padding:12px;background:#eef9ef;border:1px solid #a9d9b6;border-radius:14px;display:flex;gap:8px;flex-wrap:wrap;align-items:center}.repeat-tools label{font-weight:800}.repeat-tools select{padding:9px;border-radius:9px;border:1px solid #87b99d;font-size:15px}.repeat-tools .repeat-add{background:#d6f3dd;border-color:#81c99a}.repeat-tools p{width:100%;font-size:12px;margin:0;color:#476b58} </style><style id="victory-style">.victory-overlay{position:fixed;inset:0;background:rgba(12,29,48,.68);z-index:9999;display:flex;align-items:center;justify-content:center;padding:20px}.victory-overlay[hidden]{display:none}.victory-card{width:min(460px,100%);background:linear-gradient(160deg,#fffef0,#e7f9ff);border:4px solid #ffd36b;border-radius:28px;padding:30px 22px;text-align:center;box-shadow:0 24px 75px #0005;animation:victory-pop .3s ease-out}.victory-card h2{font-size:30px;color:#1d7664;margin:8px 0}.victory-card p{font-size:18px;color:#40576b;line-height:1.5}.victory-emoji{font-size:66px}.victory-next{display:block;width:100%;padding:18px 14px;border:0;border-radius:16px;background:#23a775;color:white;font-size:21px;font-weight:850;cursor:pointer}.victory-next:hover{background:#16895d}@keyframes victory-pop{from{transform:scale(.85);opacity:0}to{transform:scale(1);opacity:1}}</style><style id="v72-ui">
+:root{font-family:'Segoe UI',system-ui,sans-serif;color:#26354c}body{background:linear-gradient(145deg,#e7f2fb 0%,#f3f0ff 55%,#edf9f5 100%)}header{background:#fff;box-shadow:0 5px 22px #253d5c14;padding:15px clamp(14px,3vw,32px);border-bottom:1px solid #e2ebf4}header h1{color:#214d78;letter-spacing:-.5px}.pill{background:#e8f7ed;color:#24754d}.layout{max-width:1550px;grid-template-columns:minmax(0,1.55fr) minmax(340px,0.95fr);gap:18px;margin:18px auto}.scene{min-height:600px;border:3px solid #fff;border-radius:25px;box-shadow:0 15px 38px #34546c25}.scene-caption,.worldtag{box-shadow:0 5px 20px #1c426127}.panel{border:1px solid #e5edf6;box-shadow:0 14px 35px #31617c16;padding:20px}.panel h2{color:#244f79}.commands{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}.cmd{background:linear-gradient(180deg,#f2f8ff,#dceeff);border:2px solid #bedbf6;color:#244d76;box-shadow:0 3px 0 #bdd4eb;min-height:68px;font-size:15px;transition:transform .12s,filter .12s}.cmd:hover{transform:translateY(-2px);filter:brightness(1.02)}.cmd:active{transform:translateY(2px);box-shadow:none}.repeat-tools{display:grid;grid-template-columns:minmax(0,1fr) 108px;align-items:center;gap:9px;padding:15px!important;background:linear-gradient(140deg,#f2f0ff,#e9f5ff)!important;border:2px solid #d8d2fc!important;border-radius:18px!important;margin-top:15px!important}.repeat-tools label{color:#463e8a;font-size:16px}.repeat-tools select{width:100%;min-width:0;background:white;border:2px solid #b8b3e9!important;font-weight:800;color:#463e8a}.repeat-tools .repeat-add{grid-column:1/-1;min-height:50px;background:linear-gradient(125deg,#7562d5,#5c86db)!important;color:white!important;border:0!important;box-shadow:0 4px 0 #4d51a8!important}.repeat-tools p{grid-column:1/-1;color:#5c6382!important;line-height:1.45;font-size:13px!important}.program{min-height:115px;max-height:245px;border:2px dashed #9bbbe2;background:#f4f9ff;padding:13px;gap:9px;align-items:flex-start}.token{background:#fff0ce;color:#594015;border:1px solid #f2d28d;box-shadow:0 3px 0 #e2c17c;font-size:15px;padding:11px 13px;min-height:45px}.token.selected{background:#dcecff;outline:3px solid #3986d4}.actions{gap:10px}.action{min-height:49px;box-shadow:0 3px 0 #a6b7c555}.run{background:#22a66c;box-shadow:0 4px 0 #167b51}.next{background:#ffc451;box-shadow:0 4px 0 #c48b22}.status{background:#edf7ff;border:1px solid #d7e8f8;line-height:1.45}.toolrow button{background:#f4f6fa;border-color:#d8e1ee}.teacher-area{background:#f4faf8}.levels{flex-wrap:wrap}@media(max-width:950px){.layout{grid-template-columns:1fr}.scene{min-height:430px}.panel{padding:16px}}@media(max-width:450px){.repeat-tools{grid-template-columns:1fr 105px}.commands{gap:6px}.cmd{font-size:13px}.scene{min-height:340px}}
+</style><style id="studio-v8">
+:root{color-scheme:light;--ink:#142b41;--muted:#61758a;--brand:#176f79;--violet:#6152b7}body{background:radial-gradient(circle at 8% 0%,#c7e7ed 0,transparent 34%),linear-gradient(130deg,#e8f1f7,#eef0f8 52%,#e8f5f2);color:var(--ink)}header{background:#fffefef5;border-bottom:1px solid #d9e7ec;padding:18px clamp(18px,3vw,42px)}header h1{font-size:clamp(22px,2vw,29px);color:#133b50;font-weight:900;letter-spacing:-.8px}header small{font-size:13px}.pill{background:#e1f5ee;color:#146d57;border:1px solid #b8e6d3;box-shadow:inset 0 1px white}.layout{max-width:1660px;grid-template-columns:minmax(0,1.7fr) minmax(370px,.92fr);gap:22px;margin:24px auto;padding:0 22px;align-items:start}.scene{min-height:650px;border:1px solid #a8c9d8;border-radius:25px;box-shadow:0 22px 54px #1b455433,0 3px 10px #1b45541c;background:#badfe8}.scene:after{border:1px solid #ffffff90;border-radius:25px}.worldtag{top:20px;left:20px;padding:12px 17px;border:1px solid #ffffffd0;background:#fffffff0;color:#20465a;font-size:15px}.scene-caption{bottom:18px!important;right:18px!important;background:#173f57e8!important;border:1px solid #ffffff50!important;padding:11px 15px!important}.help{bottom:18px;left:18px;background:#ffffffee;color:#36536a;padding:11px 14px;border:1px solid white;max-width:52%}.panel{background:#fffffff5;border:1px solid #d6e4ec;border-radius:25px;padding:23px;box-shadow:0 16px 40px #26485b1c}.panel h2{font-size:23px;color:#183d53;font-weight:900}.panel p{line-height:1.55}.commands{gap:10px}.cmd{background:#f3f8fc;border:1.5px solid #bdd6e5;color:#174d68;box-shadow:0 3px 0 #c5d9e4;min-height:76px;border-radius:15px;font-size:15px}.cmd:hover{background:#e5f5fa;border-color:#66b6c9}.repeat-tools{background:#f2f0ff!important;border:1.5px solid #d7d0f6!important;border-radius:17px!important}.repeat-tools label{color:#463b8a}.repeat-tools .repeat-add{background:linear-gradient(125deg,#6755c6,#4b7fce)!important;box-shadow:0 4px 0 #514b9b!important}.program{background:repeating-linear-gradient(0deg,#f5fafc 0,#f5fafc 30px,#edf4f8 31px);border:2px dashed #8bb6cc;border-radius:16px;min-height:140px}.token{background:#fff4d6;border:1px solid #edcf84;border-radius:12px}.action{border-radius:14px;min-height:54px}.run{background:#168a72;box-shadow:0 4px 0 #116b58}.next{background:#f6b943}.status{border-left:4px solid #48a3b2;background:#f0f8fa}.teacher-area{border:1px solid #c5ddd9}.levels{padding:10px;background:#f4f8fb;border-radius:13px}.levels input{background:white}.footer{padding:18px}@media(max-width:1020px){.layout{grid-template-columns:1fr}.scene{min-height:500px}.panel{padding:18px}}@media(max-width:520px){.layout{padding:0 10px;gap:12px;margin:12px auto}.scene{min-height:355px;border-radius:17px}.help{font-size:10px;padding:7px;max-width:62%}.worldtag{top:9px;left:9px;font-size:12px;padding:8px}.scene-caption{right:8px!important;bottom:8px!important;padding:7px!important}.panel{padding:13px}.commands{gap:6px}.cmd{min-height:62px;font-size:13px}}
+</style><style id="studio-v9">
+/* CodeQuest Studio 9: integrated visual programming workspace */
+:root{--ink:#dceaf9;--muted:#8fa7c4;--line:#284363;--canvas:#0b1728;--panel:#12243b;--accent:#6adbc4;font-family:Inter,"Segoe UI",system-ui,sans-serif;color:var(--ink)}
+body{background:radial-gradient(circle at 12% -20%,#25496b 0,transparent 36%),linear-gradient(150deg,#091524,#101e34 60%,#0a1525);min-height:100vh;color:var(--ink)}
+header{background:#0e1b2def!important;border-bottom:1px solid #2a4360!important;box-shadow:none!important;padding:15px clamp(16px,3vw,40px)!important}
+header h1{font-size:23px!important;color:#f1f8ff!important;font-weight:850;letter-spacing:-.8px}header small{color:#9eb7d0!important}
+.pill{background:#183d43!important;color:#8af0c9!important;border:1px solid #326b64}
+.layout{max-width:1700px!important;grid-template-columns:minmax(0,1.45fr) minmax(390px,0.9fr)!important;gap:18px!important;margin:20px auto!important}
+.scene{border:1px solid #35516c!important;border-radius:20px!important;min-height:650px!important;background:#12263a!important;box-shadow:0 24px 65px #0007!important}
+.scene:after{border:1px solid #ffffff12!important;border-radius:20px!important}
+.scene-eyebrow{position:absolute;top:15px;right:16px;z-index:2;padding:8px 11px;border:1px solid #b0d9e34d;border-radius:9px;color:#e8fbff;background:#102a42b9;font-size:10px;font-weight:900;letter-spacing:1.8px}
+.live-dot{display:inline-block;width:7px;height:7px;background:#5df5b3;border-radius:50%;margin-left:7px;box-shadow:0 0 10px #5df5b3}
+.worldtag{background:#0c213be8!important;color:#f2f9ff!important;border:1px solid #54718c!important;border-radius:11px!important;top:15px!important;left:15px!important;max-width:65%!important}
+.help{background:#102740dd!important;color:#bcd7ef!important;border:1px solid #3e627e!important;border-radius:9px!important;max-width:65%}
+.scene-caption{background:#0d253ae8!important;color:#9bf2d2!important;border:1px solid #386d72!important}
+.panel{background:linear-gradient(160deg,#162941,#102035)!important;color:#eaf3ff!important;border:1px solid #2d4766!important;border-radius:20px!important;box-shadow:0 24px 65px #0005!important;padding:22px!important}
+.panel h2{color:#f3f8ff!important;font-size:20px!important;letter-spacing:-.5px}.panel p{color:#a5bbd2!important}.section-kicker{color:#69d8c6;font-size:10px;font-weight:900;letter-spacing:2px;margin-bottom:8px}
+.levels{background:#0b1b2e;border:1px solid #2b4563;padding:10px;border-radius:12px;gap:9px!important}.levels label{color:#c2d8ed;font-size:13px}.levels button{background:#244363!important;color:#d4e7f9!important}.levels input{background:#152e4a!important;color:#f2f9ff!important;border:1px solid #3b6282!important}.levels small{color:#a9c1da}
+.palette-heading,.workspace-heading{display:flex;align-items:center;justify-content:space-between;color:#8caac7;font-size:10px;font-weight:900;letter-spacing:1.3px;margin:13px 0 9px}.palette-dot{color:#63819d;font-size:8px}.workspace-heading span:last-child{font-size:9px;color:#6adbc4}
+.commands{gap:9px!important}.cmd{border:1px solid #467cbb!important;border-left:5px solid #7bbcf5!important;background:linear-gradient(145deg,#1c5088,#173c6a)!important;color:#f3f9ff!important;min-height:77px!important;border-radius:11px!important;box-shadow:0 4px 0 #0b284c!important;font-size:14px!important;text-shadow:0 1px 1px #0018}
+.cmd[data-c="L"],.cmd[data-c="R"]{background:linear-gradient(145deg,#56418c,#392c67)!important;border-color:#8366c3!important;border-left-color:#ba9aff!important;box-shadow:0 4px 0 #271c4d!important}
+.repeat-tools{background:#241e45!important;border:1px solid #61509c!important;border-radius:12px!important;grid-template-columns:minmax(0,1fr) 120px!important;padding:13px!important}
+.repeat-kicker{grid-column:1/-1;color:#bca7ff;font-size:10px;letter-spacing:1.4px;font-weight:900}.repeat-tools label{color:#f0eaff!important;font-size:14px!important}.repeat-tools select{background:#17152e!important;color:#e9e2ff!important;border:1px solid #7562a8!important}.repeat-tools .repeat-add{background:#6a4bb1!important;border:1px solid #a68bed!important;box-shadow:0 3px 0 #39276e!important}.repeat-tools p{color:#b7a8d7!important}
+.program{background-color:#0a192b!important;background-image:radial-gradient(#2b4662 1px,transparent 1px)!important;background-size:19px 19px!important;border:1px solid #416383!important;border-radius:13px!important;min-height:168px!important;max-height:290px!important;align-content:flex-start!important;gap:9px!important;padding:15px!important;color:#8ba9c7}
+.token{display:inline-flex;align-items:center;gap:7px;position:relative;min-height:49px!important;border-radius:9px!important;border:1px solid #6ba9dd!important;border-left:5px solid #a4d7ff!important;background:#235b91!important;color:white!important;padding:8px 10px!important;box-shadow:0 4px 0 #133b62!important;font-size:13px!important;touch-action:none}
+.token.block-left,.token.block-right{background:#59458e!important;border-color:#9d80d2!important;border-left-color:#d0b5ff!important;box-shadow:0 4px 0 #372858!important}.token.block-loop{background:#6547a4!important;border-color:#b79bea!important;border-left-color:#e0ceff!important;box-shadow:0 4px 0 #3b276d!important}
+.block-number{font-size:9px;color:#d1e4f5;background:#071d364f;border-radius:5px;padding:3px 4px;font-variant-numeric:tabular-nums}.block-glyph{font-size:20px;line-height:1}.block-label{white-space:nowrap}.block-grip{opacity:.6;font-size:17px;margin-left:2px}.token.active{background:#147b68!important;outline:2px solid #70f3c6!important}.token.selected{outline:3px solid #f8d574!important}
+.actions .action{box-shadow:none!important;border:1px solid #3c5874!important;border-radius:10px!important}.run{background:#1d9b7a!important;color:#fff!important;border-color:#53c9a6!important}.next{background:#c89437!important;color:#151e2d!important}.reset{background:#263b56!important;color:#d8e8f8!important}
+.toolrow button{background:#1b314c!important;color:#c7ddf0!important;border:1px solid #385777!important}.status{background:#102d39!important;border:1px solid #2d6666!important;color:#a7efdc!important}.hint{color:#9bb2c9!important}.teacher-area{background:#112b35!important;border:1px solid #32606c!important}.teacher-area p{color:#a5c6ca!important}.teacher-worlds button,.teacher-levels button{background:#1c3a4d!important;color:#e0f4f3!important;border:1px solid #426c7a!important}.teacher-toggle{background:#236c70!important}.footer{color:#7692b0!important}.victory-card{background:linear-gradient(160deg,#152f45,#143e45)!important;border:2px solid #78d9bf!important}.victory-card h2{color:#b3f5dd!important}.victory-card p{color:#d1eaf3!important}
+@media(max-width:1050px){.layout{grid-template-columns:1fr!important}.scene{min-height:520px!important}.panel{padding:18px!important}}@media(max-width:600px){.scene{min-height:390px!important}.scene-eyebrow{display:none}.commands{grid-template-columns:repeat(3,minmax(0,1fr))}.cmd{min-height:64px!important}.panel{padding:14px!important}.repeat-tools{grid-template-columns:1fr 100px!important}.scene .help{font-size:11px}.scene-caption{display:none}}
+</style><style id="studio-v10-clarity">
+/* Clear, accessible command blocks and compact scene */
+.layout{grid-template-columns:minmax(0,1.35fr) minmax(360px,.9fr)!important;align-items:start}
+.scene{min-height:550px!important;aspect-ratio:1.3;max-height:740px}
+.scene .worldtag{font-size:12px!important;padding:8px 10px!important;max-width:calc(100% - 125px)!important}
+.scene-eyebrow{font-size:9px!important;letter-spacing:.6px!important}
+.commands{grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:8px!important}
+.cmd{min-width:0!important;min-height:64px!important;padding:10px 6px!important;line-height:1.3!important;font-size:14px!important;border-radius:10px!important;box-shadow:none!important}
+.program{display:flex!important;flex-direction:column!important;flex-wrap:nowrap!important;align-items:stretch!important;min-height:155px!important;max-height:300px!important;overflow-y:auto!important;overflow-x:hidden!important;padding:12px!important;gap:8px!important}
+.program .token{width:100%!important;max-width:100%!important;display:grid!important;grid-template-columns:27px 32px minmax(0,1fr) 22px!important;align-items:center!important;text-align:left!important;min-height:51px!important;font-size:15px!important;box-shadow:none!important;border-radius:10px!important;padding:8px 12px!important}
+.program .block-label{white-space:normal!important;overflow-wrap:anywhere!important;font-size:14px!important}
+.program .block-number{text-align:center!important;font-size:11px!important;padding:5px 2px!important}
+.program .block-glyph{text-align:center!important;font-size:22px!important}
+.program .block-grip{text-align:center!important;opacity:.85!important}
+.program .token.drop-before{box-shadow:0 -4px 0 #55e6bd!important}
+.program .token.drop-after{box-shadow:0 4px 0 #55e6bd!important}
+.repeat-tools{grid-template-columns:minmax(0,1fr) 95px!important}
+.repeat-tools .repeat-add{width:100%!important;white-space:normal!important}
+@media(max-width:1050px){.layout{grid-template-columns:1fr!important}.scene{aspect-ratio:1.5;min-height:400px!important}.panel{min-width:0!important}}
+@media(max-width:500px){.layout{padding:0 9px!important;margin:10px auto!important;gap:10px!important}.scene{aspect-ratio:1.05;min-height:350px!important}.scene .help{font-size:10px!important;max-width:55%!important}.scene-caption{font-size:10px!important}.panel{padding:14px!important}.cmd{font-size:12px!important}.worldtag{max-width:calc(100% - 85px)!important}.scene-eyebrow{font-size:8px!important;padding:6px!important}}
+</style><style id="compact-workspace-v101">
+/* Teacher controls are reachable immediately, without scrolling the command workspace. */
+header{position:relative;z-index:30;gap:12px;padding:10px 20px!important}
+header .teacher-area{position:relative;flex:0 1 auto;margin:0!important;padding:0!important;border:0!important;background:transparent!important;min-width:210px}
+header .teacher-toggle{width:auto!important;max-width:100%;padding:10px 13px!important;min-height:42px;font-size:13px;white-space:normal}
+header #teacherPanel:not([hidden]){position:absolute;top:calc(100% + 9px);right:0;width:min(430px,calc(100vw - 24px));max-height:min(72vh,650px);overflow-y:auto;overscroll-behavior:contain;padding:14px;border:1px solid #46758c;border-radius:15px;background:#122a3e;box-shadow:0 18px 50px #0007;z-index:100}
+header #teacherPanel p{margin:0 0 9px!important}
+header .teacher-worlds{grid-template-columns:repeat(2,minmax(0,1fr))}
+header .teacher-levels{grid-template-columns:repeat(5,minmax(0,1fr))}
+/* Compact command palette and controls to keep the useful controls visible. */
+.panel{padding:15px!important}
+.panel h2{font-size:19px!important;margin:0 0 4px!important}
+.panel>p{margin:3px 0 8px!important;font-size:12px!important;line-height:1.35!important}
+.section-kicker{margin:7px 0 3px!important;font-size:10px!important}
+.levels{margin:6px 0 9px!important;padding:6px!important}
+.commands{gap:6px!important}
+.cmd{min-height:48px!important;padding:7px 4px!important;font-size:13px!important}
+.repeat-tools{margin-top:8px!important;padding:9px!important;gap:6px!important}
+.repeat-tools label{font-size:13px!important}
+.repeat-tools select{padding:6px!important}
+.repeat-tools .repeat-add{grid-column:1/-1;min-height:39px!important;padding:7px!important;font-size:13px!important}
+.repeat-tools p{display:none!important}
+.hint{margin:5px 0!important;font-size:11px!important;line-height:1.3!important}
+.palette-heading,.workspace-heading{margin:7px 0 4px!important;font-size:11px!important}
+.program{min-height:80px!important;max-height:185px!important;padding:7px!important;gap:5px!important;margin:6px 0!important}
+.program .token{min-height:41px!important;padding:5px 9px!important}
+.toolrow{margin:6px 0!important;gap:5px!important}
+.toolrow button{padding:7px 8px!important;font-size:12px!important}
+.actions{gap:6px!important}
+.action{min-height:42px!important;padding:8px!important;font-size:13px!important}
+.status{margin-top:7px!important;min-height:35px!important;padding:8px!important;font-size:12px!important}
+#missionInfo{font-size:11px!important}
+@media(max-width:800px){header{align-items:center}header .teacher-area{order:2}header .pill{order:3}header #teacherPanel:not([hidden]){right:auto;left:0}}
+@media(max-width:480px){header .teacher-area{width:100%}header .teacher-toggle{width:100%!important}header #teacherPanel:not([hidden]){width:calc(100vw - 30px)}.commands{grid-template-columns:repeat(3,minmax(0,1fr))!important}}
+</style><style id="v102-visibility-pin">
+/* Distinct grid cells, with a strong perimeter even on pale snowy worlds. */
+header #teacherPinPanel:not([hidden]){position:absolute;right:0;top:calc(100% + 9px);z-index:110;width:min(340px,calc(100vw - 24px));padding:17px;background:#132d43;color:#f0f8ff;border:1px solid #6b91ab;border-radius:15px;box-shadow:0 16px 45px #0007}
+.teacher-pin-panel strong{display:block;font-size:16px;margin-bottom:8px}.teacher-pin-panel p{color:#c8dfef!important;font-size:13px;line-height:1.4;margin:8px 0!important}.teacher-pin-panel form{display:flex;gap:8px;flex-wrap:wrap}.teacher-pin-panel input{min-width:0;flex:1 1 145px;padding:12px;border:2px solid #90bbd2;border-radius:10px;background:#fff;color:#122b40;font-size:16px;letter-spacing:3px}.teacher-pin-panel button{padding:10px 14px;background:#2c987e;border:0;color:white;border-radius:10px;font-weight:800;cursor:pointer}.teacher-pin-panel #teacherPinError{color:#ffbcb9!important;font-weight:700}
+@media(max-width:480px){header #teacherPinPanel:not([hidden]){right:auto;left:0}}
+</style><style id="compact-progress-v103">
+.level-hub{background:#142c40;border:1px solid #3d627a;border-radius:15px;padding:12px;margin:10px 0 15px;color:#e9f7ff}
+.level-hub-top{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}.level-nav{display:flex;align-items:center;gap:7px}.level-nav button{min-width:40px;height:39px;border:1px solid #6b9cb5;background:#254e67;color:#fff;border-radius:9px;cursor:pointer;font-weight:800}.level-nav label{color:#e7f7ff;font-size:13px;font-weight:800;white-space:nowrap}.level-nav input{width:57px;height:39px;background:#f7fcff;color:#17384f;border:1px solid #90b3c7;border-radius:8px;text-align:center;font-weight:900;font-size:16px}.level-progress-label{display:flex;flex-direction:column;align-items:flex-end;gap:3px}.level-progress-label strong{font-size:13px;color:#a9f0d6}.level-progress-label small{color:#b5cadb}.level-meter{height:7px;background:#355064;border-radius:20px;margin:11px 0 8px;overflow:hidden}.level-meter span{display:block;height:100%;width:0%;background:linear-gradient(90deg,#30c2a1,#a7e98b);border-radius:20px;transition:width .2s}.level-picker summary{cursor:pointer;font-weight:800;font-size:13px;padding:6px 2px;list-style-position:inside}.level-picker summary span{display:block;font-size:11px;color:#b5cadb;font-weight:500;margin:4px 0 0 20px}.level-map{display:grid;grid-template-columns:repeat(10,minmax(0,1fr));gap:5px;max-height:265px;overflow-y:auto;margin-top:10px;padding:2px}.level-map button{height:33px;min-width:0;padding:0;border-radius:7px;border:1px solid #567489;background:#213b51;color:#91a7b8;font-weight:800;font-size:12px}.level-map button.done{background:#165d51;color:#c8ffdf;border-color:#36af87;cursor:pointer}.level-map button.available{background:#315c91;color:#fff;border-color:#9dcaff;cursor:pointer}.level-map button.current{outline:2px solid #ffe187;outline-offset:1px}.level-map button:disabled{opacity:.65;cursor:not-allowed}.panel>.actions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin:10px 0 16px}.panel>.actions button{min-height:43px;font-size:13px;padding:9px 6px}.panel>.actions .run{grid-column:1}.panel>.actions .next{grid-column:2}.panel>.actions .reset{grid-row:2}.panel>.actions .next{grid-row:1}.panel>.section-kicker{margin-top:10px}.panel>p{margin:6px 0 9px}
+@media(min-width:1050px){.panel>.actions{position:sticky;top:8px;z-index:8;padding:8px;border-radius:13px;background:#102b40f5;border:1px solid #35546a;box-shadow:0 5px 16px #0004}}
+@media(max-width:440px){.level-map{grid-template-columns:repeat(5,minmax(0,1fr))}.level-progress-label{align-items:flex-start}.level-hub-top{gap:6px}}
+</style><style id="v104-progress-header">
+/* Progress badge opens the existing 100-level map in a compact header popover. */
+header .progress-dropdown{position:relative;flex:0 0 auto;margin-left:auto;z-index:35}
+header .progress-dropdown>summary{display:flex;align-items:center;justify-content:center;gap:8px;list-style:none;cursor:pointer;min-height:43px;padding:9px 17px!important;font-size:17px!important;font-weight:900;border-radius:999px!important;white-space:nowrap;user-select:none}
+header .progress-dropdown>summary::-webkit-details-marker{display:none}
+header .progress-dropdown>summary:hover{background:#225951!important;border-color:#8ef0cb!important}
+header .progress-dropdown>summary:focus-visible{outline:3px solid #ffd66c;outline-offset:3px}
+header .progress-dropdown[open]>summary{background:#236354!important}
+header .progress-popover{position:absolute;right:0;top:calc(100% + 12px);width:min(465px,calc(100vw - 26px));max-height:min(75vh,660px);overflow-y:auto;overscroll-behavior:contain;background:#112b41;border:1px solid #54758e;box-shadow:0 20px 55px #0009;border-radius:16px;padding:16px;color:#eaf7ff}
+header .progress-popover-title{font-size:17px;font-weight:900;margin-bottom:6px}
+header .progress-popover-key{font-size:12px;color:#bfd3e5;margin-bottom:12px;line-height:1.5}
+header .progress-popover .level-progress-label{flex-direction:row;justify-content:space-between;align-items:center;gap:8px}
+header .progress-popover .level-meter{margin:10px 0 12px}
+header .progress-popover .level-map{max-height:none;grid-template-columns:repeat(10,minmax(0,1fr));gap:6px;margin:0}
+header .progress-popover .level-map button{height:36px}
+.panel>.level-nav-compact{display:flex;justify-content:center;gap:10px;align-items:center;padding:6px 8px;margin:0 0 8px;background:#142c40;border:1px solid #3d627a;border-radius:12px}
+.level-nav-compact button{min-width:36px;height:35px;border:1px solid #6b9cb5;background:#254e67;color:#fff;border-radius:9px;cursor:pointer;font-weight:800}
+.level-nav-compact label{color:#e7f7ff;font-size:13px;font-weight:800;white-space:nowrap}
+.level-nav-compact input{width:59px;height:35px;background:#f7fcff;color:#17384f;border:1px solid #90b3c7;border-radius:8px;text-align:center;font-weight:900;font-size:16px}
+.panel>.section-kicker{margin-top:4px!important}
+@media(max-width:800px){header .progress-dropdown{order:3;margin-left:0}header .progress-popover{right:0}}
+@media(max-width:500px){header .progress-dropdown{width:100%}header .progress-dropdown>summary{width:100%}header .progress-popover{right:0;width:calc(100vw - 26px)}header .progress-popover .level-map{grid-template-columns:repeat(5,minmax(0,1fr))}}
+</style><style id="teacher-preview-fix">header .teacher-area{display:flex;align-items:center;gap:7px;flex-wrap:wrap}header .teacher-quick-exit:not([hidden]){display:inline-flex;align-items:center;justify-content:center;border:1px solid #c28e9a;border-radius:10px;background:#613444;color:#fff;padding:10px 12px;font-size:12px;font-weight:800;cursor:pointer;min-height:42px}header #teacherPanel:not([hidden]){z-index:200;max-height:min(60vh,470px)}header #teacherPanel button:focus-visible{outline:3px solid #ffd66c;outline-offset:2px}@media(max-width:520px){header .teacher-area{gap:6px}header .teacher-quick-exit:not([hidden]){width:100%}}</style><style id="v11-functional">.token.block-error{outline:4px solid #e42e42!important;background:#ffe0e0!important;color:#8d1221!important;animation:errorpulse .5s ease-in-out 2}@keyframes errorpulse{50%{transform:scale(1.025)}}</style><style id="v112-nav-layout">
+header>.level-nav-compact{display:flex;align-items:center;justify-content:center;gap:7px;flex:0 0 auto;margin:0;padding:5px 7px;border-radius:11px;background:#142c40;border:1px solid #3d627a}
+header>.level-nav-compact label{display:flex;align-items:center;gap:6px;font-size:13px;color:#e7f7ff;font-weight:800}
+header>.level-nav-compact input{width:52px;height:34px;font-size:15px}
+header>.level-nav-compact button{height:34px;min-width:35px}
+.panel>.section-kicker{margin-top:0!important}
+@media(max-width:820px){header>.level-nav-compact{order:1}header .teacher-area{order:2}header .progress-dropdown{order:3}}
+@media(max-width:520px){header>.level-nav-compact{width:100%;justify-content:center}header>.level-nav-compact label{font-size:14px}}
+</style><style id="v113-final">
+@media(min-width:850px){.program{max-height:300px!important;min-height:125px!important}}
+@media(max-width:849px){.program{max-height:260px!important;min-height:115px!important}}
+#program{scrollbar-width:thin;scrollbar-color:#6e95b3 #10283b}
+button:focus-visible,select:focus-visible,input:focus-visible{outline:3px solid #f7c958;outline-offset:2px}
+</style><style id="professional-v12">
+:root{color-scheme:dark}
+header{background:linear-gradient(115deg,#0d1c32,#17334b 55%,#0f3b3e)!important;border-bottom:1px solid #427587!important}
+header h1{letter-spacing:-.8px!important}
+.scene{border:1px solid #6d91a5!important;box-shadow:0 22px 50px #04131f48!important;overflow:hidden!important}
+.panel{box-shadow:0 15px 45px #05152542!important;border-color:#42637a!important}
+.cmd{transition:transform .14s ease,filter .14s ease!important;cursor:pointer!important}
+.cmd:hover:not(:disabled){filter:brightness(1.17);transform:translateY(-2px)}
+.cmd:active:not(:disabled){transform:translateY(1px)}
+.program .token{transition:background .12s ease,outline .12s ease!important}
+button:focus-visible,select:focus-visible,input:focus-visible{outline:3px solid #ffdb7c!important;outline-offset:3px!important}
+@media(prefers-reduced-motion:reduce){.cmd,.program .token{transition:none!important}.token.block-error{animation:none!important}}
+</style><style id="art-direction-v13">
+.scene{background:radial-gradient(ellipse at 50% 35%,#315b73 0%,#142b44 75%)!important}
+.scene .scene-caption{font-weight:800!important;letter-spacing:.2px}
+@media(prefers-reduced-motion:reduce){.token{transition:none!important}}
+</style><style id="v14-models">#assetState{position:absolute;left:12px;bottom:12px;z-index:4;font:600 11px system-ui;color:#fff;background:#183349ba;padding:5px 9px;border-radius:9px;pointer-events:none}</style></head><body><header><div><h1>🦊 CodeQuest Studio 3D v14.0</h1><small>Η περιπέτεια της μικρής αλεπούς • Εργαστήριο οπτικού προγραμματισμού • 100 αποστολές</small></div><nav class="level-nav level-nav-compact" aria-label="Επιλογή πίστας"><button id="prev" title="Προηγούμενη πίστα">◀</button><label>Πίστα <input id="level" type="number" min="1" max="100" value="1"></label><button id="nextLevel" title="Επόμενη πίστα">▶</button></nav><div class="teacher-area"><button type="button" id="teacherToggle" class="teacher-toggle" aria-expanded="false">👩‍🏫 Προεπισκόπηση εκπαιδευτικού</button><button type="button" id="teacherQuickExit" hidden class="teacher-quick-exit">↩ Έξοδος εκπαιδευτικού</button><div id="teacherPinPanel" hidden class="teacher-pin-panel"><strong id="teacherPinTitle">🔐 Κωδικός εκπαιδευτικού</strong><p id="teacherPinHelp">Στην πρώτη χρήση δημιούργησε προσωπικό PIN 4–8 ψηφίων.</p><form id="teacherPinForm"><input id="teacherPinInput" type="password" inputmode="numeric" pattern="[0-9]{4,8}" minlength="4" maxlength="8" autocomplete="off" placeholder="PIN 4–8 ψηφίων" required aria-label="PIN εκπαιδευτικού"><button type="submit">🔓 Συνέχεια</button></form><p id="teacherPinError" role="alert" aria-live="polite"></p></div><div id="teacherPanel" hidden><p>Επίλεξε οποιαδήποτε πίστα για προεπισκόπηση. Η πρόοδος των μαθητών δεν αλλάζει.</p><div id="teacherWorlds" class="teacher-worlds"></div><div id="teacherLevels" class="teacher-levels"></div><button type="button" id="teacherExit" class="teacher-exit">↩ Επιστροφή στη μαθητική λειτουργία</button></div></div><details class="progress-dropdown" id="levelPicker"><summary class="pill" id="progress" aria-label="Άνοιγμα χάρτη προόδου πιστών">⭐ 0 / 100 πίστες</summary><div class="progress-popover"><div class="progress-popover-title">🗺️ Η πρόοδός μου</div><div class="progress-popover-key">✓ Ολοκληρωμένες · ● Διαθέσιμη · 🔒 Κλειδωμένες</div><div class="level-progress-label"><strong id="levelProgressLabel">0 / 100 ολοκληρωμένες</strong><small id="worldCount">Κόσμος 1/10</small></div><div class="level-meter"><span id="levelMeterFill"></span></div><div class="level-map" id="levelMap" aria-label="Χάρτης 100 πιστών"></div></div></details></header><main class="layout"><section class="scene" id="scene"><div class="scene-eyebrow">3D LIVE WORLD <span class="live-dot"></span></div><div class="worldtag" id="world">🌲 Δάσος • Πίστα 1</div><div class="help">🦊 Η μουσούδα δείχνει πάντα την κατεύθυνση!</div><div class="scene-caption" id="sceneCaption">🌟 Βρες το αστέρι!</div></section><aside class="panel"><div class="section-kicker">02 / ΠΡΟΓΡΑΜΜΑΤΙΣΜΟΣ</div><h2>Οι εντολές μου</h2><p>Σύρε εντολές ανάμεσα στις άλλες ή μετακίνησέ τες για να αλλάξεις τη σειρά τους.</p><div class="actions"><button class="action run" id="run">▶ Εκτέλεση</button><button class="action reset" id="clear">🗑 Καθαρισμός</button><button class="action reset" id="restart">↺ Ξανά</button><button class="action next" id="advance" disabled>Επόμενη πίστα ➜</button></div><div class="palette-heading"><span>ΒΙΒΛΙΟΘΗΚΗ BLOCKS</span><span class="palette-dot">● ● ●</span></div><div class="commands"><button class="cmd" data-c="F">⬆️<br>Μπροστά</button><button class="cmd" data-c="L">↶<br>Αριστερά</button><button class="cmd" data-c="R">↷<br>Δεξιά</button></div><div class="repeat-tools"><div class="repeat-kicker">ΕΛΕΓΧΟΣ ΡΟΗΣ · LOOP BLOCK</div><label for="repeatCount">🔁 Επανάλαβε μπροστά</label><select id="repeatCount" aria-label="Πόσες φορές θα προχωρήσει η αλεπού"><option value="2">2 φορές</option><option value="3" selected>3 φορές</option><option value="4">4 φορές</option><option value="5">5 φορές</option><option value="6">6 φορές</option><option value="7">7 φορές</option><option value="8">8 φορές</option><option value="9">9 φορές</option><option value="10">10 φορές</option><option value="11">11 φορές</option><option value="12">12 φορές</option><option value="13">13 φορές</option><option value="14">14 φορές</option><option value="15">15 φορές</option><option value="16">16 φορές</option><option value="17">17 φορές</option><option value="18">18 φορές</option><option value="19">19 φορές</option><option value="20">20 φορές</option></select><button type="button" class="cmd repeat-add" data-repeat="1">➕ Προσθήκη επανάληψης</button><p>Διάλεξε πόσα βήματα θα κάνει η αλεπού και σύρε το μωβ κουμπί στο σημείο που θέλεις. Μπορείς επίσης να το πατήσεις για προσθήκη στο τέλος.</p></div><div class="hint">Σύρε από τα κουμπιά ή μέσα από το πρόγραμμα. Πάτησε μια εντολή για αντικατάσταση ή διαγραφή.</div><div class="workspace-heading"><span>▤ ΧΩΡΟΣ ΠΡΟΓΡΑΜΜΑΤΟΣ</span><span>ΣΥΡΕ & ΤΟΠΟΘΕΤΗΣΕ</span></div><div class="program" id="program"><span style="color:#8b9ca9">Οι εντολές εμφανίζονται εδώ…</span></div><div class="toolrow"><button id="deleteOne">✕ Διαγραφή επιλεγμένης</button><button id="undo">↶ Αναίρεση</button><button id="hint">💡 Υπόδειξη</button></div><div class="hint" id="missionInfo" aria-live="polite"></div><div class="status" id="status" aria-live="polite">✨ Έτοιμη για περιπέτεια!</div><p style="font-size:12px;margin-top:14px">💡 ↶ και ↷ στρίβουν μόνο την αλεπού. Για να προχωρήσει, πρόσθεσε μετά ⬆️ Μπροστά. Σύρε εντολές ανάμεσα στις άλλες ή πάτησε μία για να την αντικαταστήσεις.</p></aside></main><div class="footer">Δημιουργός: Τσιάλος Δημήτριος • Η πρόοδος αποθηκεύεται τοπικά σε αυτόν τον browser • Έλεγχος λύσης ανά πίστα</div>
+<div id="victoryOverlay" class="victory-overlay" hidden role="dialog" aria-modal="true" aria-labelledby="victoryTitle"><div class="victory-card"><div class="victory-emoji">🦊🌟🎉</div><h2 id="victoryTitle">Μπράβο! Πέρασες την πίστα!</h2><p id="victoryDetails"></p><button class="victory-next" id="victoryNext">Επόμενη πίστα ➜</button></div></div>
+<script src="https://cdn.jsdelivr.net/npm/three@0.149.0/build/three.min.js"></script><script src="https://cdn.jsdelivr.net/npm/three@0.149.0/examples/js/loaders/GLTFLoader.js"></script><script>
+(()=>{'use strict';if(!window.THREE){document.getElementById('status').textContent='Χρειάζεται σύνδεση στο Internet για να φορτωθούν τα τρισδιάστατα γραφικά.';return}const T=THREE, el=id=>document.getElementById(id), names=['Μαγικό Δάσος','Ηλιόλουστο Λιβάδι','Βραχώδες Φαράγγι','Χιονισμένη Κοιλάδα','Νησί των Θησαυρών','Κρυστάλλινο Βουνό','Κήπος των Μανιταριών','Έρημος των Αστεριών','Σύννεφα της Χαράς','Μυστικό Βασίλειο'];let teacherMode=false,teacherWorld=0,studentLevel=1;let level=1,program=[],selected=-1,running=false,completed=new Set(),history=[],activeCommand=-1;try{completed=new Set((JSON.parse(localStorage.getItem('cq3d_completed')||'[]')||[]).filter(n=>Number.isInteger(n)&&n>=1&&n<=100))}catch{}const scene=new T.Scene();scene.background=new T.Color(0x9cdbf6);scene.fog=new T.Fog(0x9cdbf6,35,70);const camera=new T.PerspectiveCamera(40,1,.1,300);camera.position.set(8,12,13);camera.lookAt(0,0,0);const renderer=new T.WebGLRenderer({antialias:true});renderer.setPixelRatio(Math.min(devicePixelRatio,1.75));renderer.outputColorSpace=T.SRGBColorSpace;renderer.toneMapping=T.ACESFilmicToneMapping;renderer.toneMappingExposure=1.02;renderer.shadowMap.enabled=true;renderer.shadowMap.type=T.PCFSoftShadowMap;el('scene').prepend(renderer.domElement);scene.add(new T.HemisphereLight(0xf2faff,0x65745c,1.18));const sun=new T.DirectionalLight(0xfff4df,2.15);sun.position.set(-5,12,8);sun.castShadow=true;sun.shadow.mapSize.set(1024,1024);sun.shadow.bias=-0.0002;sun.shadow.camera.left=-12;sun.shadow.camera.right=12;sun.shadow.camera.top=12;sun.shadow.camera.bottom=-12;scene.add(sun);const groundGroup=new T.Group();scene.add(groundGroup);const mat=(color,roughness=0.85)=>new T.MeshStandardMaterial({color,roughness});const orange=mat(0xf58b37),cream=mat(0xffe3b6),dark=mat(0x49362e),pink=mat(0xffa4a4);function mesh(parent,geo,m,x,y,z,shadow=true){const o=new T.Mesh(geo,m);o.position.set(x,y,z);o.castShadow=shadow;o.receiveShadow=true;parent.add(o);return o}function cube(parent,w,h,d,m,x,y,z){return mesh(parent,new T.BoxGeometry(w,h,d),m,x,y,z)}function ball(parent,r,m,x,y,z){return mesh(parent,new T.SphereGeometry(r,14,12),m,x,y,z)}const fox=new T.Group();scene.add(fox);let foxWalking=false;
+const glbWorlds=new Map();let glbFox=null;let glbLoaded=0;const assetState=document.createElement('div');assetState.id='assetState';assetState.setAttribute('role','status');assetState.textContent='3D assets: φόρτωση…';el('scene').append(assetState);
+function prepareGLB(root){root.traverse(o=>{if(o.isMesh){o.castShadow=true;o.receiveShadow=true}});return root}
+function applyFoxAsset(){if(!glbFox)return;fox.children.forEach(o=>o.visible=false);glbFox.visible=true;glbFox.scale.setScalar(1);fox.add(glbFox)}
+function loadGLBAssets(){if(!T.GLTFLoader){assetState.textContent='3D assets: εφεδρικά μοντέλα';return}const loader=new T.GLTFLoader();loader.load('assets/fox.glb',g=>{glbFox=prepareGLB(g.scene);applyFoxAsset();glbLoaded++;assetState.textContent='3D assets: '+glbLoaded+'/11'},undefined,()=>assetState.textContent='3D assets: εφεδρικό μοντέλο αλεπούς');for(let i=0;i<10;i++){loader.load('assets/world_'+String(i+1).padStart(2,'0')+'.glb',g=>{glbWorlds.set(i,prepareGLB(g.scene));glbLoaded++;assetState.textContent='3D assets: '+glbLoaded+'/11';if(Math.floor((level-1)/10)===i)renderBoard()},undefined,()=>{})}}
+// Character staging: readable contact shadow and silhouette.
+const contact=new T.Mesh(new T.CircleGeometry(.52,32),new T.MeshBasicMaterial({color:0x152b32,transparent:true,opacity:.19,depthWrite:false}));contact.rotation.x=-Math.PI/2;contact.position.y=.025;fox.add(contact);ball(fox,.36,orange,0,.47,0);ball(fox,.33,orange,0,.95,-.12);ball(fox,.22,cream,0,.84,.17);ball(fox,.095,dark,0,.87,.37);for(const s of [-1,1]){let ear=mesh(fox,new T.ConeGeometry(.16,.42,4),orange,s*.23,1.35,-.13);ear.rotation.y=Math.PI/4;ball(fox,.065,dark,s*.16,1.04,.16);ball(fox,.12,orange,s*.24,.18,.12)}const tail=mesh(fox,new T.ConeGeometry(.22,.8,8),orange,0,.53,-.56);tail.rotation.x=-Math.PI/2.8;ball(fox,.15,cream,0,.78,-.87);// Λεπτομέρειες αλεπούς: λαμπερά μάτια, μάγουλα και πατουσάκια.
+const eyeShine=new T.MeshStandardMaterial({color:0xffffff,emissive:0xffffff,emissiveIntensity:.18});
+for(const side of [-1,1]){
+ ball(fox,.027,eyeShine,side*.145,1.065,.215,false);
+ ball(fox,.105,pink,side*.235,.83,.18,false);
+ ball(fox,.105,dark,side*.23,.13,.26);
+}
+// Πρόσθετες λεπτομέρειες χαρακτήρα: μάσκα προσώπου, φρύδια και άκρες αυτιών.
+const faceCream=new T.MeshStandardMaterial({color:0xfff0d7,roughness:.95});
+for(const side of [-1,1]){
+ const cheek=ball(fox,.145,faceCream,side*.18,.85,.225,false);cheek.scale.set(1,.76,.64);
+ const brow=ball(fox,.065,dark,side*.16,1.18,.13,false);brow.scale.set(1.25,.3,.55);
+ const inner=mesh(fox,new T.ConeGeometry(.08,.24,4),pink,side*.23,1.37,.02,false);inner.rotation.y=Math.PI/4;
+}
+// Διακριτικά φρύδια/μουσούδα για πιο αναγνωρίσιμο χαρακτήρα.
+const noseHighlight=mat(0xffffff);ball(fox,.028,noseHighlight,-.023,.91,.448,false);
+const collar=mesh(fox,new T.TorusGeometry(.245,.048,8,28),mat(0x35b9b2),0,.65,.015,false);collar.rotation.x=Math.PI/2;
+// Polished character details: belly, paws, tuft, tail highlight.
+const belly=ball(fox,.265,cream,0,.47,.22,false);belly.scale.set(.92,1.12,.55);
+for(const side of [-1,1]){const paw=ball(fox,.135,dark,side*.24,.12,.26,false);paw.scale.set(1,.6,1.2);const tip=mesh(fox,new T.ConeGeometry(.13,.31,5),orange,side*.13,1.43,-.12,false);tip.rotation.z=side*.23}
+const starGroup=new T.Group();scene.add(starGroup);const starMat=new T.MeshStandardMaterial({color:0xffcf43,emissive:0xffad00,emissiveIntensity:.55,metalness:.15});const starShape=new T.Shape();for(let i=0;i<10;i++){const a=-Math.PI/2+i*Math.PI/5,rad=i%2===0?.46:.21;const x=Math.cos(a)*rad,y=Math.sin(a)*rad;if(i===0)starShape.moveTo(x,y);else starShape.lineTo(x,y)}starShape.closePath();const starGeo=new T.ExtrudeGeometry(starShape,{depth:.11,bevelEnabled:true,bevelThickness:.055,bevelSize:.035,bevelSegments:2,steps:1});const star=mesh(starGroup,starGeo,starMat,0,.80,0);star.rotation.y=-.35;const glow=new T.PointLight(0xffdc76,1.2,5);starGroup.add(glow);glow.position.y=.8;let board=[],size=5,start={x:1,z:1,d:1},goal={x:4,z:4},pos={...start},steps=0,optimalSteps=0;const dirs=[[0,-1],[1,0],[0,1],[-1,0]];function rng(seed){return()=>{seed=(seed*1664525+1013904223)>>>0;return seed/4294967296}}function difficultyFor(n){
+ const local=(n-1)%10;
+ return {local, tier:local<3?'Εύκολη':local<7?'Μέτρια':'Δύσκολη', target:4+local+Math.floor((n-1)/20)};
+}
+function generate(n){
+ const diff=difficultyFor(n),rand=rng(n*73856093+12345);
+ size=n<=10?5:n<=30?6:n<=60?7:8;
+ let best=null,bestScore=Infinity;
+ // Πολλές υποψήφιες διατάξεις, με προτίμηση στην επιθυμητή δυσκολία.
+ for(let attempt=0;attempt<350;attempt++){
+  board=Array.from({length:size},()=>Array(size).fill(0));
+  const corners=[[1,1],[size-2,1],[1,size-2],[size-2,size-2]];
+  const [sx,sz]=corners[Math.floor(rand()*4)];
+  start={x:sx,z:sz,d:Math.floor(rand()*4)};
+  goal={x:1+Math.floor(rand()*(size-2)),z:1+Math.floor(rand()*(size-2))};
+  if(goal.x===start.x&&goal.z===start.z)continue;
+  const density=Math.min(.08+diff.local*.025+Math.floor((n-1)/10)*.012,.40);
+  for(let z=0;z<size;z++)for(let x=0;x<size;x++){
+   if((x!==start.x||z!==start.z)&&(x!==goal.x||z!==goal.z)&&rand()<density)board[z][x]=1;
+  }
+  const solution=findSolution();if(solution===null)continue;
+  const score=Math.abs(solution.length-diff.target);
+  if(score<bestScore){bestScore=score;best={board:board.map(row=>[...row]),start:{...start},goal:{...goal},steps:solution.length};}
+  if(score<.5)break;
+ }
+ if(best){board=best.board;start=best.start;goal=best.goal;optimalSteps=best.steps;return;}
+ board=Array.from({length:size},()=>Array(size).fill(0));start={x:1,z:1,d:1};goal={x:size-2,z:size-2};optimalSteps=findSolution().length;
+}
+
+function clearGroup(g){while(g.children.length){const c=g.children[0];g.remove(c);c.traverse(o=>{if(o.geometry)o.geometry.dispose();if(o.material&&!Array.isArray(o.material))o.material.dispose()})}}function cell(x,z){return (x-(size-1)/2)*1.48}function makeTree(x,z,r){const trunk=mat(0x986844),leaf=mat(r()<.5?0x43a66a:0x2b8d67);cube(groundGroup,.18,.6,.18,trunk,x,.35,z);const tree=mesh(groundGroup,new T.ConeGeometry(.46,1.3,7),leaf,x,1.2,z);tree.rotation.y=r()*6}function flower(x,z,r,world){
+ const stem=mat(world===3?0x9cc3d0:0x3b9a65);
+ const petal=mat([0xffc5df,0xffe394,0xc9b7ff,0xffffff][Math.floor(r()*4)]);
+ const center=mat(0xffcc49);
+ cube(groundGroup,.035,.19,.035,stem,x,.13,z);
+ for(let k=0;k<5;k++){
+  const a=k*Math.PI*2/5;
+  ball(groundGroup,.072,petal,x+Math.cos(a)*.092,.26,z+Math.sin(a)*.092,false);
+ }
+ ball(groundGroup,.052,center,x,.265,z,false);
+}
+function mushroom(x,z,r){
+ const stem=mat(0xffead5),cap=mat(r()<.5?0xe95d66:0xf0a04d);
+ cube(groundGroup,.10,.20,.10,stem,x,.11,z);
+ const top=mesh(groundGroup,new T.SphereGeometry(.20,12,8),cap,x,.24,z);
+ top.scale.y=.55;
+}
+function themedObject(world,X,Z,r,obstacle){
+ // Art-directed obstacle silhouettes. Keep all geometry inside a single grid cell.
+ const g=new T.Group();g.position.set(X,0,Z);groundGroup.add(g);
+ const box=(w,h,d,color,x,y,z)=>cube(g,w,h,d,mat(color),x,y,z);
+ const sphere=(rad,color,x,y,z)=>ball(g,rad,mat(color),x,y,z);
+ const cone=(radius,height,color,x,y,z,sides=9)=>mesh(g,new T.ConeGeometry(radius,height,sides),mat(color),x,y,z);
+ const stone=(radius,color,x,y,z)=>{const o=mesh(g,new T.DodecahedronGeometry(radius,1),mat(color),x,y,z);o.scale.set(1,.73,1);o.rotation.y=r()*6.28;return o};
+ const v=Math.floor(r()*3);
+ if(world===0){box(.2,.62,.2,0x78523a,0,.33,0);sphere(.40,0x267f5a,-.13,.83,0);sphere(.33,0x359f6a,.17,1.02,.06);sphere(.25,0x4dbd7d,-.18,1.14,.02);}
+ else if(world===1){box(.15,.62,.15,0x4c9151,0,.32,0);sphere(.35,v?0xf7bc59:0xf7899e,0,.85,0);for(let a=0;a<5;a++){const q=a*6.283/5;sphere(.14,0xffe4a0,Math.cos(q)*.28,.87,Math.sin(q)*.28)}sphere(.13,0x78512e,0,.92,.31)}
+ else if(world===2){stone(.48,0x887667,0,.34,0);stone(.29,0xb7a18a,-.23,.48,.12);stone(.20,0x63594f,.26,.25,-.12);}
+ else if(world===3){box(.14,.55,.14,0x7c9197,0,.30,0);cone(.46,.95,0xe6f5ff,0,.87,0);cone(.35,.68,0xb2d9e7,0,1.33,0);sphere(.08,0xffffff,.2,1.25,.12)}
+ else if(world===4){box(.15,.72,.15,0x8e633b,0,.40,0);for(let a=0;a<6;a++){const q=a*6.283/6;const leaf=sphere(.34,0x228c72,Math.cos(q)*.33,1.0,Math.sin(q)*.33);leaf.scale.set(1,.36,.6)}sphere(.12,0xf2c46e,0,1.03,0)}
+ else if(world===5){for(let i=0;i<4;i++){const h=.65+r()*.62,rad=.13+r()*.08;const crystal=mesh(g,new T.CylinderGeometry(0,rad,h,6),new T.MeshStandardMaterial({color:[0x79f1f2,0x94b8ff,0xc0a6ff][i%3],metalness:.16,roughness:.19,emissive:0x204f7b,emissiveIntensity:.25}), (i-1.5)*.22,h*.5,(i%2-.5)*.26);crystal.rotation.z=(i-1.5)*.1}}
+ else if(world===6){box(.16,.38,.16,0xffe7c9,0,.22,0);const cap=sphere(.48,v===0?0xd16a9f:v===1?0x9868ca:0xee9a68,0,.58,0);cap.scale.y=.55;for(let i=0;i<5;i++){const a=i*6.283/5;sphere(.07,0xffe5ee,Math.cos(a)*.27,.73,Math.sin(a)*.27)}}
+ else if(world===7){stone(.38,0xcba36b,0,.26,0);box(.14,.78,.14,0x368a69,0,.44,0);box(.51,.13,.15,0x3b9871,-.13,.66,0);box(.45,.13,.15,0x3b9871,.12,.48,0)}
+ else if(world===8){const cloud=sphere(.37,0xffffff,0,.48,0);cloud.scale.y=.65;sphere(.30,0xe7f8ff,-.26,.46,.06);sphere(.32,0xf9ffff,.24,.51,-.04);sphere(.17,0xcdebf6,0,.31,.25)}
+ else {box(.59,.65,.59,v===0?0x8473b2:0x9a89bc,0,.36,0);box(.7,.12,.7,0xc0b0d3,0,.73,0);cone(.48,.52,0x59448a,0,1.04,0,4);sphere(.10,0xffd875,0,1.30,0)}
+}
+function scenery(world,X,Z,r){
+ if(world===0||world===1)flower(X,Z,r,world);
+ else if(world===3){let m=mat(0xeafaff);mesh(groundGroup,new T.OctahedronGeometry(.12),m,X,.15,Z)}
+ else if(world===4){cube(groundGroup,.24,.08,.18,mat(0xf2d492),X,.06,Z)}
+ else if(world===5){mesh(groundGroup,new T.OctahedronGeometry(.17),mat(0x79dcf9),X,.18,Z)}
+ else if(world===6)mushroom(X,Z,r);
+ else if(world===7){ball(groundGroup,.13,mat(0xc49b58),X,.10,Z,false)}
+ else if(world===8){ball(groundGroup,.19,mat(0xf8ffff),X,.16,Z,false)}
+ else {cube(groundGroup,.22,.12,.22,mat(0xf1d88e),X,.09,Z)}
+}
+function studioTree(parent,x,z,world,scale=1){
+ const trunk=mat(world===3?0x8b9b9e:0x7b543c),leaf=mat(world===3?0xdaf6ff:world===5?0x7ab1de:world===6?0x985cc3:0x2f8862);
+ const g=new T.Group();g.position.set(x,0,z);g.scale.setScalar(scale);parent.add(g);
+ mesh(g,new T.CylinderGeometry(.105,.16,.78,7),trunk,0,.34,0);
+ for(let j=0;j<3;j++){const cone=mesh(g,new T.ConeGeometry(.62-j*.1,.85,8),leaf,0,.83+j*.38,0);cone.rotation.y=j*.35}
+ const crown=mesh(g,new T.SphereGeometry(.08,8,6),mat(0xffe8a6),0,1.85,0,false);crown.castShadow=false;
+}
+function studioLandscape(world,r){
+ const n=size*1.6, earth=[0x345f47,0x66874c,0x736154,0xaccdd8,0x397f87,0x43588b,0x564274,0xb99a67,0xa8cfde,0x6b5c89][world];
+ const rim=cube(groundGroup,n+.8,.28,n+.8,mat(0x27374a),0,-.67,0);rim.receiveShadow=true;
+ const lower=cube(groundGroup,n+.4,.52,n+.4,mat(earth),0,-.38,0);lower.receiveShadow=true;
+ const count=0;
+ for(let k=0;k<count;k++){
+  const angle=(k/count)*Math.PI*2+r()*.11;
+  const radius=n*.61+r()*n*.09;
+  const x=Math.cos(angle)*radius,z=Math.sin(angle)*radius;
+  if(world===0||world===1||world===3||world===6||world===9)studioTree(groundGroup,x,z,world,.55+r()*.5);
+  else {const rock=mesh(groundGroup,new T.DodecahedronGeometry(.27+r()*.23,0),mat(world===7?0xc5a174:world===5?0x6a8ec5:0x8a8178),x,.02,z);rock.scale.set(1,.6+r()*.4,1)}
+ }
+}
+
+// Ten world-specific set pieces. Kept outside the playable grid, with distinct silhouettes.
+function biomeSetPiece(world,x,z,r){
+ const g=new T.Group();g.position.set(x,0,z);groundGroup.add(g);
+ const material=(c,em=0)=>new T.MeshStandardMaterial({color:c,roughness:.72,flatShading:true,emissive:em,emissiveIntensity:em?.25:0});
+ const b=(w,h,d,c,X,Y,Z)=>cube(g,w,h,d,material(c),X,Y,Z);
+ const orb=(rad,c,X,Y,Z)=>ball(g,rad,material(c),X,Y,Z);
+ const cyl=(top,bottom,h,c,X,Y,Z,n=10)=>mesh(g,new T.CylinderGeometry(top,bottom,h,n),material(c),X,Y,Z);
+ const cone=(rad,h,c,X,Y,Z)=>mesh(g,new T.ConeGeometry(rad,h,9),material(c),X,Y,Z);
+ if(world===0){ // Enchanted forest: thick trunk, asymmetric broad foliage
+  cyl(.17,.25,1.18,0x78513a,0,.59,0);
+  orb(.52,0x2d9265,-.28,1.34,0);orb(.53,0x49b57c,.25,1.45,.1);orb(.40,0x217b61,.02,1.76,-.1);
+  for(let j=0;j<3;j++)orb(.055,0xffdf82,(j-1)*.32,1.6+j*.12,.38);
+ }else if(world===1){ // Meadow: flowering tree and garden post
+  cyl(.13,.2,1.1,0x815d3d,0,.55,0);
+  for(let j=0;j<6;j++){const a=j*Math.PI/3;orb(.34,j%2?0xff9ec6:0xffc3d8,Math.cos(a)*.37,1.35+Math.sin(a)*.22,Math.sin(a)*.35)}
+  orb(.22,0xffe8a4,0,1.43,0);
+ }else if(world===2){ // Canyon: stacked stratified sandstone pillars
+  for(let j=0;j<3;j++){const h=1.15+j*.32;const o=cyl(.25,.39,h,j%2?0xb78769:0x98715e,(j-1)*.38,h/2,(j%2)*.14,7);o.rotation.z=(j-1)*.09;b(.5,.10,.52,0xe1b68b,(j-1)*.38,h*.8,(j%2)*.14)}
+ }else if(world===3){ // Ice valley: faceted icy spire and snowy base
+  cyl(.48,.62,.26,0xc7e9ef,0,.13,0,7);
+  for(let j=0;j<3;j++){const h=1.45-j*.33;const o=cone(.34-j*.06,h,j===0?0xb3e8f8:0xe6f9ff,(j-1)*.27,.22+h/2,(j%2)*.22);o.rotation.z=(j-1)*.11}
+ }else if(world===4){ // Tropical island: palm and coconut
+  const trunk=cyl(.10,.19,1.45,0xa77a48,0,.72,0);trunk.rotation.z=.17;
+  for(let j=0;j<7;j++){const a=j*6.283/7;const leaf=orb(.42,0x2caa76,Math.cos(a)*.48,1.55,Math.sin(a)*.48);leaf.scale.set(1.5,.16,.48);leaf.rotation.y=a}
+  orb(.12,0x755036,.14,1.47,.1);
+ }else if(world===5){ // Crystal mountain: emissive crystal cluster
+  cyl(.48,.58,.2,0x4b5d8d,0,.1,0,7);
+  for(let j=0;j<5;j++){const h=1.2+(j%3)*.36;const o=mesh(g,new T.CylinderGeometry(0,.18,h,6),new T.MeshStandardMaterial({color:j%2?0x8c9df8:0x65e5e2,metalness:.2,roughness:.2,emissive:0x20477c,emissiveIntensity:.45,flatShading:true}),(j-2)*.18,h/2+.14,(j%2)*.18);o.rotation.z=(j-2)*.1}
+ }else if(world===6){ // Mushroom grove: oversized luminous caps
+  for(let j=0;j<3;j++){const x=(j-1)*.37,h=1.05+j*.2;cyl(.13,.2,h,0xe7d6b4,x,h/2,0,9);const cap=orb(.48,j===1?0xb27bf0:0xef8fca,x,h,.02);cap.scale.y=.46;for(let k=0;k<3;k++)orb(.055,0xffe8f9,x+(k-1)*.2,h+.13,.28)}
+ }else if(world===7){ // Desert: ancient obelisk
+  cyl(.55,.67,.23,0xc69a62,0,.12,0,4);b(.53,1.3,.53,0xe2bc7e,0,.89,0);
+  cone(.43,.7,0xc99a61,0,1.88,0);b(.57,.1,.57,0xa9794b,0,.37,0);
+ }else if(world===8){ // Cloud world: floating clouds and golden halo
+  for(let j=0;j<4;j++){const puff=orb(.46,0xf3fbff,(j-1.5)*.31,.55+(j%2)*.17,0);puff.scale.y=.55}
+  const ring=mesh(g,new T.TorusGeometry(.42,.075,9,30),new T.MeshStandardMaterial({color:0xffe5a1,metalness:.3,roughness:.3,emissive:0x6b4a10,emissiveIntensity:.25}),0,1.35,0);ring.rotation.y=.35;
+ }else{ // Secret kingdom: tower with pitched roof and pennant
+  cyl(.42,.49,1.35,0x9d8dbd,0,.69,0,8);
+  for(let j=0;j<8;j++){const a=j*Math.PI/4;b(.20,.22,.19,0xcab8e2,Math.cos(a)*.38,1.44,Math.sin(a)*.38)}
+  cone(.55,.85,0x5b4b93,0,1.94,0);
+  b(.045,.5,.045,0xf7e1a6,0,2.5,0);b(.32,.17,.025,0xf5b96d,.16,2.6,0);
+ }
+ return g;
+}
+function renderBoard(){clearGroup(groundGroup);let r=rng(level*97+3),world=Math.floor((level-1)/10),colors=[0x69bd74,0xa6d66d,0xb6a18a,0xe9f4fa,0xe9d292,0x6e91d2,0x8d71ae,0xe5c47f,0xd9efff,0xa59ac9];let grass=mat(colors[world]);const accent=[0x367d4b,0x8cd36a,0x8e7966,0xb5e2ef,0x4daac5,0x415fb0,0x674a96,0xe7a75b,0xf8fbff,0x74649d][world];
+ studioLandscape(world,r);const skies=[0x9cdbf6,0xbceefc,0xe7d4b7,0xccecff,0x8cd6f2,0x8d9ee8,0x564b8e,0xffd9a1,0x8bd4fc,0xaaa0d7];scene.background.setHex(skies[world]);scene.fog.color.setHex(skies[world]);scene.fog.near=Math.max(26,size*4.2);scene.fog.far=Math.max(56,size*8.2);sun.color.setHex([0xfff1d4,0xfff2c4,0xffe2c6,0xe4f5ff,0xfff0c7,0xc9dcff,0xf2d6ff,0xffd7a3,0xf5fbff,0xf4e0ff][world]);
+ for(let z=0;z<size;z++)for(let x=0;x<size;x++){let X=cell(x),Z=cell(z);const tileMat=mat(new T.Color(colors[world]).lerp(new T.Color(accent),((x*13+z*7+level)%9)/130).getHex());
+ const tile=cube(groundGroup,1.405,.20,1.405,tileMat,X,-.09,Z);tile.receiveShadow=true;
+ // inset surface and edge shadow: grid remains clearly legible at any zoom
+ const topMat=new T.MeshStandardMaterial({color:new T.Color(colors[world]).lerp(new T.Color(0xffffff),.13),roughness:world===3||world===5?.43:.88});
+ const cap=cube(groundGroup,1.31,.025,1.31,topMat,X,.021,Z);cap.receiveShadow=true;
+ const seam=mesh(groundGroup,new T.PlaneGeometry(1.20,1.20),new T.MeshBasicMaterial({color:0xffffff,transparent:true,opacity:.075,depthWrite:false}),X,.037,Z,false);seam.rotation.x=-Math.PI/2;
+ const edge=new T.LineSegments(new T.EdgesGeometry(new T.BoxGeometry(1.405,.20,1.405)),new T.LineBasicMaterial({color:0x234053,transparent:true,opacity:.85}));edge.position.set(X,-.09,Z);groundGroup.add(edge);
+ const inset=mesh(groundGroup,new T.PlaneGeometry(1.24,1.24),new T.MeshBasicMaterial({color:0xffffff,transparent:true,opacity:.075,depthWrite:false}),X,.014,Z,false);inset.rotation.x=-Math.PI/2;
+ if(world===3||world===5||world===8){const top=mesh(groundGroup,new T.PlaneGeometry(1.24,1.24),new T.MeshStandardMaterial({color:world===3?0xffffff:world===5?0x94c8ff:0xf7ffff,transparent:true,opacity:.25,roughness:.28}),X,.003,Z,false);top.rotation.x=-Math.PI/2;}
+ 
+ 
+ if(board[z][x])themedObject(world,X,Z,r,true)}
+ // Μία ενιαία βάση, χωρίς αλληλοεπικαλυπτόμενες πλατφόρμες.
+ const terrain=[0x356c4a,0x719e49,0x6d594c,0xc8e5e9,0x277e80,0x293e70,0x453263,0xc7a067,0x98c5df,0x5a4c82][world];
+ const baseDark=new T.Color(terrain).multiplyScalar(.65).getHex();
+ const foundation=cube(groundGroup,size*1.48+.55,.36,size*1.48+.55,mat(baseDark),0,-.43,0);foundation.receiveShadow=true;
+ const trim=cube(groundGroup,size*1.48+.68,.10,size*1.48+.68,mat([0x345e48,0x668647,0x806955,0x89b6c5,0x2d898a,0x4258a0,0x7653a0,0xc39355,0x8abed5,0x7965a8][world]),0,-.66,0);trim.receiveShadow=true;
+ const border=size*1.48/2+1.25;
+ const sceneryMat=(color)=>new T.MeshStandardMaterial({color,roughness:.82,flatShading:true});
+ const addRock=(x,z,scale,color)=>{const o=mesh(groundGroup,new T.DodecahedronGeometry(scale,1),sceneryMat(color),x,scale*.38-.03,z);o.scale.set(1.2,.72,.94);o.rotation.y=r()*6.28;return o};
+ const addPine=(x,z,h=1.8)=>{cube(groundGroup,.19,h*.42,.19,mat(0x71543d),x,h*.22,z);for(let j=0;j<3;j++){const cone=mesh(groundGroup,new T.ConeGeometry(.72-j*.13,h*.52,8),mat(world===3?0xe9f7fc:0x256e53),x,h*.38+j*h*.23,z);cone.rotation.y=j*.7}};
+ const addPalm=(x,z)=>{const trunk=mesh(groundGroup,new T.CylinderGeometry(.09,.15,1.5,8),mat(0x956c43),x,.76,z);trunk.rotation.z=.15;for(let a=0;a<6;a++){const leaf=mesh(groundGroup,new T.SphereGeometry(.46,9,6),mat(0x2a986b),x+Math.cos(a)*.42,1.55,z+Math.sin(a)*.42);leaf.scale.set(1.3,.18,.43);leaf.rotation.y=a*Math.PI/3}};
+ const addCrystal=(x,z,h=1.8)=>{const cluster=new T.Group();groundGroup.add(cluster);cluster.position.set(x,0,z);for(let i=0;i<4;i++){const g=new T.CylinderGeometry(0,.16+(i%2)*.07,h*(.55+r()*.5),6,1);const m=new T.Mesh(g,new T.MeshStandardMaterial({color:[0x68d9e6,0xa1a4f4,0x86e8d6][i%3],emissive:0x15374c,emissiveIntensity:.22,metalness:.15,roughness:.24,flatShading:true}));m.position.set((i-1.5)*.19,h*.31,((i%2)-.5)*.3);m.rotation.z=(i-1.5)*.09;m.castShadow=true;cluster.add(m)}};
+ const addArch=(x,z)=>{const stone=mat(world===9?0x8878ae:0x947d63);cube(groundGroup,.32,1.75,.35,stone,x-.72,.85,z);cube(groundGroup,.32,1.75,.35,stone,x+.72,.85,z);cube(groundGroup,1.75,.32,.43,stone,x,1.77,z)};
+ // Οριοθετημένο σκηνικό: τα διακοσμητικά μένουν επάνω στη βάση,
+ // στις τέσσερις γωνίες, χωρίς να παρεμβάλλονται στις διαδρομές.
+ const edgeLimit=(size-1)*1.48/2;
+ const cornerInset=.50;
+ const sceneryCorners=[[-1,-1],[1,-1],[-1,1],[1,1]];
+ sceneryCorners.forEach(([sx,sz],k)=>{
+  // Props are placed outside the grid. Two diagonally opposite focal points
+  // reduce visual noise while still giving each world a recognizable identity.
+  if(k===0||k===3){
+    const X=sx*(edgeLimit+1.12),Z=sz*(edgeLimit+1.12);
+    const piece=glbWorlds.has(world)?glbWorlds.get(world).clone(true):biomeSetPiece(world,X,Z,r);
+    if(glbWorlds.has(world)){piece.traverse(o=>{if(o.isMesh){o.geometry=o.geometry.clone();o.material=o.material.clone()}});groundGroup.add(piece);piece.position.set(X,0,Z)}
+    piece.scale.setScalar(k===0?.80:.66);
+  }
+ });
+ // Μικρές διακριτικές πηγές φωτός για ατμόσφαιρα.
+ if(world===5||world===6||world===9){const glow=new T.PointLight(world===5?0x75dfff:world===6?0xd89cff:0xffd18e,.9,size*2);glow.position.set(0,4,0);groundGroup.add(glow)}
+ // Μικρά διακοσμητικά στα ελεύθερα τετράγωνα, εκτός αφετηρίας/στόχου.
+// Διακριτική φωτεινή βάση στον στόχο.
+const goalRing=mesh(groundGroup,new T.TorusGeometry(.51,.055,8,36),new T.MeshStandardMaterial({color:0xffe18b,emissive:0xffbc36,emissiveIntensity:.5}),cell(goal.x),.07,cell(goal.z),false);
+// Η αφετηρία και ο στόχος διακρίνονται χωρίς να καλύπτουν τα τετράγωνα.
+const startRing=mesh(groundGroup,new T.TorusGeometry(.42,.035,6,32),new T.MeshStandardMaterial({color:0x67f1bd,emissive:0x1ea777,emissiveIntensity:.28}),cell(start.x),.05,cell(start.z),false);startRing.rotation.x=-Math.PI/2;
+goalRing.rotation.x=-Math.PI/2;
+fox.position.set(cell(pos.x),0,cell(pos.z));fox.rotation.y=(2-pos.d)*Math.PI/2;starGroup.position.set(cell(goal.x),0,cell(goal.z));fitCamera();el('world').textContent=['🌲','🌻','🪨','❄️','🏝️','💎','🍄','🏜️','☁️','🏰'][world]+' '+names[world]+' • Πίστα '+level;el('worldCount').textContent='Κόσμος '+(world+1)+'/10';el('sceneCaption').textContent='✦ '+difficultyFor(level).tier+' · '+(difficultyFor(level).local+1)+'/10';el('progress').textContent='⭐ '+completed.size+' / 100 πίστες'}function drawLevelMap(){const host=el('levelMap');if(!host)return;host.replaceChildren();let unlocked=1;while(unlocked<100&&completed.has(unlocked))unlocked++;for(let n=1;n<=100;n++){const done=completed.has(n),available=teacherMode||n<=unlocked;const b=document.createElement('button');b.type='button';b.textContent=done?'✓'+n:n===unlocked||teacherMode?String(n):'🔒';b.title='Πίστα '+n+(done?' · Ολοκληρωμένη':available?' · Διαθέσιμη':' · Κλειδωμένη');b.className=(done?'done':available?'available':'locked')+(n===level?' current':'');b.disabled=!available;b.onclick=()=>{load(n);if(!teacherMode)el('levelPicker').open=false};host.append(b)}el('levelProgressLabel').textContent=completed.size+' / 100 ολοκληρωμένες';el('levelMeterFill').style.width=completed.size+'%'}
+function drawTeacherPanel(){const worlds=el('teacherWorlds'),levels=el('teacherLevels');worlds.replaceChildren();levels.replaceChildren();names.forEach((name,i)=>{const b=document.createElement('button');b.textContent=(i+1)+'. '+name;b.className=teacherWorld===i?'active':'';b.onclick=()=>{teacherWorld=i;drawTeacherPanel();if(teacherMode){load(i*10+1);el('teacherPanel').hidden=true;el('teacherToggle').setAttribute('aria-expanded','false')}};worlds.append(b)});for(let i=1;i<=10;i++){const n=teacherWorld*10+i,b=document.createElement('button');b.textContent=String(n);b.className=n===level?'active':'';b.title='Πίστα '+n+' • '+difficultyFor(n).tier;b.onclick=()=>{load(n);el('teacherPanel').hidden=true;el('teacherToggle').setAttribute('aria-expanded','false')};levels.append(b)}}
+// Teacher PIN: local device access guard, not server-side authentication.
+const pinKey='cq3d_teacher_pin_v1';let pinUnlocked=false;
+function pinSaved(){try{return localStorage.getItem(pinKey)||''}catch{return ''}}
+function pinStore(pin){try{localStorage.setItem(pinKey,pin);return true}catch{return false}}
+function hidePin(){el('teacherPinPanel').hidden=true;el('teacherPinInput').value='';el('teacherPinError').textContent=''}
+function activateTeacher(){hidePin();teacherMode=true;studentLevel=level;teacherWorld=Math.floor((level-1)/10);el('teacherPanel').hidden=false;el('teacherQuickExit').hidden=false;el('teacherToggle').textContent='👩‍🏫 Επιλογή πίστας ▾';el('teacherToggle').setAttribute('aria-expanded','true');drawTeacherPanel();drawLevelMap();status('👩‍🏫 Προεπισκόπηση: οι επιτυχίες δεν αποθηκεύονται.')}
+el('teacherToggle').onclick=()=>{if(running)return;if(teacherMode){el('teacherPanel').hidden=!el('teacherPanel').hidden;el('teacherToggle').setAttribute('aria-expanded',String(!el('teacherPanel').hidden));return}if(pinUnlocked){activateTeacher();return}el('teacherPinPanel').hidden=!el('teacherPinPanel').hidden;el('teacherPanel').hidden=true;el('teacherPinTitle').textContent=pinSaved()?'🔐 Ξεκλείδωμα εκπαιδευτικού':'🔐 Δημιουργία PIN εκπαιδευτικού';el('teacherPinHelp').textContent=pinSaved()?'Πληκτρολόγησε το PIN που όρισες σε αυτόν τον browser.':'Όρισε προσωπικό PIN 4–8 ψηφίων. Θα χρειάζεται για την προεπισκόπηση σε αυτόν τον browser.';el('teacherPinError').textContent='';if(!el('teacherPinPanel').hidden)el('teacherPinInput').focus()};
+el('teacherPinForm').addEventListener('submit',e=>{e.preventDefault();if(running)return;const pin=el('teacherPinInput').value;if(!/^[0-9]{4,8}$/.test(pin)){el('teacherPinError').textContent='Το PIN πρέπει να έχει 4 έως 8 ψηφία.';return}const saved=pinSaved();if(saved&&pin!==saved){el('teacherPinError').textContent='Λανθασμένο PIN. Προσπάθησε ξανά.';el('teacherPinInput').value='';return}if(!saved&&!pinStore(pin)){el('teacherPinError').textContent='Δεν είναι διαθέσιμη η αποθήκευση σε αυτόν τον browser.';return}pinUnlocked=true;activateTeacher()});
+function exitTeacher(){if(running)return;teacherMode=false;el('teacherPanel').hidden=true;el('teacherQuickExit').hidden=true;el('teacherToggle').textContent='👩‍🏫 Προεπισκόπηση εκπαιδευτικού';el('teacherToggle').setAttribute('aria-expanded','false');load(studentLevel)}el('teacherExit').onclick=exitTeacher;el('teacherQuickExit').onclick=exitTeacher;
+function load(n){if(running)return;el('victoryOverlay').hidden=true;let unlocked=1;while(unlocked<100&&completed.has(unlocked))unlocked++;if(!teacherMode&&n>unlocked){status('🔒 Ολοκλήρωσε πρώτα την πίστα '+unlocked+' για να ξεκλειδώσεις την επόμενη.');el('level').value=level;return}level=Math.max(1,Math.min(100,n));if(!teacherMode)studentLevel=level;else teacherWorld=Math.floor((level-1)/10);el('level').value=level;generate(level);pos={...start};program=[];selected=-1;steps=0;history=[];activeCommand=-1;renderProgram();renderBoard();el('advance').disabled=level>=100||(!teacherMode&&!completed.has(level));if(teacherMode)drawTeacherPanel();drawLevelMap();el('missionInfo').textContent='🎯 '+difficultyFor(level).tier+' • Αποστολή '+(difficultyFor(level).local+1)+'/10 • Συντομότερη λύση: '+optimalSteps+' εντολές • Εμπόδια: '+board.flat().filter(Boolean).length;status('✨ Η αλεπού ξεκινά από το εσωτερικό του χάρτη. Στροφή + Μπροστά = κίνηση προς τη νέα κατεύθυνση.')}function status(s){el('status').textContent=s}function snapshot(){history.push([...program]);if(history.length>40)history.shift()}function renderProgram(){const host=el('program');host.innerHTML='';if(!program.length){host.innerHTML='<span style="color:#8b9ca9">Σύρε εδώ την πρώτη εντολή…</span>';return}program.forEach((c,i)=>{const b=document.createElement('button');b.className='token'+(selected===i?' selected':'')+(activeCommand===i?' active':'');b.classList.add(c.startsWith('F:')?'block-loop':c==='F'?'block-forward':c==='L'?'block-left':'block-right');const badge=document.createElement('span');badge.className='block-number';badge.textContent=String(i+1).padStart(2,'0');const glyph=document.createElement('span');glyph.className='block-glyph';glyph.textContent=c.startsWith('F:')?'⟳':({F:'↑',L:'↶',R:'↷'}[c]);const label=document.createElement('span');label.className='block-label';label.textContent=c.startsWith('F:')?'Μπροστά ×'+c.split(':')[1]:({F:'Μπροστά',L:'Αριστερά',R:'Δεξιά'}[c]);const grip=document.createElement('span');grip.className='block-grip';grip.textContent='⠿';b.append(badge,glyph,label,grip);b.dataset.index=i;b.title='Σύρε για μετακίνηση ή πάτησε για επιλογή';b.setAttribute('aria-pressed',selected===i?'true':'false');b.onclick=()=>{if(!running&&!suppressClick){selected=selected===i?-1:i;renderProgram();status(selected<0?'Επιλογή ακυρώθηκε.':'Επιλέχθηκε η εντολή '+(i+1)+'.')}};host.append(b)})}
+el('repeatCount').onchange=()=>{el('repeatCount').title='Επανάληψη '+el('repeatCount').value+' φορές'};el('repeatCount').onchange();el('repeatCount').addEventListener('pointerdown',e=>e.stopPropagation());el('repeatCount').addEventListener('click',e=>e.stopPropagation());document.querySelector('[data-repeat]').onclick=()=>{if(running||suppressClick)return;const c='F:'+el('repeatCount').value;if(selected>=0){snapshot();program[selected]=c;selected=-1}else if(program.length<90){snapshot();program.push(c)}renderProgram();status('🔁 Προστέθηκε επανάληψη '+el('repeatCount').value+' βημάτων.')};document.querySelectorAll('[data-c]').forEach(b=>b.onclick=()=>{if(running||suppressClick)return;if(selected>=0){snapshot();program[selected]=b.dataset.c;selected=-1;renderProgram();status('Η εντολή αντικαταστάθηκε!')}else if(program.length<90){snapshot();program.push(b.dataset.c);renderProgram()}});
+// Pointer drag/drop: ποντίκι, αφή και γραφίδα, με κοινό υπολογισμό θέσης.
+let drag=null,suppressClick=false;
+const host=el('program');
+function dropIndex(x,y){const tokens=[...host.querySelectorAll('.token')];if(!tokens.length)return 0;for(let i=0;i<tokens.length;i++){const r=tokens[i].getBoundingClientRect();if(y<r.top)return i;if(y<=r.bottom&&x<r.left+r.width/2)return i;if(y<=r.bottom&&x<=r.right)return i+1}return tokens.length}
+function clearDrag(){host.querySelectorAll('.token').forEach(e=>e.classList.remove('drop-before','drop-after'));host.classList.remove('drag-target');if(drag?.ghost)drag.ghost.remove();drag=null}
+document.addEventListener('pointerdown',e=>{if(running||e.button!==0)return;const palette=e.target.closest('.cmd[data-c],.cmd[data-repeat]');const token=e.target.closest('#program .token');if(!palette&&!token)return;drag={source:token?'program':'palette',index:token?Number(token.dataset.index):-1,code:palette?(palette.dataset.repeat?'F:'+el('repeatCount').value:palette.dataset.c):program[Number(token.dataset.index)],x:e.clientX,y:e.clientY,moved:false,ghost:null,drop:0};});
+document.addEventListener('pointermove',e=>{if(!drag)return;if(!drag.moved&&Math.hypot(e.clientX-drag.x,e.clientY-drag.y)<9)return;if(!drag.moved){drag.moved=true;drag.ghost=document.createElement('div');drag.ghost.className='drag-ghost';drag.ghost.textContent=drag.code.startsWith('F:')?'🔁 Μπροστά ×'+drag.code.split(':')[1]:({F:'⬆️ Μπροστά',L:'↶ Αριστερά',R:'↷ Δεξιά'}[drag.code]);document.body.append(drag.ghost)}drag.ghost.style.left=e.clientX+14+'px';drag.ghost.style.top=e.clientY+14+'px';const rect=host.getBoundingClientRect();const inside=e.clientX>=rect.left-25&&e.clientX<=rect.right+25&&e.clientY>=rect.top-25&&e.clientY<=rect.bottom+25;host.classList.toggle('drag-target',inside);host.querySelectorAll('.token').forEach(t=>t.classList.remove('drop-before','drop-after'));if(inside){drag.drop=dropIndex(e.clientX,e.clientY);const ts=host.querySelectorAll('.token');if(ts.length){const at=drag.drop===ts.length?ts[ts.length-1]:ts[drag.drop];at.classList.add(drag.drop===ts.length?'drop-after':'drop-before')}}else drag.drop=null;e.preventDefault();},{passive:false});
+document.addEventListener('pointerup',e=>{if(!drag)return;const d=drag;if(d.moved){suppressClick=true;setTimeout(()=>suppressClick=false,80);if(d.drop!==null&&(d.source==='program'||program.length<90)){snapshot();if(d.source==='palette'){program.splice(d.drop,0,d.code)}else{program.splice(d.index,1);program.splice(d.drop>d.index?d.drop-1:d.drop,0,d.code)}selected=-1;status('✅ Η εντολή τοποθετήθηκε στη νέα θέση.')}else if(d.drop!==null&&d.source==='program'){snapshot();program.splice(d.index,1);program.splice(d.drop>d.index?d.drop-1:d.drop,0,d.code)}clearDrag();renderProgram()}else clearDrag()});document.addEventListener('pointercancel',clearDrag);
+el('clear').onclick=()=>{if(!running){snapshot();program=[];selected=-1;renderProgram();status('Το πρόγραμμα καθαρίστηκε.')}};el('deleteOne').onclick=()=>{if(running||selected<0)return;snapshot();program.splice(selected,1);selected=-1;renderProgram();status('Η επιλεγμένη εντολή διαγράφηκε.')};el('undo').onclick=()=>{if(running||!history.length)return;program=history.pop();selected=-1;renderProgram();status('Αναιρέθηκε η τελευταία αλλαγή.')};el('restart').onclick=()=>{if(!running){pos={...start};fox.position.set(cell(pos.x),0,cell(pos.z));fox.rotation.y=(2-pos.d)*Math.PI/2;status('↺ Ξεκινάμε ξανά!')}};el('prev').onclick=()=>load(level-1);el('nextLevel').onclick=()=>load(level+1);el('level').onchange=e=>load(Number(e.target.value)||1);el('advance').onclick=()=>load(level+1);el('victoryNext').onclick=()=>{el('victoryOverlay').hidden=true;if(level<100)load(level+1);else status('🏆 Συγχαρητήρια! Ολοκλήρωσες και τις 100 πίστες!')};function findSolution(){const queue=[[start.x,start.z,start.d,'']],seen=new Set([start.x+','+start.z+','+start.d]);for(let head=0;head<queue.length;head++){const [x,z,d,cmd]=queue[head];if(x===goal.x&&z===goal.z)return cmd;for(const [c,nd,nx,nz] of [['L',(d+3)%4,x,z],['R',(d+1)%4,x,z],['F',d,x+dirs[d][0],z+dirs[d][1]]]){if(nx<0||nz<0||nx>=size||nz>=size||board[nz][nx])continue;const key=nx+','+nz+','+nd;if(!seen.has(key)){seen.add(key);queue.push([nx,nz,nd,cmd+c])}}}return null}el('hint').onclick=()=>{if(running)return;const solution=findSolution();if(solution===null){status('⚠ Δεν βρέθηκε διαδρομή για αυτή την πίστα.');return}const names={F:'Μπροστά',L:'Αριστερά',R:'Δεξιά'};status('💡 Μια πιθανή πρώτη εντολή είναι: '+names[solution[0]]+'. Δοκίμασε να βρεις τις υπόλοιπες!')};const wait=ms=>new Promise(resolve=>setTimeout(resolve,ms));async function tween(target,rot){let from=fox.position.clone(),a=fox.rotation.y,delta=rot-a;while(delta>Math.PI)delta-=2*Math.PI;while(delta< -Math.PI)delta+=2*Math.PI;foxWalking=true;for(let k=1;k<=14;k++){let t=k/14,sm=t*t*(3-2*t);fox.position.lerpVectors(from,target,sm);fox.rotation.y=a+delta*sm;fox.position.y=Math.sin(t*Math.PI)*.11;await wait(20)}fox.position.copy(target);fox.position.y=0;fox.rotation.y=rot;foxWalking=false;fox.scale.set(1,1,1)}el('run').onclick=async()=>{if(running||!program.length)return;running=true;el('run').disabled=true;pos={...start};fox.position.set(cell(pos.x),0,cell(pos.z));fox.rotation.y=(2-pos.d)*Math.PI/2;status('▶ Ξεκινά η εκτέλεση από την αρχή');let success=false,failed=false,executedCount=0;
+const queue=[];for(let i=0;i<program.length;i++){const c=program[i];const count=c.startsWith('F:')?Math.min(20,Number(c.split(':')[1])||2):1;for(let k=0;k<count;k++)queue.push({c:c.startsWith('F:')?'F':c,i,rep:k,loops:count,inner:1,total:1})}
+for(const task of queue){if(failed||success)break;
+ const {c,i,rep,loops,inner,total}=task;activeCommand=i;renderProgram();executedCount++;
+ const context='Εντολή '+(i+1)+(loops>1?' · επανάληψη '+(rep+1)+'/'+loops:'')+(total>1?' · εσωτερική '+inner+'/'+total:'');
+ status('▶ '+context+' · '+(c==='F'?'Μπροστά':c==='L'?'Αριστερά':'Δεξιά'));
+ if(c==='L'||c==='R'){pos.d=(pos.d+(c==='L'?3:1))%4;await tween(fox.position.clone(),(2-pos.d)*Math.PI/2)}
+ else if(c==='F'){const nx=pos.x+dirs[pos.d][0],nz=pos.z+dirs[pos.d][1];
+ if(nx<0||nz<0||nx>=size||nz>=size||board[nz][nx]){failed=true;selected=i;renderProgram();const block=el('program').querySelector('[data-index="'+i+'"]');block?.classList.add('block-error');if(block){const area=el('program');area.scrollTop=Math.max(0,block.offsetTop-area.offsetTop-area.clientHeight/2)}status('⛔ Σφάλμα στην '+context+': '+(nx<0||nz<0||nx>=size||nz>=size?'έξοδος από τα όρια':'εμπόδιο μπροστά')+'. Διόρθωσε το επισημασμένο κόκκινο block.');break}
+ pos.x=nx;pos.z=nz;await tween(new T.Vector3(cell(nx),0,cell(nz)),(2-pos.d)*Math.PI/2);if(nx===goal.x&&nz===goal.z)success=true;
+ }
+}
+if(success){if(!teacherMode)completed.add(level);try{if(!teacherMode)localStorage.setItem('cq3d_completed',JSON.stringify([...completed]))}catch{}el('progress').textContent='⭐ '+completed.size+' / 100 πίστες';drawLevelMap();el('advance').disabled=level===100;status('🎉 Μπράβο! Η αλεπού έφτασε στο αστέρι! Χρησιμοποίησες '+executedCount+' εντολές (βέλτιστη λύση: '+optimalSteps+').');el('victoryTitle').textContent=level===100?'🏆 Ολοκλήρωσες και τις 100 πίστες!':'🎉 Μπράβο! Πέρασες την πίστα '+level+'!';el('victoryDetails').textContent=(teacherMode?'Προεπισκόπηση εκπαιδευτικού — η πρόοδος δεν αποθηκεύτηκε. ':'')+'Η αλεπού έφτασε στο αστέρι! ⭐ Χρησιμοποίησες '+executedCount+' εντολές. Συντομότερη λύση: '+optimalSteps+'.';el('victoryNext').textContent=level===100?'Τέλος περιπέτειας 🏆':'Επόμενη πίστα ➜';el('victoryOverlay').hidden=false;el('victoryNext').focus()}else if(!failed)status('💡 Η αλεπού δεν έφτασε ακόμη στο αστέρι. Πρόσθεσε εντολές.');running=false;activeCommand=-1;renderProgram();if(failed){el('program').querySelector('[data-index="'+selected+'"]')?.classList.add('block-error')}el('run').disabled=false};function fitCamera(){const w=Math.max(1,el('scene').clientWidth),h=Math.max(1,el('scene').clientHeight),aspect=w/h;camera.aspect=aspect;camera.updateProjectionMatrix();const span=size*1.53+3.4;const vfov=camera.fov*Math.PI/180;const distV=(span*1.45)/(2*Math.tan(vfov/2));const distH=(span*1.45)/(2*Math.tan(vfov/2)*aspect);const dist=Math.max(distV,distH);const direction=new T.Vector3(.55,1.16,1).normalize();camera.position.copy(direction.multiplyScalar(dist));camera.lookAt(0,0,0);camera.updateProjectionMatrix()}
+function resize(){let w=Math.max(1,el('scene').clientWidth),h=Math.max(1,el('scene').clientHeight);renderer.setSize(w,h);camera.aspect=w/h;camera.updateProjectionMatrix();fitCamera()}window.addEventListener('resize',resize);load(1);resize();loadGLBAssets();function animate(t){requestAnimationFrame(animate);star.rotation.y+=.012;starGroup.position.y=Math.sin(t*.002)*.13;if(!foxWalking){fox.scale.y=1+Math.sin(t*.0028)*.014;fox.scale.x=1-Math.sin(t*.0028)*.006}else{fox.scale.y=1+Math.sin(t*.025)*.045;fox.scale.x=1-Math.sin(t*.025)*.025}renderer.render(scene,camera)}requestAnimationFrame(animate)})();
+</script></body></html>
