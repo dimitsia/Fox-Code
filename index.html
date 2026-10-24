@@ -1,4 +1,4 @@
-<!doctype html><html lang="el"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>CodeQuest Studio 3D v15.0 — Η περιπέτεια της Αλεπούς</title><style>
+<!doctype html><html lang="el"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Fox-Code — Η περιπέτεια της Αλεπούς</title><style>
 :root{font-family:system-ui,'Segoe UI',sans-serif;color:#20314b}*{box-sizing:border-box}body{margin:0;background:linear-gradient(145deg,#d9eff5,#f4f4ff)}header{background:#fffdf5;display:flex;align-items:center;justify-content:space-between;padding:12px 20px;gap:12px;flex-wrap:wrap;box-shadow:0 3px 20px #2b456018;position:relative;z-index:2}h1{font-size:23px;margin:0;color:#216b63}small{color:#637383}.pill{background:#e4f6df;padding:9px 14px;border-radius:30px;font-weight:700}.layout{display:grid;grid-template-columns:minmax(340px,1.65fr) minmax(300px,1fr);gap:16px;max-width:1450px;margin:18px auto;padding:0 16px}.scene{isolation:isolate;position:relative;background:linear-gradient(#9cddff,#e3f7fc);border-radius:24px;overflow:hidden;min-height:540px;box-shadow:0 14px 35px #31617c26}.scene canvas{width:100%;height:100%;display:block}.worldtag{z-index:1;box-shadow:0 4px 18px #0002;backdrop-filter:blur(8px);position:absolute;top:16px;left:16px;background:#ffffffdf;padding:10px 15px;border-radius:18px;font-weight:800}.help{z-index:1;position:absolute;bottom:14px;left:14px;background:#ffffffdc;border-radius:12px;padding:9px 13px;font-size:13px}.panel{background:white;border-radius:24px;padding:18px;box-shadow:0 14px 35px #31617c20}.panel h2{margin:0 0 6px;color:#216b63;font-size:21px}.panel p{margin:5px 0 14px;color:#64758a}.commands{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.cmd{background:#e7f4ff;color:#205783;border:2px solid #b9dcf7;border-radius:14px;padding:12px 4px;font-weight:800;cursor:pointer;font-size:14px}.cmd:hover{background:#cdeaff}.program{min-height:94px;border:2px dashed #b8d5df;background:#f8fcff;border-radius:15px;margin:13px 0;padding:10px;display:flex;gap:7px;flex-wrap:wrap;align-content:flex-start}.token.selected{outline:3px solid #287cc9;background:#d9f0ff}.token{border:0;border-radius:10px;background:#fff0ca;padding:9px;cursor:pointer;font-weight:700}.actions{display:grid;grid-template-columns:1fr 1fr;gap:9px}.action{border:0;border-radius:14px;padding:13px;font-weight:800;cursor:pointer;font-size:15px}.run{background:#2eb77e;color:white}.reset{background:#e9edf4;color:#40506b}.next{background:#ffbd50;color:#4b3400}.status{margin-top:13px;min-height:49px;border-radius:13px;background:#f2f8fa;padding:12px;font-weight:650}.levels{display:flex;gap:6px;align-items:center;margin:12px 0}.levels button{border:0;background:#dceeea;border-radius:10px;padding:9px;cursor:pointer}.levels input{width:76px;border:1px solid #c6d5e1;border-radius:10px;padding:8px;font-size:16px}.footer{font-size:12px;color:#72849a;text-align:center;padding:12px}button:disabled{opacity:.5;cursor:not-allowed}@media(max-width:850px){.layout{grid-template-columns:1fr}.scene{min-height:390px}header h1{font-size:19px}}
 .toolrow{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0}.toolrow button{border:1px solid #c6d5e1;background:#f0f7fb;color:#234e66;border-radius:10px;padding:9px 12px;font-weight:750;cursor:pointer}.toolrow button:disabled{opacity:.4}.hint{font-size:13px;color:#566e82;margin:7px 0}.token.active{background:#a9e8c9!important;outline:2px solid #239d70}.program{max-height:200px;overflow:auto} .cmd,.token{touch-action:none;user-select:none;-webkit-user-select:none}.drag-ghost{position:fixed;pointer-events:none;z-index:10001;background:#fff4ce;border:2px solid #f1b949;border-radius:12px;padding:12px;font-weight:800;box-shadow:0 7px 22px #0004}.program.drag-target{outline:3px dashed #31ae83;outline-offset:2px}.token.drop-before{box-shadow:-5px 0 0 #19bd8a}.token.drop-after{box-shadow:5px 0 0 #19bd8a} .teacher-area{margin:10px 0 16px;border:1px solid #b7dcd3;border-radius:15px;padding:10px;background:#f2fbf7}.teacher-toggle,.teacher-exit{border:0;border-radius:11px;padding:11px;background:#216b63;color:white;font-weight:750;cursor:pointer;width:100%}.teacher-worlds{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px;margin:10px 0}.teacher-levels{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin:10px 0}.teacher-worlds button,.teacher-levels button{border:1px solid #a6cfc7;background:white;padding:8px 4px;border-radius:8px;cursor:pointer;font-weight:650}.teacher-worlds button.active,.teacher-levels button.active{background:#216b63;color:white}.teacher-exit{background:#52687b}#teacherPanel[hidden]{display:none}.teacher-area p{font-size:12px;margin:8px 0}@media(max-width:400px){.teacher-worlds{grid-template-columns:1fr}} </style><style id="experience-style">
 .scene:after{content:"";pointer-events:none;position:absolute;inset:0;border:2px solid #ffffff66;border-radius:24px}
@@ -12,7 +12,7 @@
 </style><style id="studio-v8">
 :root{color-scheme:light;--ink:#142b41;--muted:#61758a;--brand:#176f79;--violet:#6152b7}body{background:radial-gradient(circle at 8% 0%,#c7e7ed 0,transparent 34%),linear-gradient(130deg,#e8f1f7,#eef0f8 52%,#e8f5f2);color:var(--ink)}header{background:#fffefef5;border-bottom:1px solid #d9e7ec;padding:18px clamp(18px,3vw,42px)}header h1{font-size:clamp(22px,2vw,29px);color:#133b50;font-weight:900;letter-spacing:-.8px}header small{font-size:13px}.pill{background:#e1f5ee;color:#146d57;border:1px solid #b8e6d3;box-shadow:inset 0 1px white}.layout{max-width:1660px;grid-template-columns:minmax(0,1.7fr) minmax(370px,.92fr);gap:22px;margin:24px auto;padding:0 22px;align-items:start}.scene{min-height:650px;border:1px solid #a8c9d8;border-radius:25px;box-shadow:0 22px 54px #1b455433,0 3px 10px #1b45541c;background:#badfe8}.scene:after{border:1px solid #ffffff90;border-radius:25px}.worldtag{top:20px;left:20px;padding:12px 17px;border:1px solid #ffffffd0;background:#fffffff0;color:#20465a;font-size:15px}.scene-caption{bottom:18px!important;right:18px!important;background:#173f57e8!important;border:1px solid #ffffff50!important;padding:11px 15px!important}.help{bottom:18px;left:18px;background:#ffffffee;color:#36536a;padding:11px 14px;border:1px solid white;max-width:52%}.panel{background:#fffffff5;border:1px solid #d6e4ec;border-radius:25px;padding:23px;box-shadow:0 16px 40px #26485b1c}.panel h2{font-size:23px;color:#183d53;font-weight:900}.panel p{line-height:1.55}.commands{gap:10px}.cmd{background:#f3f8fc;border:1.5px solid #bdd6e5;color:#174d68;box-shadow:0 3px 0 #c5d9e4;min-height:76px;border-radius:15px;font-size:15px}.cmd:hover{background:#e5f5fa;border-color:#66b6c9}.repeat-tools{background:#f2f0ff!important;border:1.5px solid #d7d0f6!important;border-radius:17px!important}.repeat-tools label{color:#463b8a}.repeat-tools .repeat-add{background:linear-gradient(125deg,#6755c6,#4b7fce)!important;box-shadow:0 4px 0 #514b9b!important}.program{background:repeating-linear-gradient(0deg,#f5fafc 0,#f5fafc 30px,#edf4f8 31px);border:2px dashed #8bb6cc;border-radius:16px;min-height:140px}.token{background:#fff4d6;border:1px solid #edcf84;border-radius:12px}.action{border-radius:14px;min-height:54px}.run{background:#168a72;box-shadow:0 4px 0 #116b58}.next{background:#f6b943}.status{border-left:4px solid #48a3b2;background:#f0f8fa}.teacher-area{border:1px solid #c5ddd9}.levels{padding:10px;background:#f4f8fb;border-radius:13px}.levels input{background:white}.footer{padding:18px}@media(max-width:1020px){.layout{grid-template-columns:1fr}.scene{min-height:500px}.panel{padding:18px}}@media(max-width:520px){.layout{padding:0 10px;gap:12px;margin:12px auto}.scene{min-height:355px;border-radius:17px}.help{font-size:10px;padding:7px;max-width:62%}.worldtag{top:9px;left:9px;font-size:12px;padding:8px}.scene-caption{right:8px!important;bottom:8px!important;padding:7px!important}.panel{padding:13px}.commands{gap:6px}.cmd{min-height:62px;font-size:13px}}
 </style><style id="studio-v9">
-/* CodeQuest Studio 9: integrated visual programming workspace */
+/* Fox-Code 9: integrated visual programming workspace */
 :root{--ink:#dceaf9;--muted:#8fa7c4;--line:#284363;--canvas:#0b1728;--panel:#12243b;--accent:#6adbc4;font-family:Inter,"Segoe UI",system-ui,sans-serif;color:var(--ink)}
 body{background:radial-gradient(circle at 12% -20%,#25496b 0,transparent 36%),linear-gradient(150deg,#091524,#101e34 60%,#0a1525);min-height:100vh;color:var(--ink)}
 header{background:#0e1b2def!important;border-bottom:1px solid #2a4360!important;box-shadow:none!important;padding:15px clamp(16px,3vw,40px)!important}
@@ -156,13 +156,38 @@ button:focus-visible,select:focus-visible,input:focus-visible{outline:3px solid 
 .scene{background:radial-gradient(ellipse at 50% 35%,#315b73 0%,#142b44 75%)!important}
 .scene .scene-caption{font-weight:800!important;letter-spacing:.2px}
 @media(prefers-reduced-motion:reduce){.token{transition:none!important}}
-</style><style id="v14-models">#assetState{position:absolute;left:12px;bottom:12px;z-index:4;font:600 11px system-ui;color:#fff;background:#183349ba;padding:5px 9px;border-radius:9px;pointer-events:none}</style></head><body><header><div><h1>🦊 CodeQuest Studio 3D v15.0</h1><small>Η περιπέτεια της μικρής αλεπούς • Εργαστήριο οπτικού προγραμματισμού • 100 αποστολές</small></div><nav class="level-nav level-nav-compact" aria-label="Επιλογή πίστας"><button id="prev" title="Προηγούμενη πίστα">◀</button><label>Πίστα <input id="level" type="number" min="1" max="100" value="1"></label><button id="nextLevel" title="Επόμενη πίστα">▶</button></nav><div class="teacher-area"><button type="button" id="teacherToggle" class="teacher-toggle" aria-expanded="false">👩‍🏫 Προεπισκόπηση εκπαιδευτικού</button><button type="button" id="teacherQuickExit" hidden class="teacher-quick-exit">↩ Έξοδος εκπαιδευτικού</button><div id="teacherPinPanel" hidden class="teacher-pin-panel"><strong id="teacherPinTitle">🔐 Κωδικός εκπαιδευτικού</strong><p id="teacherPinHelp">Στην πρώτη χρήση δημιούργησε προσωπικό PIN 4–8 ψηφίων.</p><form id="teacherPinForm"><input id="teacherPinInput" type="password" inputmode="numeric" pattern="[0-9]{4,8}" minlength="4" maxlength="8" autocomplete="off" placeholder="PIN 4–8 ψηφίων" required aria-label="PIN εκπαιδευτικού"><button type="submit">🔓 Συνέχεια</button></form><p id="teacherPinError" role="alert" aria-live="polite"></p></div><div id="teacherPanel" hidden><p>Επίλεξε οποιαδήποτε πίστα για προεπισκόπηση. Η πρόοδος των μαθητών δεν αλλάζει.</p><div id="teacherWorlds" class="teacher-worlds"></div><div id="teacherLevels" class="teacher-levels"></div><button type="button" id="teacherExit" class="teacher-exit">↩ Επιστροφή στη μαθητική λειτουργία</button></div></div><details class="progress-dropdown" id="levelPicker"><summary class="pill" id="progress" aria-label="Άνοιγμα χάρτη προόδου πιστών">⭐ 0 / 100 πίστες</summary><div class="progress-popover"><div class="progress-popover-title">🗺️ Η πρόοδός μου</div><div class="progress-popover-key">✓ Ολοκληρωμένες · ● Διαθέσιμη · 🔒 Κλειδωμένες</div><div class="level-progress-label"><strong id="levelProgressLabel">0 / 100 ολοκληρωμένες</strong><small id="worldCount">Κόσμος 1/10</small></div><div class="level-meter"><span id="levelMeterFill"></span></div><div class="level-map" id="levelMap" aria-label="Χάρτης 100 πιστών"></div></div></details></header><main class="layout"><section class="scene" id="scene"><div class="scene-eyebrow">3D LIVE WORLD <span class="live-dot"></span></div><div class="worldtag" id="world">🌲 Δάσος • Πίστα 1</div><div class="help">🦊 Η μουσούδα δείχνει πάντα την κατεύθυνση!</div><div class="scene-caption" id="sceneCaption">🌟 Βρες το αστέρι!</div></section><aside class="panel"><div class="section-kicker">02 / ΠΡΟΓΡΑΜΜΑΤΙΣΜΟΣ</div><h2>Οι εντολές μου</h2><p>Σύρε εντολές ανάμεσα στις άλλες ή μετακίνησέ τες για να αλλάξεις τη σειρά τους.</p><div class="actions"><button class="action run" id="run">▶ Εκτέλεση</button><button class="action reset" id="clear">🗑 Καθαρισμός</button><button class="action reset" id="restart">↺ Ξανά</button><button class="action next" id="advance" disabled>Επόμενη πίστα ➜</button></div><div class="palette-heading"><span>ΒΙΒΛΙΟΘΗΚΗ BLOCKS</span><span class="palette-dot">● ● ●</span></div><div class="commands"><button class="cmd" data-c="F">⬆️<br>Μπροστά</button><button class="cmd" data-c="L">↶<br>Αριστερά</button><button class="cmd" data-c="R">↷<br>Δεξιά</button></div><div class="repeat-tools"><div class="repeat-kicker">ΕΛΕΓΧΟΣ ΡΟΗΣ · LOOP BLOCK</div><label for="repeatCount">🔁 Επανάλαβε μπροστά</label><select id="repeatCount" aria-label="Πόσες φορές θα προχωρήσει η αλεπού"><option value="2">2 φορές</option><option value="3" selected>3 φορές</option><option value="4">4 φορές</option><option value="5">5 φορές</option><option value="6">6 φορές</option><option value="7">7 φορές</option><option value="8">8 φορές</option><option value="9">9 φορές</option><option value="10">10 φορές</option><option value="11">11 φορές</option><option value="12">12 φορές</option><option value="13">13 φορές</option><option value="14">14 φορές</option><option value="15">15 φορές</option><option value="16">16 φορές</option><option value="17">17 φορές</option><option value="18">18 φορές</option><option value="19">19 φορές</option><option value="20">20 φορές</option></select><button type="button" class="cmd repeat-add" data-repeat="1">➕ Προσθήκη επανάληψης</button><p>Διάλεξε πόσα βήματα θα κάνει η αλεπού και σύρε το μωβ κουμπί στο σημείο που θέλεις. Μπορείς επίσης να το πατήσεις για προσθήκη στο τέλος.</p></div><div class="hint">Σύρε από τα κουμπιά ή μέσα από το πρόγραμμα. Πάτησε μια εντολή για αντικατάσταση ή διαγραφή.</div><div class="workspace-heading"><span>▤ ΧΩΡΟΣ ΠΡΟΓΡΑΜΜΑΤΟΣ</span><span>ΣΥΡΕ & ΤΟΠΟΘΕΤΗΣΕ</span></div><div class="program" id="program"><span style="color:#8b9ca9">Οι εντολές εμφανίζονται εδώ…</span></div><div class="toolrow"><button id="deleteOne">✕ Διαγραφή επιλεγμένης</button><button id="undo">↶ Αναίρεση</button><button id="hint">💡 Υπόδειξη</button></div><div class="hint" id="missionInfo" aria-live="polite"></div><div class="status" id="status" aria-live="polite">✨ Έτοιμη για περιπέτεια!</div><p style="font-size:12px;margin-top:14px">💡 ↶ και ↷ στρίβουν μόνο την αλεπού. Για να προχωρήσει, πρόσθεσε μετά ⬆️ Μπροστά. Σύρε εντολές ανάμεσα στις άλλες ή πάτησε μία για να την αντικαταστήσεις.</p></aside></main><div class="footer">Δημιουργός: Τσιάλος Δημήτριος • Η πρόοδος αποθηκεύεται τοπικά σε αυτόν τον browser • Έλεγχος λύσης ανά πίστα</div>
-<div id="victoryOverlay" class="victory-overlay" hidden role="dialog" aria-modal="true" aria-labelledby="victoryTitle"><div class="victory-card"><div class="victory-emoji">🦊🌟🎉</div><h2 id="victoryTitle">Μπράβο! Πέρασες την πίστα!</h2><p id="victoryDetails"></p><button class="victory-next" id="victoryNext">Επόμενη πίστα ➜</button></div></div>
+</style><style id="v14-models">#assetState{position:absolute;left:12px;bottom:12px;z-index:4;font:600 11px system-ui;color:#fff;background:#183349ba;padding:5px 9px;border-radius:9px;pointer-events:none}</style><style id="accessibility-contrast-v19">
+#scene{filter:contrast(1.13) saturate(1.18)}
+#status{font-weight:750!important;line-height:1.5!important}
+</style><style id="visual-refresh-v20">#scene{background:#087ca4!important}#scene canvas{display:block}button:focus-visible{outline:3px solid #ffe17c!important;outline-offset:2px}</style><style id="grand-finale-style">
+.victory-overlay.grand-finale{background:radial-gradient(circle at 50% 30%,rgba(24,91,119,.94),rgba(4,13,34,.97));overflow:auto}
+.grand-finale .victory-card{position:relative;width:min(690px,95vw);padding:42px 32px;border:4px solid #ffd166!important;border-radius:32px;background:linear-gradient(145deg,#163a58,#132c49 55%,#23465c)!important;box-shadow:0 0 0 8px #ffd16624,0 30px 100px #000a;animation:victory-pop .5s ease-out;overflow:hidden}
+.grand-finale .victory-emoji{font-size:clamp(68px,11vw,112px);filter:drop-shadow(0 7px 12px #0005);position:relative;z-index:2}
+.grand-finale .victory-card h2{font-size:clamp(32px,5vw,52px);line-height:1.12;color:#ffe58b!important;text-shadow:0 3px 0 #5d3e20,0 6px 24px #0008;position:relative;z-index:2}
+.grand-finale .victory-card p{font-size:clamp(17px,2.3vw,23px);line-height:1.6;color:#f1fbff!important;position:relative;z-index:2}
+.grand-finale .victory-next{margin-top:24px;background:linear-gradient(100deg,#f6b941,#f18d35);color:#202d43;font-size:22px;position:relative;z-index:2}
+.grand-finale .victory-next:hover{background:#ffd76d}
+.finale-medal{display:none;margin:18px auto;padding:12px 22px;border:2px solid #ffe68b;border-radius:18px;background:#ffe68b19;color:#ffe9a8;font-weight:900;font-size:20px;position:relative;z-index:2}
+.grand-finale .finale-medal{display:table}
+.finale-confetti{display:none;pointer-events:none;position:absolute;inset:0;overflow:hidden}
+.grand-finale .finale-confetti{display:block}
+.finale-confetti i{position:absolute;top:-12%;left:var(--x);width:11px;height:19px;background:var(--c);opacity:.85;border-radius:3px;animation:confetti-fall var(--d) linear infinite;animation-delay:var(--delay)}
+@keyframes confetti-fall{to{transform:translate3d(var(--dx),115vh,0) rotate(900deg)}}
+@media(prefers-reduced-motion:reduce){.finale-confetti i{animation:none;top:var(--y);opacity:.35}.grand-finale .victory-card{animation:none}}
+</style></head><body><header><div><h1>🦊 Fox-Code</h1><small>Η περιπέτεια της μικρής αλεπούς • Εργαστήριο οπτικού προγραμματισμού • 100 αποστολές</small></div><nav class="level-nav level-nav-compact" aria-label="Επιλογή πίστας"><button id="prev" title="Προηγούμενη πίστα">◀</button><label>Πίστα <input id="level" type="number" min="1" max="100" value="1"></label><button id="nextLevel" title="Επόμενη πίστα">▶</button></nav><div class="teacher-area"><button type="button" id="teacherToggle" class="teacher-toggle" aria-expanded="false">👩‍🏫 Προεπισκόπηση εκπαιδευτικού</button><button type="button" id="teacherQuickExit" hidden class="teacher-quick-exit">↩ Έξοδος εκπαιδευτικού</button><div id="teacherPinPanel" hidden class="teacher-pin-panel"><strong id="teacherPinTitle">🔐 Κωδικός εκπαιδευτικού</strong><p id="teacherPinHelp">Στην πρώτη χρήση δημιούργησε προσωπικό PIN 4–8 ψηφίων.</p><form id="teacherPinForm"><input id="teacherPinInput" type="password" inputmode="numeric" pattern="[0-9]{4,8}" minlength="4" maxlength="8" autocomplete="off" placeholder="PIN 4–8 ψηφίων" required aria-label="PIN εκπαιδευτικού"><button type="submit">🔓 Συνέχεια</button></form><p id="teacherPinError" role="alert" aria-live="polite"></p></div><div id="teacherPanel" hidden><p>Επίλεξε οποιαδήποτε πίστα για προεπισκόπηση. Η πρόοδος των μαθητών δεν αλλάζει.</p><div id="teacherWorlds" class="teacher-worlds"></div><div id="teacherLevels" class="teacher-levels"></div><button type="button" id="teacherExit" class="teacher-exit">↩ Επιστροφή στη μαθητική λειτουργία</button></div></div><details class="progress-dropdown" id="levelPicker"><summary class="pill" id="progress" aria-label="Άνοιγμα χάρτη προόδου πιστών">⭐ 0 / 100 πίστες</summary><div class="progress-popover"><div class="progress-popover-title">🗺️ Η πρόοδός μου</div><div class="progress-popover-key">✓ Ολοκληρωμένες · ● Διαθέσιμη · 🔒 Κλειδωμένες</div><div class="level-progress-label"><strong id="levelProgressLabel">0 / 100 ολοκληρωμένες</strong><small id="worldCount">Κόσμος 1/10</small></div><div class="level-meter"><span id="levelMeterFill"></span></div><div class="level-map" id="levelMap" aria-label="Χάρτης 100 πιστών"></div></div></details></header><main class="layout"><section class="scene" id="scene"><div class="scene-eyebrow">3D LIVE WORLD <span class="live-dot"></span></div><div class="worldtag" id="world">🌲 Δάσος • Πίστα 1</div><div class="help">🦊 Η μουσούδα δείχνει πάντα την κατεύθυνση!</div><div class="scene-caption" id="sceneCaption">🌟 Βρες το αστέρι!</div></section><aside class="panel"><div class="section-kicker">02 / ΠΡΟΓΡΑΜΜΑΤΙΣΜΟΣ</div><h2>Οι εντολές μου</h2><p>Σύρε εντολές ανάμεσα στις άλλες ή μετακίνησέ τες για να αλλάξεις τη σειρά τους.</p><div class="actions"><button class="action run" id="run">▶ Εκτέλεση</button><button class="action reset" id="clear">🗑 Καθαρισμός</button><button class="action reset" id="restart">↺ Ξανά</button><button class="action next" id="advance" disabled>Επόμενη πίστα ➜</button></div><div class="palette-heading"><span>ΒΙΒΛΙΟΘΗΚΗ BLOCKS</span><span class="palette-dot">● ● ●</span></div><div class="commands"><button class="cmd" data-c="F">⬆️<br>Μπροστά</button><button class="cmd" data-c="L">↶<br>Αριστερά</button><button class="cmd" data-c="R">↷<br>Δεξιά</button></div><div class="repeat-tools"><div class="repeat-kicker">ΕΛΕΓΧΟΣ ΡΟΗΣ · LOOP BLOCK</div><label for="repeatCount">🔁 Επανάλαβε μπροστά</label><select id="repeatCount" aria-label="Πόσες φορές θα προχωρήσει η αλεπού"><option value="2">2 φορές</option><option value="3" selected>3 φορές</option><option value="4">4 φορές</option><option value="5">5 φορές</option><option value="6">6 φορές</option><option value="7">7 φορές</option><option value="8">8 φορές</option><option value="9">9 φορές</option><option value="10">10 φορές</option><option value="11">11 φορές</option><option value="12">12 φορές</option><option value="13">13 φορές</option><option value="14">14 φορές</option><option value="15">15 φορές</option><option value="16">16 φορές</option><option value="17">17 φορές</option><option value="18">18 φορές</option><option value="19">19 φορές</option><option value="20">20 φορές</option></select><button type="button" class="cmd repeat-add" data-repeat="1">➕ Προσθήκη επανάληψης</button><p>Διάλεξε πόσα βήματα θα κάνει η αλεπού και σύρε το μωβ κουμπί στο σημείο που θέλεις. Μπορείς επίσης να το πατήσεις για προσθήκη στο τέλος.</p></div><div class="hint">Σύρε από τα κουμπιά ή μέσα από το πρόγραμμα. Πάτησε μια εντολή για αντικατάσταση ή διαγραφή.</div><div class="workspace-heading"><span>▤ ΧΩΡΟΣ ΠΡΟΓΡΑΜΜΑΤΟΣ</span><span>ΣΥΡΕ & ΤΟΠΟΘΕΤΗΣΕ</span></div><div class="program" id="program"><span style="color:#8b9ca9">Οι εντολές εμφανίζονται εδώ…</span></div><div class="toolrow"><button id="deleteOne">✕ Διαγραφή επιλεγμένης</button><button id="undo">↶ Αναίρεση</button><button id="hint">💡 Υπόδειξη</button></div><div class="hint" id="missionInfo" aria-live="polite"></div><div class="status" id="status" aria-live="polite">✨ Έτοιμη για περιπέτεια!</div><p style="font-size:12px;margin-top:14px">💡 ↶ και ↷ στρίβουν μόνο την αλεπού. Για να προχωρήσει, πρόσθεσε μετά ⬆️ Μπροστά. Σύρε εντολές ανάμεσα στις άλλες ή πάτησε μία για να την αντικαταστήσεις.</p></aside></main><div class="footer">Δημιουργός: Τσιάλος Δημήτριος • Η πρόοδος αποθηκεύεται τοπικά σε αυτόν τον browser • Έλεγχος λύσης ανά πίστα</div>
+<div id="victoryOverlay" class="victory-overlay" hidden role="dialog" aria-modal="true" aria-labelledby="victoryTitle"><div class="victory-card"><div class="finale-confetti" aria-hidden="true" id="finaleConfetti"></div><div class="victory-emoji" id="victoryEmoji">🦊🌟🎉</div><h2 id="victoryTitle">Μπράβο! Πέρασες την πίστα!</h2><p id="victoryDetails"></p><div class="finale-medal" id="finaleMedal">🏅 Πρωταθλητής / Πρωταθλήτρια Προγραμματισμού</div><button class="victory-next" id="victoryNext">Επόμενη πίστα ➜</button></div></div>
 <script src="https://cdn.jsdelivr.net/npm/three@0.149.0/build/three.min.js"></script><script src="https://cdn.jsdelivr.net/npm/three@0.149.0/examples/js/loaders/GLTFLoader.js"></script><script>
-(()=>{'use strict';if(!window.THREE){document.getElementById('status').textContent='Χρειάζεται σύνδεση στο Internet για να φορτωθούν τα τρισδιάστατα γραφικά.';return}const T=THREE, el=id=>document.getElementById(id), names=['Μαγικό Δάσος','Ηλιόλουστο Λιβάδι','Βραχώδες Φαράγγι','Χιονισμένη Κοιλάδα','Νησί των Θησαυρών','Κρυστάλλινο Βουνό','Κήπος των Μανιταριών','Έρημος των Αστεριών','Σύννεφα της Χαράς','Μυστικό Βασίλειο'];let teacherMode=false,teacherWorld=0,studentLevel=1;let level=1,program=[],selected=-1,running=false,completed=new Set(),history=[],activeCommand=-1;try{completed=new Set((JSON.parse(localStorage.getItem('cq3d_completed')||'[]')||[]).filter(n=>Number.isInteger(n)&&n>=1&&n<=100))}catch{}const scene=new T.Scene();scene.background=new T.Color(0x9cdbf6);scene.fog=new T.Fog(0x9cdbf6,35,70);const camera=new T.PerspectiveCamera(40,1,.1,300);camera.position.set(8,12,13);camera.lookAt(0,0,0);const renderer=new T.WebGLRenderer({antialias:true});renderer.setPixelRatio(Math.min(devicePixelRatio,1.75));renderer.outputEncoding=T.sRGBEncoding;renderer.toneMapping=T.ACESFilmicToneMapping;renderer.toneMappingExposure=1.02;renderer.shadowMap.enabled=true;renderer.shadowMap.type=T.PCFSoftShadowMap;el('scene').prepend(renderer.domElement);scene.add(new T.HemisphereLight(0xf2faff,0x65745c,1.18));const sun=new T.DirectionalLight(0xfff4df,2.15);sun.position.set(-5,12,8);sun.castShadow=true;sun.shadow.mapSize.set(1024,1024);sun.shadow.bias=-0.0002;sun.shadow.camera.left=-12;sun.shadow.camera.right=12;sun.shadow.camera.top=12;sun.shadow.camera.bottom=-12;scene.add(sun);const groundGroup=new T.Group();scene.add(groundGroup);const mat=(color,roughness=0.85)=>new T.MeshStandardMaterial({color,roughness});const orange=mat(0xf58b37),cream=mat(0xffe3b6),dark=mat(0x49362e),pink=mat(0xffa4a4);function mesh(parent,geo,m,x,y,z,shadow=true){const o=new T.Mesh(geo,m);o.position.set(x,y,z);o.castShadow=shadow;o.receiveShadow=true;parent.add(o);return o}function cube(parent,w,h,d,m,x,y,z){return mesh(parent,new T.BoxGeometry(w,h,d),m,x,y,z)}function ball(parent,r,m,x,y,z){return mesh(parent,new T.SphereGeometry(r,14,12),m,x,y,z)}const fox=new T.Group();scene.add(fox);let foxWalking=false;
+(()=>{'use strict';if(!window.THREE){document.getElementById('status').textContent='Χρειάζεται σύνδεση στο Internet για να φορτωθούν τα τρισδιάστατα γραφικά.';return}const T=THREE, el=id=>document.getElementById(id), names=['Μαγικό Δάσος','Ηλιόλουστο Λιβάδι','Βραχώδες Φαράγγι','Χιονισμένη Κοιλάδα','Νησί των Θησαυρών','Κρυστάλλινο Βουνό','Κήπος των Μανιταριών','Έρημος των Αστεριών','Σύννεφα της Χαράς','Μυστικό Βασίλειο'];let teacherMode=false,teacherWorld=0,studentLevel=1;let level=1,program=[],selected=-1,running=false,completed=new Set(),history=[],activeCommand=-1;try{completed=new Set((JSON.parse(localStorage.getItem('cq3d_completed')||'[]')||[]).filter(n=>Number.isInteger(n)&&n>=1&&n<=100))}catch{}const scene=new T.Scene();scene.background=new T.Color(0x9cdbf6);scene.fog=new T.Fog(0x9cdbf6,35,70);const camera=new T.PerspectiveCamera(40,1,.1,300);camera.position.set(8,12,13);camera.lookAt(0,0,0);const renderer=new T.WebGLRenderer({antialias:true});renderer.setPixelRatio(Math.min(devicePixelRatio,1.5));renderer.outputEncoding=T.sRGBEncoding;renderer.toneMapping=T.ACESFilmicToneMapping;renderer.toneMappingExposure=1.02;renderer.shadowMap.enabled=true;renderer.shadowMap.type=T.PCFSoftShadowMap;el('scene').prepend(renderer.domElement);scene.add(new T.HemisphereLight(0xf2faff,0x65745c,.75));const sun=new T.DirectionalLight(0xfff4df,2.15);sun.position.set(-5,12,8);sun.castShadow=true;sun.shadow.mapSize.set(1024,1024);sun.shadow.bias=-0.00035;sun.shadow.normalBias=.035;sun.shadow.radius=3.2;sun.shadow.camera.left=-12;sun.shadow.camera.right=12;sun.shadow.camera.top=12;sun.shadow.camera.bottom=-12;scene.add(sun);
+const fillLight=new T.DirectionalLight(0x9edcff,.42);
+fillLight.position.set(7,6,-5);scene.add(fillLight);
+const groundGroup=new T.Group();scene.add(groundGroup);const mat=(color,roughness=0.85)=>new T.MeshStandardMaterial({color,roughness});const orange=mat(0xf58b37),cream=mat(0xffe3b6),dark=mat(0x49362e),pink=mat(0xffa4a4);function mesh(parent,geo,m,x,y,z,shadow=true){const o=new T.Mesh(geo,m);o.position.set(x,y,z);o.castShadow=shadow;o.receiveShadow=true;parent.add(o);return o}function cube(parent,w,h,d,m,x,y,z){return mesh(parent,new T.BoxGeometry(w,h,d),m,x,y,z)}function ball(parent,r,m,x,y,z){return mesh(parent,new T.SphereGeometry(r,14,12),m,x,y,z)}const fox=new T.Group();scene.add(fox);let foxWalking=false;
 const glbWorlds=new Map();let glbFox=null;let glbLoaded=0;const assetState=document.createElement('div');assetState.id='assetState';assetState.setAttribute('role','status');assetState.textContent='3D assets: φόρτωση…';el('scene').append(assetState);
 function prepareGLB(root){root.traverse(o=>{if(o.isMesh){o.castShadow=true;o.receiveShadow=true}});return root}
-function applyFoxAsset(){if(!glbFox)return;fox.children.forEach(o=>o.visible=false);glbFox.visible=true;glbFox.scale.setScalar(1);fox.add(glbFox)}
+function applyFoxAsset(){if(!glbFox)return;return; // Preserve the higher-contrast custom fox
+ fox.children.forEach(o=>{if(o!==fox.userData.directionArrow && o!==fox.userData.playerHalo)o.visible=false});
+ glbFox.visible=true;glbFox.scale.setScalar(1.28);
+ glbFox.traverse(o=>{if(o.isMesh){o.material=o.material.clone();o.material.color.setHex(0xff922c);o.material.emissive=new T.Color(0x552000);o.material.emissiveIntensity=.18;o.material.roughness=.66}});
+ fox.add(glbFox)}
 function loadGLBAssets(){if(!T.GLTFLoader){assetState.textContent='3D assets: εφεδρικά μοντέλα';return}const loader=new T.GLTFLoader();loader.load('assets/fox.glb',g=>{glbFox=prepareGLB(g.scene);applyFoxAsset();glbLoaded++;assetState.textContent='3D assets: '+glbLoaded+'/11'},undefined,()=>assetState.textContent='3D assets: εφεδρικό μοντέλο αλεπούς');for(let i=0;i<10;i++){loader.load('assets/world_'+String(i+1).padStart(2,'0')+'.glb',g=>{glbWorlds.set(i,prepareGLB(g.scene));glbLoaded++;assetState.textContent='3D assets: '+glbLoaded+'/11';if(Math.floor((level-1)/10)===i)renderBoard()},undefined,()=>{})}}
 // Character staging: readable contact shadow and silhouette.
 const contact=new T.Mesh(new T.CircleGeometry(.52,32),new T.MeshBasicMaterial({color:0x152b32,transparent:true,opacity:.19,depthWrite:false}));contact.rotation.x=-Math.PI/2;contact.position.y=.025;fox.add(contact);ball(fox,.36,orange,0,.47,0);ball(fox,.33,orange,0,.95,-.12);ball(fox,.22,cream,0,.84,.17);ball(fox,.095,dark,0,.87,.37);for(const s of [-1,1]){let ear=mesh(fox,new T.ConeGeometry(.16,.42,4),orange,s*.23,1.35,-.13);ear.rotation.y=Math.PI/4;ball(fox,.065,dark,s*.16,1.04,.16);ball(fox,.12,orange,s*.24,.18,.12)}const tail=mesh(fox,new T.ConeGeometry(.22,.8,8),orange,0,.53,-.56);tail.rotation.x=-Math.PI/2.8;ball(fox,.15,cream,0,.78,-.87);// Λεπτομέρειες αλεπούς: λαμπερά μάτια, μάγουλα και πατουσάκια.
@@ -185,7 +210,52 @@ const collar=mesh(fox,new T.TorusGeometry(.245,.048,8,28),mat(0x35b9b2),0,.65,.0
 // Polished character details: belly, paws, tuft, tail highlight.
 const belly=ball(fox,.265,cream,0,.47,.22,false);belly.scale.set(.92,1.12,.55);
 for(const side of [-1,1]){const paw=ball(fox,.135,dark,side*.24,.12,.26,false);paw.scale.set(1,.6,1.2);const tip=mesh(fox,new T.ConeGeometry(.13,.31,5),orange,side*.13,1.43,-.12,false);tip.rotation.z=side*.23}
-const starGroup=new T.Group();scene.add(starGroup);const starMat=new T.MeshStandardMaterial({color:0xffcf43,emissive:0xffad00,emissiveIntensity:.55,metalness:.15});const starShape=new T.Shape();for(let i=0;i<10;i++){const a=-Math.PI/2+i*Math.PI/5,rad=i%2===0?.46:.21;const x=Math.cos(a)*rad,y=Math.sin(a)*rad;if(i===0)starShape.moveTo(x,y);else starShape.lineTo(x,y)}starShape.closePath();const starGeo=new T.ExtrudeGeometry(starShape,{depth:.11,bevelEnabled:true,bevelThickness:.055,bevelSize:.035,bevelSegments:2,steps:1});const star=mesh(starGroup,starGeo,starMat,0,.80,0);star.rotation.y=-.35;const glow=new T.PointLight(0xffdc76,1.2,5);starGroup.add(glow);glow.position.y=.8;let board=[],size=5,start={x:1,z:1,d:1},goal={x:4,z:4},pos={...start},steps=0,optimalSteps=0;const dirs=[[0,-1],[1,0],[0,1],[-1,0]];function rng(seed){return()=>{seed=(seed*1664525+1013904223)>>>0;return seed/4294967296}}function difficultyFor(n){
+
+// Adventure character art direction: saturated fox, expressive face, clean dark outline.
+const foxArt=new T.Group();fox.add(foxArt);foxArt.scale.setScalar(1.09);
+const fmat=(c)=>new T.MeshStandardMaterial({color:c,roughness:.7,flatShading:false});
+const fOrange=fmat(0xff771b),fGold=fmat(0xffa126),fIvory=fmat(0xfff3d8),fInk=fmat(0x182539),fRose=fmat(0xff91a2);
+const fpart=(geo,m,x,y,z)=>mesh(foxArt,geo,m,x,y,z);
+const fbody=fpart(new T.SphereGeometry(.39,20,16),fOrange,0,.57,-.02);fbody.scale.set(1,.97,.86);
+const fhead=fpart(new T.SphereGeometry(.48,24,18),fOrange,0,1.16,.12);fhead.scale.set(1,1.02,.88);
+for(const side of [-1,1]){
+ const ear=fpart(new T.ConeGeometry(.21,.49,4),fOrange,side*.32,1.65,.05);ear.rotation.z=-side*.16;ear.rotation.y=Math.PI/4;
+ const inside=fpart(new T.ConeGeometry(.105,.27,4),fRose,side*.32,1.68,.21);inside.rotation.y=Math.PI/4;
+ const cheek=fpart(new T.SphereGeometry(.27,14,12),fIvory,side*.22,1.00,.43);cheek.scale.set(.95,.73,.63);
+ const eye=fpart(new T.SphereGeometry(.105,16,12),fInk,side*.21,1.27,.505);eye.scale.set(.82,1.22,.65);
+ fpart(new T.SphereGeometry(.036,10,8),fIvory,side*.18,1.31,.566);
+ const glint=fpart(new T.SphereGeometry(.019,8,6),fIvory,side*.24,1.26,.572);glint.scale.set(.7,1.2,.55);
+ const leg=fpart(new T.SphereGeometry(.17,14,12),fOrange,side*.26,.21,.20);leg.scale.set(.86,1.1,.92);
+ const paw=fpart(new T.SphereGeometry(.14,12,10),fInk,side*.26,.105,.28);paw.scale.y=.47;
+}
+const muzzle=fpart(new T.SphereGeometry(.20,16,12),fIvory,0,.98,.53);muzzle.scale.set(.90,.65,.70);
+fpart(new T.SphereGeometry(.075,12,10),fInk,0,1.03,.67);
+const chest=fpart(new T.SphereGeometry(.25,16,12),fIvory,0,.53,.31);chest.scale.set(.88,1.20,.50);
+for(const side of [-1,1]){
+ const brow=fpart(new T.SphereGeometry(.09,12,10),fInk,side*.21,1.40,.46);
+ brow.scale.set(1.16,.22,.27);
+}
+
+const tail2=fpart(new T.SphereGeometry(.28,18,12),fOrange,.24,.59,-.51);tail2.rotation.z=-.48;tail2.scale.set(1.1,.76,1.85);
+const tailTip=fpart(new T.SphereGeometry(.23,16,12),fIvory,.38,.77,-.78);tailTip.scale.set(.93,.65,1.1);
+const foxTailPivot=new T.Group();foxArt.add(foxTailPivot);
+foxArt.remove(tail2);foxArt.remove(tailTip);
+foxTailPivot.position.set(.20,.60,-.35);
+foxTailPivot.add(tail2,tailTip);
+tail2.position.sub(foxTailPivot.position);tailTip.position.sub(foxTailPivot.position);
+const fFreckle=fmat(0xc84d1c);
+for(const side of [-1,1]){
+  for(let i=0;i<2;i++){
+    const dot=fpart(new T.SphereGeometry(.018,8,6),fFreckle,side*(.22+i*.055),1.025-i*.038,.568-i*.035);
+    dot.scale.set(1,.8,.5);
+  }
+}
+const foxScarf=fmat(0x29b9bf);
+const neck=fpart(new T.TorusGeometry(.29,.045,8,24),foxScarf,0,.78,.035);neck.rotation.x=Math.PI/2;
+
+// Suppress the old simple primitives but keep all gameplay markers.
+for(const obj of [...fox.children]){if(obj!==foxArt && obj!==contact && obj!==fox.userData.playerHalo && obj!==fox.userData.directionArrow && obj!==fox.userData.playerFlag)obj.visible=false}
+const starGroup=new T.Group();scene.add(starGroup);starGroup.scale.setScalar(1.25);const starMat=new T.MeshStandardMaterial({color:0xffcf43,emissive:0xffad00,emissiveIntensity:.55,metalness:.15});const starShape=new T.Shape();for(let i=0;i<10;i++){const a=-Math.PI/2+i*Math.PI/5,rad=i%2===0?.46:.21;const x=Math.cos(a)*rad,y=Math.sin(a)*rad;if(i===0)starShape.moveTo(x,y);else starShape.lineTo(x,y)}starShape.closePath();const starGeo=new T.ExtrudeGeometry(starShape,{depth:.11,bevelEnabled:true,bevelThickness:.055,bevelSize:.035,bevelSegments:2,steps:1});const star=mesh(starGroup,starGeo,starMat,0,.80,0);star.rotation.y=-.35;const glow=new T.PointLight(0xffdc76,1.2,5);starGroup.add(glow);glow.position.y=.8;let board=[],size=5,start={x:1,z:1,d:1},goal={x:4,z:4},pos={...start},steps=0,optimalSteps=0;const dirs=[[0,-1],[1,0],[0,1],[-1,0]];function rng(seed){return()=>{seed=(seed*1664525+1013904223)>>>0;return seed/4294967296}}function difficultyFor(n){
  const local=(n-1)%10;
  return {local, tier:local<3?'Εύκολη':local<7?'Μέτρια':'Δύσκολη', target:4+local+Math.floor((n-1)/20)};
 }
@@ -214,7 +284,7 @@ function generate(n){
  board=Array.from({length:size},()=>Array(size).fill(0));start={x:1,z:1,d:1};goal={x:size-2,z:size-2};optimalSteps=findSolution().length;
 }
 
-function clearGroup(g){while(g.children.length){const c=g.children[0];g.remove(c);c.traverse(o=>{if(o.geometry)o.geometry.dispose();if(o.material&&!Array.isArray(o.material))o.material.dispose()})}}function cell(x,z){return (x-(size-1)/2)*1.48}function makeTree(x,z,r){const trunk=mat(0x986844),leaf=mat(r()<.5?0x43a66a:0x2b8d67);cube(groundGroup,.18,.6,.18,trunk,x,.35,z);const tree=mesh(groundGroup,new T.ConeGeometry(.46,1.3,7),leaf,x,1.2,z);tree.rotation.y=r()*6}function flower(x,z,r,world){
+function clearGroup(g){while(g.children.length){const c=g.children[0];g.remove(c);c.traverse(o=>{if(o.geometry)o.geometry.dispose();if(o.material)(Array.isArray(o.material)?o.material:[o.material]).forEach(m=>m.dispose())})}}function cell(x,z){return (x-(size-1)/2)*1.48}function makeTree(x,z,r){const trunk=mat(0x986844),leaf=mat(r()<.5?0x43a66a:0x2b8d67);cube(groundGroup,.18,.6,.18,trunk,x,.35,z);const tree=mesh(groundGroup,new T.ConeGeometry(.46,1.3,7),leaf,x,1.2,z);tree.rotation.y=r()*6}function flower(x,z,r,world){
  const stem=mat(world===3?0x9cc3d0:0x3b9a65);
  const petal=mat([0xffc5df,0xffe394,0xc9b7ff,0xffffff][Math.floor(r()*4)]);
  const center=mat(0xffcc49);
@@ -240,22 +310,65 @@ function themedObject(world,X,Z,r,obstacle){
  const stone=(radius,color,x,y,z)=>{const o=mesh(g,new T.DodecahedronGeometry(radius,1),mat(color),x,y,z);o.scale.set(1,.73,1);o.rotation.y=r()*6.28;return o};
  const v=Math.floor(r()*3);
  if(world===0){box(.2,.62,.2,0x78523a,0,.33,0);sphere(.40,0x267f5a,-.13,.83,0);sphere(.33,0x359f6a,.17,1.02,.06);sphere(.25,0x4dbd7d,-.18,1.14,.02);}
- else if(world===1){box(.15,.62,.15,0x4c9151,0,.32,0);sphere(.35,v?0xf7bc59:0xf7899e,0,.85,0);for(let a=0;a<5;a++){const q=a*6.283/5;sphere(.14,0xffe4a0,Math.cos(q)*.28,.87,Math.sin(q)*.28)}sphere(.13,0x78512e,0,.92,.31)}
- else if(world===2){stone(.48,0x887667,0,.34,0);stone(.29,0xb7a18a,-.23,.48,.12);stone(.20,0x63594f,.26,.25,-.12);}
- else if(world===3){box(.14,.55,.14,0x7c9197,0,.30,0);cone(.46,.95,0xe6f5ff,0,.87,0);cone(.35,.68,0xb2d9e7,0,1.33,0);sphere(.08,0xffffff,.2,1.25,.12)}
- else if(world===4){box(.15,.72,.15,0x8e633b,0,.40,0);for(let a=0;a<6;a++){const q=a*6.283/6;const leaf=sphere(.34,0x228c72,Math.cos(q)*.33,1.0,Math.sin(q)*.33);leaf.scale.set(1,.36,.6)}sphere(.12,0xf2c46e,0,1.03,0)}
- else if(world===5){for(let i=0;i<4;i++){const h=.65+r()*.62,rad=.13+r()*.08;const crystal=mesh(g,new T.CylinderGeometry(0,rad,h,6),new T.MeshStandardMaterial({color:[0x79f1f2,0x94b8ff,0xc0a6ff][i%3],metalness:.16,roughness:.19,emissive:0x204f7b,emissiveIntensity:.25}), (i-1.5)*.22,h*.5,(i%2-.5)*.26);crystal.rotation.z=(i-1.5)*.1}}
- else if(world===6){box(.16,.38,.16,0xffe7c9,0,.22,0);const cap=sphere(.48,v===0?0xd16a9f:v===1?0x9868ca:0xee9a68,0,.58,0);cap.scale.y=.55;for(let i=0;i<5;i++){const a=i*6.283/5;sphere(.07,0xffe5ee,Math.cos(a)*.27,.73,Math.sin(a)*.27)}}
- else if(world===7){stone(.38,0xcba36b,0,.26,0);box(.14,.78,.14,0x368a69,0,.44,0);box(.51,.13,.15,0x3b9871,-.13,.66,0);box(.45,.13,.15,0x3b9871,.12,.48,0)}
- else if(world===8){const cloud=sphere(.37,0xffffff,0,.48,0);cloud.scale.y=.65;sphere(.30,0xe7f8ff,-.26,.46,.06);sphere(.32,0xf9ffff,.24,.51,-.04);sphere(.17,0xcdebf6,0,.31,.25)}
- else {box(.59,.65,.59,v===0?0x8473b2:0x9a89bc,0,.36,0);box(.7,.12,.7,0xc0b0d3,0,.73,0);cone(.48,.52,0x59448a,0,1.04,0,4);sphere(.10,0xffd875,0,1.30,0)}
+ else if(world===1){box(.15,.62,.15,0x4c9151,0,.32,0);sphere(.35,v?0xffa02d:0xff4b8d,0,.85,0);for(let a=0;a<5;a++){const q=a*6.283/5;sphere(.14,0xffe4a0,Math.cos(q)*.28,.87,Math.sin(q)*.28)}sphere(.13,0x78512e,0,.92,.31)}
+ else if(world===2){stone(.48,0x39434c,0,.34,0);stone(.29,0x697887,-.23,.48,.12);stone(.20,0x202d38,.26,.25,-.12);}
+ else if(world===3){box(.14,.55,.14,0x7c9197,0,.30,0);cone(.46,.95,0x334e83,0,.87,0);cone(.35,.68,0x8b50d7,0,1.33,0);sphere(.08,0xffffff,.2,1.25,.12)}
+ else if(world===4){
+  box(.94,.12,.94,0x4b9e3f,0,.07,0);
+  const trunk=mesh(g,new T.CylinderGeometry(.095,.15,.76,8),mat(0x9b6537),0,.47,0);trunk.rotation.z=.12;
+  for(let a=0;a<7;a++){let q=a*6.283/7;let leaf=sphere(.35,a%2?0x19a949:0x3bd36a,Math.cos(q)*.29,.94,Math.sin(q)*.29);leaf.scale.set(1.25,.24,.66);leaf.rotation.y=q}
+  sphere(.12,0xf5ce7e,0,.96,0);
+  for(let k=0;k<3;k++)stone(.09,k%2?0x9b9f92:0xc1b7a1,(k-1)*.29,.13,.29);
+ }
+ else if(world===5){ // crystal mountain: saturated jewel clusters on deep teal floor
+   const jewel=[0xe952e7,0x7d4bff,0xffc94d,0x35d9ff];
+   stone(.28,0x3b334e,0,.17,0);
+   for(let i=0;i<5;i++){
+     const h=.48+r()*.44,rad=.115+r()*.055;
+     const m=new T.MeshStandardMaterial({color:jewel[i%4],roughness:.19,metalness:.15,emissive:jewel[i%4],emissiveIntensity:.12,flatShading:true});
+     const o=mesh(g,new T.CylinderGeometry(.005,rad,h,5),m,(i-2)*.19,h*.5+.14,(i%2-.5)*.22);
+     o.rotation.z=(i-2)*.11;
+   }
+ }
+ else if(world===6){ // mushroom garden: red-orange caps, cream spots, dark stems
+   const stem=mesh(g,new T.CylinderGeometry(.115,.17,.48,10),mat(0xf4dbab),0,.27,0);
+   const collar=mesh(g,new T.CylinderGeometry(.26,.23,.085,12),mat(0x55372c),0,.48,0);
+   const cap=mesh(g,new T.SphereGeometry(.43,18,12),mat(v===0?0xf34136:v===1?0xff772b:0xe63b4b),0,.63,0);
+   cap.scale.y=.55;
+   for(let i=0;i<6;i++){
+     const a=i*6.283/6,spot=sphere(.066,0xfff5d5,Math.cos(a)*.265,.75,Math.sin(a)*.265);
+     spot.scale.y=.58;
+   }
+   sphere(.075,0xfff5d5,0,.85,0);
+ }
+ else if(world===7){ // star desert: strong dark cactus silhouette, not sand-colored
+   stone(.30,0x7b5435,0,.16,0);
+   const cactus=mat(0x146342),spine=mat(0xe5dd88);
+   mesh(g,new T.CylinderGeometry(.13,.18,.83,10),cactus,0,.55,0);
+   const left=mesh(g,new T.CylinderGeometry(.085,.09,.43,8),cactus,-.26,.62,0);
+   left.rotation.z=-.7;
+   const right=mesh(g,new T.CylinderGeometry(.085,.09,.42,8),cactus,.26,.50,0);
+   right.rotation.z=.7;
+   sphere(.12,0x24a86a,0,1.01,0);
+   for(let i=0;i<4;i++)box(.023,.10,.025,0xf6d983,(i-1.5)*.055,.55+i*.09,.12);
+ }
+ else if(world===8){const cloud=sphere(.37,0xffe7ad,0,.48,0);cloud.scale.y=.65;sphere(.30,0xfff0c9,-.26,.46,.06);sphere(.32,0xffe5b4,.24,.51,-.04);sphere(.17,0xcdebf6,0,.31,.25)}
+ else { // secret kingdom: warm ivory stone, gold trim and orange roofs on navy
+   box(.53,.62,.53,0xf0d9a8,0,.36,0);
+   box(.62,.11,.62,0xb88942,0,.71,0);
+   box(.45,.08,.45,0xffedc2,0,.79,0);
+   cone(.43,.47,v===0?0xe17832:v===1?0xc94e37:0xe9a03b,0,1.07,0,4);
+   sphere(.095,0xffd44f,0,1.33,0);
+   box(.14,.23,.03,0x3a5264,0,.33,.283);
+   for(let i of [-1,1])box(.07,.12,.025,0x38b7d0,i*.18,.51,.285);
+ }
 }
 function scenery(world,X,Z,r){
  if(world===0||world===1)flower(X,Z,r,world);
  else if(world===3){let m=mat(0xeafaff);mesh(groundGroup,new T.OctahedronGeometry(.12),m,X,.15,Z)}
  else if(world===4){cube(groundGroup,.24,.08,.18,mat(0xf2d492),X,.06,Z)}
- else if(world===5){mesh(groundGroup,new T.OctahedronGeometry(.17),mat(0x79dcf9),X,.18,Z)}
- else if(world===6)mushroom(X,Z,r);
+ else if(world===5){mesh(groundGroup,new T.OctahedronGeometry(.12),mat(0xffc84d),X,.15,Z)}
+ else if(world===6){const pebble=mesh(groundGroup,new T.DodecahedronGeometry(.11,0),mat(0xd5b47a),X,.09,Z);pebble.scale.y=.45;}
  else if(world===7){ball(groundGroup,.13,mat(0xc49b58),X,.10,Z,false)}
  else if(world===8){ball(groundGroup,.19,mat(0xf8ffff),X,.16,Z,false)}
  else {cube(groundGroup,.22,.12,.22,mat(0xf1d88e),X,.09,Z)}
@@ -338,7 +451,7 @@ function panorama(world){
   ['#70c6fa','#ffe5a3','#8bc968','#4a985c'], // meadow
   ['#b67f66','#ffe3bb','#ba8666','#785a51'], // canyon
   ['#6dadd6','#effbff','#b9e0ec','#719cb9'], // snow
-  ['#3b9bd7','#f7dfa8','#30b8b3','#187d9a'], // island
+  ['#1885c9','#81d7ef','#169bb8','#075d89'], // island
   ['#302a75','#9b7cd6','#5965ac','#2d3a77'], // crystal
   ['#382b65','#a26cc5','#62529b','#322b65'], // mushroom
   ['#d27d62','#ffd9a2','#e9aa67','#ae6d55'], // desert
@@ -352,12 +465,22 @@ function panorama(world){
  function ridge(y,amp,col,phase){c.fillStyle=col;c.beginPath();c.moveTo(0,H);c.lineTo(0,y);for(let x=0;x<=W+24;x+=24){let z=y+Math.sin(x*.006+phase)*amp+Math.sin(x*.013+phase*2)*amp*.45;c.lineTo(x,z)}c.lineTo(W,H);c.closePath();c.fill()}
  function cloud(x,y,scale,color='#ffffff',opacity=.6){c.save();c.globalAlpha=opacity;c.fillStyle=color;for(let i=0;i<5;i++){c.beginPath();c.ellipse(x+i*35*scale,y+(i%2)*7*scale,(42+(i%3)*8)*scale,18*scale,0,0,Math.PI*2);c.fill()}c.restore()}
  // World-specific focal shapes, not just recolored versions of one background.
- if(world===0||world===1||world===4||world===8){for(let i=0;i<10;i++)cloud(rand()*W,80+rand()*290,.55+rand()*.8,'#ffffff',world===8?.85:.4)}
+ if(world===0||world===1||world===8){for(let i=0;i<10;i++)cloud(rand()*W,80+rand()*290,.55+rand()*.8,'#ffffff',world===8?.85:.4)}
  if(world===0){circle(1210,145,76,'#fff4b2',.45);ridge(480,55,far,1);ridge(590,40,near,2);for(let i=0;i<36;i++){let x=rand()*W,y=465+rand()*170,h=90+rand()*145;c.fillStyle=i%2?'#1f6d5a':'#2e8a6a';c.fillRect(x-7,y-h*.4,14,h*.5);c.beginPath();c.moveTo(x,y-h);c.lineTo(x-39,y+8);c.lineTo(x+39,y+8);c.fill()}for(let i=0;i<22;i++)circle(rand()*W,180+rand()*440,2+rand()*3,'#f8eaa0',.65)}
  if(world===1){circle(1190,190,92,'#fff5c5',.9);ridge(530,48,far,2);ridge(640,55,near,1);for(let i=0;i<70;i++){const x=rand()*W,y=550+rand()*180;circle(x,y,3+rand()*5,i%2?'#f6c1d9':'#ffe7a4',.7)}}
  if(world===2){circle(1160,150,85,'#fff1d0',.75);ridge(410,75,far,2);ridge(565,55,near,1);for(let i=0;i<15;i++){let x=i*125+rand()*50,h=100+rand()*200;c.fillStyle=i%2?'#996a57':'#c58e68';c.fillRect(x,560-h,45+rand()*50,h);c.fillRect(x-16,560-h,85,17)}}
  if(world===3){circle(1190,125,68,'#ffffff',.5);ridge(470,125,far,3);ridge(570,85,near,1);for(let i=0;i<20;i++){let x=rand()*W,y=480+rand()*100;c.fillStyle='#edfaff';c.beginPath();c.moveTo(x,y-110-rand()*110);c.lineTo(x-42,y+10);c.lineTo(x+42,y+10);c.fill()}for(let i=0;i<45;i++)circle(rand()*W,rand()*H,1+rand()*3,'#ffffff',.75)}
- if(world===4){circle(1180,145,90,'#fff4bd',.85);c.fillStyle='#36c4c2';c.fillRect(0,555,W,H-555);ridge(545,25,far,2);for(let i=0;i<6;i++){let x=80+i*280,y=550;circle(x,y,40,'#398f6a');c.strokeStyle='#886a4a';c.lineWidth=9;c.beginPath();c.moveTo(x,y);c.quadraticCurveTo(x+25,y-95,x+60,y-165);c.stroke();for(let j=0;j<5;j++){c.strokeStyle='#279d77';c.lineWidth=12;c.beginPath();c.moveTo(x+60,y-165);c.lineTo(x+60+Math.cos(j*1.25)*66,y-165+Math.sin(j*1.25)*24);c.stroke()}}}
+ if(world===4){
+  const sea=c.createLinearGradient(0,430,0,H);sea.addColorStop(0,'#159ac6');sea.addColorStop(.35,'#08b7c8');sea.addColorStop(1,'#075e8c');c.fillStyle=sea;c.fillRect(0,460,W,H-460);
+  const horizon=c.createLinearGradient(0,400,0,550);horizon.addColorStop(0,'#55c2d8');horizon.addColorStop(1,'#0693bc');c.fillStyle=horizon;c.fillRect(0,442,W,72);
+  // layered distant tropical limestone islets
+  for(let i=0;i<8;i++){let x=50+i*215+rand()*85,y=455+rand()*28,w=65+rand()*75,h=65+rand()*75;
+   c.fillStyle='#517e73';c.beginPath();c.moveTo(x-w,y);c.lineTo(x-w*.7,y-h*.65);c.lineTo(x-w*.3,y-h);c.lineTo(x+w*.28,y-h*.83);c.lineTo(x+w*.76,y-h*.45);c.lineTo(x+w,y);c.closePath();c.fill();
+   c.fillStyle='#238c6a';c.beginPath();c.ellipse(x,y-h*.77,w*.72,h*.23,0,Math.PI,Math.PI*2);c.fill();
+   c.strokeStyle='#e0fbef';c.lineWidth=3;c.globalAlpha=.32;c.beginPath();c.ellipse(x,y+4,w*1.1,9,0,0,Math.PI);c.stroke();c.globalAlpha=1;
+  }
+  for(let i=0;i<90;i++){let x=rand()*W,y=530+rand()*230;c.globalAlpha=.12+rand()*.25;c.fillStyle='#d9fffb';c.fillRect(x,y,12+rand()*80,1+rand()*2)}c.globalAlpha=1;
+ }
  if(world===5){ridge(480,110,far,3);ridge(615,75,near,1);for(let i=0;i<26;i++){let x=rand()*W,y=520+rand()*150,h=50+rand()*160;c.fillStyle=i%2?'#77d8f1':'#b7a8fc';c.beginPath();c.moveTo(x,y-h);c.lineTo(x-24,y);c.lineTo(x+24,y);c.closePath();c.fill()}for(let i=0;i<65;i++)circle(rand()*W,rand()*500,1+rand()*2,'#c6f5ff',.8)}
  if(world===6){circle(1180,150,80,'#f4d3ff',.6);ridge(500,65,far,2);ridge(640,40,near,1);for(let i=0;i<22;i++){let x=rand()*W,y=510+rand()*160,h=40+rand()*100;c.fillStyle='#e5d1bf';c.fillRect(x-6,y-h*.65,12,h*.65);c.fillStyle=i%2?'#e685bf':'#a77ae0';c.beginPath();c.ellipse(x,y-h*.65,30+rand()*25,18,0,Math.PI,Math.PI*2);c.fill()}for(let i=0;i<35;i++)circle(rand()*W,rand()*550,1+rand()*3,'#f8d9ff',.7)}
  if(world===7){circle(1170,160,95,'#fff2c4',.85);ridge(490,42,far,2);ridge(620,38,near,3);for(let i=0;i<8;i++){let x=rand()*W,y=550+rand()*110,h=70+rand()*130;c.fillStyle='#a77a5d';c.fillRect(x,y-h,22+rand()*25,h);c.beginPath();c.moveTo(x-14,y-h);c.lineTo(x+13,y-h-35);c.lineTo(x+42,y-h);c.fill()}}
@@ -411,85 +534,165 @@ function biomeTerrain(world,r){
 
 // ISLAND ART DIRECTION: a shaped shoreline and ocean replace the generic square pedestal.
 function islandAdventureTerrain(r){
- const make=(c,rough=.88)=>new T.MeshStandardMaterial({color:c,roughness:rough,flatShading:true});
- const ext=(size-1)*1.48/2+.88;
- const ocean=mesh(groundGroup,new T.CylinderGeometry(ext*1.72,ext*1.72,.13,64),new T.MeshStandardMaterial({color:0x0a91b4,roughness:.3,metalness:.06}),0,-1.12,0);
- ocean.receiveShadow=true;
- const lagoon=mesh(groundGroup,new T.CylinderGeometry(ext*1.42,ext*1.42,.09,64),make(0x22c8c6,.4),0,-1.025,0);
- lagoon.receiveShadow=true;
- // Organic polygon coast: no hard-edged square slab, no white floating board.
- const N=72, radii=[];
- for(let i=0;i<N;i++){const a=i*2*Math.PI/N;radii.push(ext*(1.12+.055*Math.sin(3*a+.6)+.035*Math.cos(7*a)))}
- const verts=[],indices=[],uv=[];
- const rings=[{scale:0,y:-.36},{scale:.89,y:-.36},{scale:1,y:-.40},{scale:1.035,y:-.63},{scale:1.08,y:-.80}];
- for(let k=0;k<rings.length;k++)for(let i=0;i<N;i++){
-  const a=i*2*Math.PI/N,rr=radii[i]*rings[k].scale;
-  verts.push(Math.cos(a)*rr,rings[k].y,Math.sin(a)*rr);uv.push((Math.cos(a)*rr/ext+1)/2,(Math.sin(a)*rr/ext+1)/2);
- }
- for(let k=0;k<rings.length-1;k++)for(let i=0;i<N;i++){
-  const j=(i+1)%N,A=k*N+i,B=k*N+j,C=(k+1)*N+i,D=(k+1)*N+j;
-  indices.push(A,C,B,B,C,D);
- }
- const geo=new T.BufferGeometry();geo.setAttribute('position',new T.Float32BufferAttribute(verts,3));geo.setAttribute('uv',new T.Float32BufferAttribute(uv,2));geo.setIndex(indices);geo.computeVertexNormals();
- const coast=mesh(groundGroup,geo,new T.MeshStandardMaterial({color:0xf2bc68,roughness:.95,side:T.DoubleSide,flatShading:true}),0,0,0);
- coast.receiveShadow=true;
- // Island soil under playable cells, physically integrated into the shoreline.
- cube(groundGroup,ext*1.98,.16,ext*1.98,make(0xd6a35e),0,-.38,0);
- // Scattered smooth coastal boulders, shell clusters, and small patches of vegetation.
- for(let i=0;i<30;i++){
-  const a=r()*Math.PI*2,rad=ext*(.95+r()*.16),x=Math.cos(a)*rad,z=Math.sin(a)*rad;
-  const rock=mesh(groundGroup,new T.DodecahedronGeometry(.11+r()*.17,1),make(i%3?0xffdb9d:0xc58e60),x,-.26,z);
-  rock.scale.set(1.4,.5,.8);rock.rotation.y=r()*6.28;
- }
- for(let i=0;i<18;i++){
-  const a=r()*6.283,rad=ext*(.95+r()*.18),x=Math.cos(a)*rad,z=Math.sin(a)*rad;
-  const grass=mesh(groundGroup,new T.ConeGeometry(.10,.32,4),make(i%2?0x1f9d77:0x54b37c),x,-.16,z);
-  grass.rotation.z=(r()-.5)*.6;
- }
- // Palm silhouettes at four corners, away from walkable tiles.
- const palms=[[-1,-1],[1,-1],[-1,1],[1,1]];
- palms.forEach(([sx,sz],i)=>{
-  const x=sx*(ext+.20),z=sz*(ext+.20),g=new T.Group();g.position.set(x,-.35,z);g.scale.setScalar(i%2?.85:1.06);groundGroup.add(g);
-  const trunk=mesh(g,new T.CylinderGeometry(.095,.17,1.55,9),make(0x956239),0,.77,0);trunk.rotation.z=sx*.18;
-  for(let j=0;j<7;j++){
-   const a=j*Math.PI*2/7,leaf=mesh(g,new T.SphereGeometry(.58,12,8),make(j%2?0x138d66:0x24b777),Math.cos(a)*.49,1.62,Math.sin(a)*.49);
-   leaf.scale.set(1.32,.12,.40);leaf.rotation.y=-a;
-  }
-  for(let j=0;j<3;j++)ball(g,.12,make(0x88502e),.1+(j-1)*.13,1.45,.06);
- });
- // Treasure props, never inside a playable cell.
- for(let i=0;i<4;i++){
-  const a=(i+.4)*Math.PI/2,rr=ext*1.12,x=Math.cos(a)*rr,z=Math.sin(a)*rr;
-  const chest=new T.Group();chest.position.set(x,-.25,z);chest.rotation.y=a;groundGroup.add(chest);
-  cube(chest,.43,.27,.30,make(0x8c4d2b),0,.14,0);
-  cube(chest,.47,.08,.34,make(0x5b3328),0,.32,0);
-  cube(chest,.07,.30,.35,make(0xf5c55b),0,.20,0);
+ const M=(c,rough=.8)=>new T.MeshStandardMaterial({color:c,roughness:rough,metalness:0,flatShading:true});
+ const edge=(size-1)*1.48/2+.7;
+ // Vast single ocean surface instead of concentric cyan circles.
+ const ocean=mesh(groundGroup,new T.PlaneGeometry(edge*6.5,edge*6.5),new T.MeshStandardMaterial({color:0x087ca4,roughness:.34,metalness:.08}),0,-.89,0,false);ocean.rotation.x=-Math.PI/2;ocean.receiveShadow=true;
+ const coastN=80,radius=edge*1.15,rr=[];
+ for(let i=0;i<coastN;i++){let a=i*Math.PI*2/coastN;rr.push(radius*(1+.035*Math.sin(5*a+.8)+.035*Math.sin(9*a-1.2)+.018*Math.cos(17*a)))}
+ // Sand island: top ring, pale beach rim, ochre cliff face.
+ const layers=[[0,-.28],[.90,-.28],[1,-.36],[1.045,-.52],[1.075,-.76]];
+ const vs=[],ids=[];
+ for(let k=0;k<layers.length;k++)for(let i=0;i<coastN;i++){let a=i*Math.PI*2/coastN,d=rr[i]*layers[k][0];vs.push(Math.cos(a)*d,layers[k][1],Math.sin(a)*d)}
+ for(let k=0;k<layers.length-1;k++)for(let i=0;i<coastN;i++){let j=(i+1)%coastN,A=k*coastN+i,B=k*coastN+j,C=(k+1)*coastN+i,D=(k+1)*coastN+j;ids.push(A,C,B,B,C,D)}
+ const geo=new T.BufferGeometry();geo.setAttribute('position',new T.Float32BufferAttribute(vs,3));geo.setIndex(ids);geo.computeVertexNormals();
+ const island=mesh(groundGroup,geo,new T.MeshStandardMaterial({color:0xf4c979,roughness:1,side:T.DoubleSide,flatShading:true}),0,0,0);island.receiveShadow=true;
+ // One continuous wave foam ribbon along the shore.
+ const wavePts=[];for(let i=0;i<=coastN;i++){let j=i%coastN,a=i*Math.PI*2/coastN,d=rr[j]*1.12;wavePts.push(new T.Vector3(Math.cos(a)*d,-.84,Math.sin(a)*d))}
+ const foam=mesh(groundGroup,new T.TubeGeometry(new T.CatmullRomCurve3(wavePts,true),coastN*2,.055,5,true),new T.MeshBasicMaterial({color:0xaffcf4,transparent:true,opacity:.73}),0,0,0,false);foam.castShadow=false;
+ // Island soil connects the playable tiles with the beach; no hovering white board.
+ cube(groundGroup,size*1.48+.05,.24,size*1.48+.05,M(0xb98143),0,-.30,0);
+ const palm=(x,z,s=1)=>{let g=new T.Group();g.position.set(x,-.28,z);g.scale.setScalar(s);groundGroup.add(g);
+  let trunk=mesh(g,new T.CylinderGeometry(.11,.20,1.65,9),M(0x89522e),0,.84,0);trunk.rotation.z=.10;
+  for(let j=0;j<8;j++){let a=j*Math.PI/4;const leaf=mesh(g,new T.SphereGeometry(.55,12,8),M(j%2?0x20b853:0x16864a),Math.cos(a)*.48,1.68,Math.sin(a)*.48);leaf.scale.set(1.42,.16,.43);leaf.rotation.y=-a}
+  for(let j=0;j<3;j++)ball(g,.11,M(0x68401e),(j-1)*.14,1.50,.12);
+ };
+ [[-1,-1],[1,-1],[-1,1],[1,1]].forEach(([sx,sz],i)=>palm(sx*(edge+.10),sz*(edge+.10),i%2?.82:1));
+ const rock=(x,z,s)=>{let m=mesh(groundGroup,new T.DodecahedronGeometry(s,1),M(0x888f85),x,-.24,z);m.scale.set(1.4,.64,.9);m.rotation.y=r()*6.28};
+ for(let i=0;i<26;i++){let a=r()*Math.PI*2,d=edge*(1.02+r()*.22);rock(Math.cos(a)*d,Math.sin(a)*d,.09+r()*.17)}
+ // Wooden jetties at two shores: distinctive adventure-game scenery.
+ const dock=(x,z,angle)=>{let g=new T.Group();g.position.set(x,-.29,z);g.rotation.y=angle;groundGroup.add(g);
+  for(let i=0;i<7;i++){cube(g,.67,.11,.31,M(i%2?0x98602f:0xb6793d),0,.08,i*.33);for(let side of [-1,1])cube(g,.10,.45,.12,M(0x734a29),side*.29,-.14,i*.33)}
+ };
+ dock(-edge*1.14,edge*.35,Math.PI/2);dock(edge*1.14,-edge*.42,-Math.PI/2);
+ // Treasure chest and beach flowers.
+ const chest=new T.Group();chest.position.set(-edge*.95,-.18,-edge*.78);chest.rotation.y=.4;groundGroup.add(chest);
+ cube(chest,.60,.34,.42,M(0x76401f),0,.20,0);cube(chest,.63,.12,.45,M(0xc88939),0,.40,0);cube(chest,.08,.38,.46,M(0xffd05b),0,.23,0);
+ for(let i=0;i<16;i++){let a=r()*6.283,d=edge*(.97+r()*.17),x=Math.cos(a)*d,z=Math.sin(a)*d;
+  let stem=mesh(groundGroup,new T.CylinderGeometry(.018,.026,.22,6),M(0x348b42),x,-.12,z);for(let j=0;j<5;j++){let q=j*6.283/5;ball(groundGroup,.065,M(i%2?0xff7e6e:0xffffff),x+Math.cos(q)*.07,.04,z+Math.sin(q)*.07)}ball(groundGroup,.06,M(0xffd147),x,.045,z);
  }
 }
 
+// Design system: consistent low-glare slate board, warm interactive characters,
+// coral obstacles and gold goal; terrain identity is expressed outside the grid.
 function biomeTile(world,x,z){
+ // Color-coded, high-luminance walking surfaces. Obstacles/player use entirely
+ // different hues and dark surrounds; no color alone communicates walkability.
  const palettes=[
- [0x579b70,0x64aa79,0x4d8d67],[0xa0c976,0xb3d989,0x8cbf6b],
- [0xcba17d,0xd9b08b,0xb98d6b],[0xe4f5f8,0xcbe9f0,0xf1fcff],
- [0xcda66d,0xe0bd83,0xb9945e],[0x7f95d2,0x9cb1e6,0x687dbb],
- [0x9975af,0xb28bc6,0x83649d],[0xe0b777,0xf0cd92,0xcfa16b],
- [0xe3f6fa,0xf6ffff,0xcceaf5],[0xb5a7c9,0xd0c3df,0x9b8ab8]][world];
- return palettes[(x*7+z*11+level*3)%3];
+ [0xbce6a0,0xa8d48b],[0xf3db91,0xe5c77c],[0xe9c59c,0xd9b389],
+ [0xc4e8f4,0xaed7e7],[0xf3d78d,0xe7c476],[0xc9e4ed,0xb5d3e5],
+ [0xd9b8eb,0xc8a5de],[0xf0d0a0,0xe4be8d],[0xd6eaf3,0xc4dce9],
+ [0xdacde9,0xc7b7df]
+ ];return palettes[world][(x+z)%2];
 }
+
+function islandPierDecor(r){
+ const wood=new T.MeshStandardMaterial({color:0x986033,roughness:.88,flatShading:true});
+ const edge=(size-1)*1.48/2+.72;
+ // Decorative posts stay outside the playable board.
+ for(const side of [-1,1]){
+   for(let i=0;i<3;i++){
+     const x=(i-1)*.62,z=side*(edge+.18);
+     const post=mesh(groundGroup,new T.CylinderGeometry(.105,.13,.58,7),wood,x,-.10,z);
+     post.castShadow=true;
+     const cap=mesh(groundGroup,new T.CylinderGeometry(.14,.14,.09,7),wood,x,.20,z);
+     cap.castShadow=true;
+   }
+ }
+}
+function adventurePalm(parent,x,z,scale=1){
+ const g=new T.Group();parent.add(g);g.position.set(x,.14,z);g.scale.setScalar(scale);
+ const wood=new T.MeshStandardMaterial({color:0x895126,roughness:.9,flatShading:true});
+ const green=[0x168b3e,0x3dc448,0x76d84c,0x2b9e38].map(c=>new T.MeshStandardMaterial({color:c,roughness:.75,flatShading:true}));
+ const trunk=mesh(g,new T.CylinderGeometry(.16,.26,.98,9),wood,0,.52,0);trunk.rotation.z=.08;
+ const coconut=ball(g,.27,wood,0,1.10,0);
+ for(let i=0;i<8;i++){
+  const a=i*Math.PI/4;
+  // Leaflets have a curved spine and tapered tip, without overlapping neighboring cells.
+  const leaf=mesh(g,new T.SphereGeometry(.38,14,10),green[i%4],Math.cos(a)*.35,1.18,Math.sin(a)*.35);
+  leaf.scale.set(1.38,.14,.40);leaf.rotation.y=-a;
+  const tip=mesh(g,new T.ConeGeometry(.105,.43,6),green[i%4],Math.cos(a)*.65,1.05,Math.sin(a)*.65);
+  tip.rotation.z=Math.cos(a)*.70;tip.rotation.x=-Math.sin(a)*.70;
+  const mid=mesh(g,new T.SphereGeometry(.19,10,7),green[(i+1)%4],Math.cos(a)*.55,1.15,Math.sin(a)*.55);
+  mid.scale.set(1.2,.13,.36);mid.rotation.y=-a;
+ }
+ for(let i=0;i<3;i++)ball(g,.13,wood,(i-1)*.16,1.03,.12);
+ return g;
+}
+// Accessibility palette: obstacle objects deliberately differ from walking tiles.
+// Each tuple: two free tile colors, obstacle side, obstacle top.
+const worldFloorPalettes=[
+ [0x365e42,0x427d50,0x933d44,0xd95753], // forest: dark evergreen / coral
+ [0x577d35,0x79a344,0x933d44,0xd95753], // meadow: grass / coral
+ [0x9a784b,0xc59a60,0x933d44,0xd95753], // canyon: sandstone / coral
+ [0x32627b,0x478aa5,0x933d44,0xd95753], // ice: deep teal / coral
+ [0x43862e,0xb98843,0x9c2d43,0xe0525a], // island: existing approved palette
+ [0x153d4d,0x246274,0x933d44,0xd95753], // crystal: deep teal / bright magenta crystals
+ [0x3c7048,0x528a50,0x933d44,0xd95753], // mushroom: forest green / scarlet mushrooms
+ [0xb68a4d,0xd0a463,0x933d44,0xd95753], // desert: sand / deep green cacti
+ [0x367c9a,0x559eb5,0x933d44,0xd95753], // clouds: sky blue / ivory clouds
+ [0x234a43,0x356c5b,0x933d44,0xd95753]  // kingdom: navy / ivory gold towers
+];
 function renderBoard(){clearGroup(groundGroup);let r=rng(level*97+3),world=Math.floor((level-1)/10),colors=[0x69bd74,0xa6d66d,0xb6a18a,0xe9f4fa,0xe9d292,0x6e91d2,0x8d71ae,0xe5c47f,0xd9efff,0xa59ac9];let grass=mat(colors[world]);const accent=[0x367d4b,0x8cd36a,0x8e7966,0xb5e2ef,0x4daac5,0x415fb0,0x674a96,0xe7a75b,0xf8fbff,0x74649d][world];
- if(world===4)islandAdventureTerrain(r);else biomeTerrain(world,r);const skies=[0x9cdbf6,0xbceefc,0xe7d4b7,0xccecff,0x8cd6f2,0x8d9ee8,0x564b8e,0xffd9a1,0x8bd4fc,0xaaa0d7];scene.background=panorama(world);scene.fog.color.setHex(skies[world]);scene.fog.near=Math.max(26,size*4.2);scene.fog.far=Math.max(56,size*8.2);renderer.toneMappingExposure=world===4?.80:1.02;sun.intensity=world===4?1.45:2.15;sun.color.setHex([0xfff1d4,0xfff2c4,0xffe2c6,0xe4f5ff,0xfff0c7,0xc9dcff,0xf2d6ff,0xffd7a3,0xf5fbff,0xf4e0ff][world]);
- for(let z=0;z<size;z++)for(let x=0;x<size;x++){let X=cell(x),Z=cell(z);const tileMat=mat(biomeTile(world,x,z));
+ if(world===4){islandAdventureTerrain(r);islandPierDecor(r)}else biomeTerrain(world,r);const skies=[0x9cdbf6,0xbceefc,0xe7d4b7,0xccecff,0x8cd6f2,0x8d9ee8,0x564b8e,0xffd9a1,0x8bd4fc,0xaaa0d7];scene.background=panorama(world);scene.fog.color.setHex(skies[world]);scene.fog.near=Math.max(38,size*5.0);scene.fog.far=Math.max(56,size*8.2);renderer.toneMappingExposure=.88;sun.intensity=1.32;sun.color.setHex([0xfff1d4,0xfff2c4,0xffe2c6,0xe4f5ff,0xfff0c7,0xc9dcff,0xf2d6ff,0xffd7a3,0xf5fbff,0xf4e0ff][world]);
+ for(let z=0;z<size;z++)for(let x=0;x<size;x++){let X=cell(x),Z=cell(z);const palette=worldFloorPalettes[world];const tileMat=new T.MeshBasicMaterial({color:board[z][x]?(world===6?0x253047:world===5?0x54304b:world===9?0x6d3740:palette[2]):palette[(x+z)%2],toneMapped:false});
  const tile=cube(groundGroup,1.405,.20,1.405,tileMat,X,-.09,Z);tile.receiveShadow=true;
+ if(world===4){const side=cube(groundGroup,1.395,.085,1.395,new T.MeshBasicMaterial({color:0x80502b,toneMapped:false}),X,-.225,Z);side.receiveShadow=true;}
  // inset surface and edge shadow: grid remains clearly legible at any zoom
- const topMat=new T.MeshStandardMaterial({color:biomeTile(world,x,z),roughness:world===3||world===5?.43:.88});
- const cap=cube(groundGroup,1.31,.025,1.31,topMat,X,.021,Z);cap.receiveShadow=true;
- const seam=mesh(groundGroup,new T.PlaneGeometry(1.20,1.20),new T.MeshBasicMaterial({color:world===4?0x865e33:0xffffff,transparent:true,opacity:world===4?.035:.075,depthWrite:false}),X,.037,Z,false);seam.rotation.x=-Math.PI/2;
- const edge=new T.LineSegments(new T.EdgesGeometry(new T.BoxGeometry(1.405,.20,1.405)),new T.LineBasicMaterial({color:[0x24533d,0x6b9557,0x86644c,0x8db9c9,0xa98959,0x394b89,0x62497c,0xa17a4e,0x98c6d9,0x675481][world],transparent:true,opacity:world===4?.22:.55}));edge.position.set(X,-.09,Z);groundGroup.add(edge);
- const inset=mesh(groundGroup,new T.PlaneGeometry(1.24,1.24),new T.MeshBasicMaterial({color:0xffffff,transparent:true,opacity:world===4?.018:.075,depthWrite:false}),X,.014,Z,false);inset.rotation.x=-Math.PI/2;
- if(world===3||world===5||world===8){const top=mesh(groundGroup,new T.PlaneGeometry(1.24,1.24),new T.MeshStandardMaterial({color:world===3?0xffffff:world===5?0x94c8ff:0xf7ffff,transparent:true,opacity:.25,roughness:.28}),X,.003,Z,false);top.rotation.x=-Math.PI/2;}
+ const topMat=new T.MeshBasicMaterial({color:board[z][x]?(world===6?0x34445a:world===5?0x79405b:world===9?0x99434a:palette[3]):palette[(x+z+1)%2],toneMapped:false});
+ const cap=cube(groundGroup,1.30,.025,1.30,topMat,X,.021,Z);cap.receiveShadow=true;
+ // Tiny surface marks create depth without obscuring tile boundaries.
+ if(world===4 && !board[z][x] && !(x===start.x&&z===start.z) && !(x===goal.x&&z===goal.z) && (x*13+z*7+level)%4===0){
+   const sand=(x+z)%2===0;
+   const markMat=new T.MeshBasicMaterial({color:sand?0x8e642d:0x397a32,toneMapped:false,transparent:true,opacity:.48});
+   for(let k=0;k<3;k++){
+     const pebble=mesh(groundGroup,new T.SphereGeometry(.028+k*.008,7,5),markMat,X-.37+k*.09,.054,Z+.30+(k%2)*.035,false);
+     pebble.scale.set(1.5,.16,.65);
+   }
+ }
+ // A pair of tiny, matte surface details keeps the board from looking flat.
+ if(world===4 && !board[z][x] && (x*3+z*5+level)%7===0 && !(x===start.x&&z===start.z) && !(x===goal.x&&z===goal.z)){
+   const detailMat=new T.MeshBasicMaterial({color:(x+z)%2?0x426d29:0x986c3b,toneMapped:false});
+   for(let i=0;i<2;i++){
+     const pebble=mesh(groundGroup,new T.DodecahedronGeometry(.044+i*.012,0),detailMat,X+.33+i*.08,.056,Z-.32+i*.05,false);
+     pebble.scale.set(1,.20,.70);
+   }
+ }
+ // Discreet grass tufts and sand pebbles only on free cells; muted colors keep the route readable.
+ if(!board[z][x] && world===4 && (x*7+z*11+level)%5===0){
+   const grassMark=new T.Group();grassMark.position.set(X-.42,.051,Z-.39);groundGroup.add(grassMark);
+   const leafMat=new T.MeshBasicMaterial({color:(x+z)%2?0x275f2e:0x8c6335,toneMapped:false});
+   for(let i=0;i<3;i++){const leaf=mesh(grassMark,new T.ConeGeometry(.034,.17,3),leafMat,(i-1)*.065,.075,(i%2)*.045,false);leaf.rotation.z=(i-1)*.25;}
+ }
+
+ const seam=mesh(groundGroup,new T.PlaneGeometry(1.20,1.20),new T.MeshBasicMaterial({color:0x172d40,transparent:true,opacity:0,depthWrite:false}),X,.037,Z,false);seam.rotation.x=-Math.PI/2;
+ const edge=new T.LineSegments(new T.EdgesGeometry(new T.BoxGeometry(1.405,.20,1.405)),new T.LineBasicMaterial({color:0x26392c,transparent:true,opacity:1}));edge.position.set(X,-.09,Z);groundGroup.add(edge);
+ const inset=mesh(groundGroup,new T.PlaneGeometry(1.24,1.24),new T.MeshBasicMaterial({color:0xffffff,transparent:true,opacity:0,depthWrite:false}),X,.014,Z,false);inset.rotation.x=-Math.PI/2;
  
  
- if(board[z][x])themedObject(world,X,Z,r,true)}
+ 
+ if(world===4){
+  // Strong tile separation: dark outlines and alternating readable walkable surfaces.
+  const outline=mesh(groundGroup,new T.PlaneGeometry(1.38,1.38),new T.MeshBasicMaterial({color:0x142a37,transparent:true,opacity:0,depthWrite:false}),X,.044,Z,false);
+  outline.rotation.x=-Math.PI/2;
+ }
+ if(board[z][x]){
+  // High-contrast raised hazard plinth: every obstacle is visually separated from the floor.
+  const plinth=mesh(groundGroup,new T.CylinderGeometry(.29,.32,.10,8),new T.MeshBasicMaterial({color:world===6?0x172a36:world===5?0x261f39:0x432b2d,toneMapped:false}),X,.075,Z);
+  plinth.rotation.y=Math.PI/8;
+  
+  if(world===4){
+    const pedestal=mesh(groundGroup,new T.CylinderGeometry(.26,.30,.12,10),new T.MeshStandardMaterial({color:0x85552e,roughness:.86}),X,.11,Z);
+    pedestal.castShadow=true;
+    adventurePalm(groundGroup,X,Z,.38);
+    for(let j=0;j<3;j++){const a=j*Math.PI*2/3;const rock=mesh(groundGroup,new T.DodecahedronGeometry(.11,0),new T.MeshStandardMaterial({color:0x7d8b8a,roughness:.9}),X+Math.cos(a)*.25,.13,Z+Math.sin(a)*.25);rock.scale.y=.55;}
+  }else themedObject(world,X,Z,r,true);
+  // A thin high-contrast boundary identifies blocked cells without hiding the 3D object.
+  const blockedBorder=new T.LineSegments(new T.EdgesGeometry(new T.BoxGeometry(1.34,.13,1.34)),new T.LineBasicMaterial({color:world===6?0xffd76c:world===5?0xffb3d8:0xffe0a4}));
+  blockedBorder.position.set(X,.06,Z);groundGroup.add(blockedBorder);
+  
+
+ }}
  // World-specific sculpted ground replaces the repeated floating square.
  /* Μία ενιαία βάση, χωρίς αλληλοεπικαλυπτόμενες πλατφόρμες.
  const terrain=[0x356c4a,0x719e49,0x6d594c,0xc8e5e9,0x277e80,0x293e70,0x453263,0xc7a067,0x98c5df,0x5a4c82][world];
@@ -523,11 +726,24 @@ function renderBoard(){clearGroup(groundGroup);let r=rng(level*97+3),world=Math.
  if(world===5||world===6||world===9){const glow=new T.PointLight(world===5?0x75dfff:world===6?0xd89cff:0xffd18e,.9,size*2);glow.position.set(0,4,0);groundGroup.add(glow)}
  // Μικρά διακοσμητικά στα ελεύθερα τετράγωνα, εκτός αφετηρίας/στόχου.
 // Διακριτική φωτεινή βάση στον στόχο.
-const goalRing=mesh(groundGroup,new T.TorusGeometry(.51,.055,8,36),new T.MeshStandardMaterial({color:0xffe18b,emissive:0xffbc36,emissiveIntensity:.5}),cell(goal.x),.07,cell(goal.z),false);
+const goalRing=mesh(groundGroup,new T.TorusGeometry(.52,.055,8,36),new T.MeshStandardMaterial({color:0xffe058,emissive:0xffa900,emissiveIntensity:1.5}),cell(goal.x),.07,cell(goal.z),false);
 // Η αφετηρία και ο στόχος διακρίνονται χωρίς να καλύπτουν τα τετράγωνα.
-const startRing=mesh(groundGroup,new T.TorusGeometry(.42,.035,6,32),new T.MeshStandardMaterial({color:0x67f1bd,emissive:0x1ea777,emissiveIntensity:.28}),cell(start.x),.05,cell(start.z),false);startRing.rotation.x=-Math.PI/2;
+const startRing=mesh(groundGroup,new T.TorusGeometry(.49,.075,6,32),new T.MeshStandardMaterial({color:0x00f5d4,emissive:0x00d9b5,emissiveIntensity:1.2}),cell(start.x),.05,cell(start.z),false);startRing.rotation.x=-Math.PI/2;
 goalRing.rotation.x=-Math.PI/2;
-fox.position.set(cell(pos.x),0,cell(pos.z));fox.rotation.y=(2-pos.d)*Math.PI/2;starGroup.position.set(cell(goal.x),0,cell(goal.z));fitCamera();el('world').textContent=['🌲','🌻','🪨','❄️','🏝️','💎','🍄','🏜️','☁️','🏰'][world]+' '+names[world]+' • Πίστα '+level;el('worldCount').textContent='Κόσμος '+(world+1)+'/10';el('sceneCaption').textContent='✦ '+difficultyFor(level).tier+' · '+(difficultyFor(level).local+1)+'/10';el('progress').textContent='⭐ '+completed.size+' / 100 πίστες'}function drawLevelMap(){const host=el('levelMap');if(!host)return;host.replaceChildren();let unlocked=1;while(unlocked<100&&completed.has(unlocked))unlocked++;for(let n=1;n<=100;n++){const done=completed.has(n),available=teacherMode||n<=unlocked;const b=document.createElement('button');b.type='button';b.textContent=done?'✓'+n:n===unlocked||teacherMode?String(n):'🔒';b.title='Πίστα '+n+(done?' · Ολοκληρωμένη':available?' · Διαθέσιμη':' · Κλειδωμένη');b.className=(done?'done':available?'available':'locked')+(n===level?' current':'');b.disabled=!available;b.onclick=()=>{load(n);if(!teacherMode)el('levelPicker').open=false};host.append(b)}el('levelProgressLabel').textContent=completed.size+' / 100 ολοκληρωμένες';el('levelMeterFill').style.width=completed.size+'%'}
+// Persistent direction indicator: anchored to the fox and rotates with it.
+if(fox.userData.directionArrow){fox.remove(fox.userData.directionArrow)}
+const arrow=new T.Group();fox.add(arrow);fox.userData.directionArrow=arrow;
+const arrowMaterial=new T.MeshBasicMaterial({color:0x0d2e53,depthTest:false});
+const stem=new T.Mesh(new T.BoxGeometry(.13,.035,.38),arrowMaterial);stem.position.set(0,.11,.63);stem.renderOrder=30;arrow.add(stem);
+const head=new T.Mesh(new T.ConeGeometry(.20,.32,3),arrowMaterial);head.position.set(0,.11,.91);head.rotation.x=Math.PI/2;head.renderOrder=30;arrow.add(head);
+const arrowHalo=new T.Mesh(new T.TorusGeometry(.42,.035,6,30),new T.MeshBasicMaterial({color:0x075c86,depthTest:false}));arrowHalo.rotation.x=-Math.PI/2;arrowHalo.position.y=.085;arrowHalo.renderOrder=29;arrow.add(arrowHalo);
+
+// Distinct raised cyan player base remains visible under either fox model.
+if(fox.userData.playerHalo)fox.remove(fox.userData.playerHalo);
+const playerHalo=new T.Group();fox.add(playerHalo);fox.userData.playerHalo=playerHalo;
+const playerDisk=new T.Mesh(new T.CylinderGeometry(.56,.58,.15,32),new T.MeshBasicMaterial({color:0x087cfa}));playerDisk.position.y=.035;playerHalo.add(playerDisk);
+const playerRim=new T.Mesh(new T.TorusGeometry(.51,.055,8,36),new T.MeshBasicMaterial({color:0x004e86,depthTest:false}));playerRim.rotation.x=-Math.PI/2;playerRim.position.y=.145;playerRim.renderOrder=22;playerHalo.add(playerRim);
+fox.position.set(cell(pos.x),.15,cell(pos.z));fox.rotation.y=(2-pos.d)*Math.PI/2;starGroup.position.set(cell(goal.x),0,cell(goal.z));fitCamera();el('world').textContent=['🌲','🌻','🪨','❄️','🏝️','💎','🍄','🏜️','☁️','🏰'][world]+' '+names[world]+' • Πίστα '+level;el('worldCount').textContent='Κόσμος '+(world+1)+'/10';el('sceneCaption').textContent='🟨 Ελεύθερο  ·  🟥 Εμπόδιο (Χ)  ·  🟦 Αλεπού (σημαία)  ·  ⭐ Στόχος  |  '+difficultyFor(level).tier+' · '+(difficultyFor(level).local+1)+'/10';el('progress').textContent='⭐ '+completed.size+' / 100 πίστες'}function drawLevelMap(){const host=el('levelMap');if(!host)return;host.replaceChildren();let unlocked=1;while(unlocked<100&&completed.has(unlocked))unlocked++;for(let n=1;n<=100;n++){const done=completed.has(n),available=teacherMode||n<=unlocked;const b=document.createElement('button');b.type='button';b.textContent=done?'✓'+n:n===unlocked||teacherMode?String(n):'🔒';b.title='Πίστα '+n+(done?' · Ολοκληρωμένη':available?' · Διαθέσιμη':' · Κλειδωμένη');b.className=(done?'done':available?'available':'locked')+(n===level?' current':'');b.disabled=!available;b.onclick=()=>{load(n);if(!teacherMode)el('levelPicker').open=false};host.append(b)}el('levelProgressLabel').textContent=completed.size+' / 100 ολοκληρωμένες';el('levelMeterFill').style.width=completed.size+'%'}
 function drawTeacherPanel(){const worlds=el('teacherWorlds'),levels=el('teacherLevels');worlds.replaceChildren();levels.replaceChildren();names.forEach((name,i)=>{const b=document.createElement('button');b.textContent=(i+1)+'. '+name;b.className=teacherWorld===i?'active':'';b.onclick=()=>{teacherWorld=i;drawTeacherPanel();if(teacherMode){load(i*10+1);el('teacherPanel').hidden=true;el('teacherToggle').setAttribute('aria-expanded','false')}};worlds.append(b)});for(let i=1;i<=10;i++){const n=teacherWorld*10+i,b=document.createElement('button');b.textContent=String(n);b.className=n===level?'active':'';b.title='Πίστα '+n+' • '+difficultyFor(n).tier;b.onclick=()=>{load(n);el('teacherPanel').hidden=true;el('teacherToggle').setAttribute('aria-expanded','false')};levels.append(b)}}
 // Teacher PIN: local device access guard, not server-side authentication.
 const pinKey='cq3d_teacher_pin_v1';let pinUnlocked=false;
@@ -538,7 +754,7 @@ function activateTeacher(){hidePin();teacherMode=true;studentLevel=level;teacher
 el('teacherToggle').onclick=()=>{if(running)return;if(teacherMode){el('teacherPanel').hidden=!el('teacherPanel').hidden;el('teacherToggle').setAttribute('aria-expanded',String(!el('teacherPanel').hidden));return}if(pinUnlocked){activateTeacher();return}el('teacherPinPanel').hidden=!el('teacherPinPanel').hidden;el('teacherPanel').hidden=true;el('teacherPinTitle').textContent=pinSaved()?'🔐 Ξεκλείδωμα εκπαιδευτικού':'🔐 Δημιουργία PIN εκπαιδευτικού';el('teacherPinHelp').textContent=pinSaved()?'Πληκτρολόγησε το PIN που όρισες σε αυτόν τον browser.':'Όρισε προσωπικό PIN 4–8 ψηφίων. Θα χρειάζεται για την προεπισκόπηση σε αυτόν τον browser.';el('teacherPinError').textContent='';if(!el('teacherPinPanel').hidden)el('teacherPinInput').focus()};
 el('teacherPinForm').addEventListener('submit',e=>{e.preventDefault();if(running)return;const pin=el('teacherPinInput').value;if(!/^[0-9]{4,8}$/.test(pin)){el('teacherPinError').textContent='Το PIN πρέπει να έχει 4 έως 8 ψηφία.';return}const saved=pinSaved();if(saved&&pin!==saved){el('teacherPinError').textContent='Λανθασμένο PIN. Προσπάθησε ξανά.';el('teacherPinInput').value='';return}if(!saved&&!pinStore(pin)){el('teacherPinError').textContent='Δεν είναι διαθέσιμη η αποθήκευση σε αυτόν τον browser.';return}pinUnlocked=true;activateTeacher()});
 function exitTeacher(){if(running)return;teacherMode=false;el('teacherPanel').hidden=true;el('teacherQuickExit').hidden=true;el('teacherToggle').textContent='👩‍🏫 Προεπισκόπηση εκπαιδευτικού';el('teacherToggle').setAttribute('aria-expanded','false');load(studentLevel)}el('teacherExit').onclick=exitTeacher;el('teacherQuickExit').onclick=exitTeacher;
-function load(n){if(running)return;el('victoryOverlay').hidden=true;let unlocked=1;while(unlocked<100&&completed.has(unlocked))unlocked++;if(!teacherMode&&n>unlocked){status('🔒 Ολοκλήρωσε πρώτα την πίστα '+unlocked+' για να ξεκλειδώσεις την επόμενη.');el('level').value=level;return}level=Math.max(1,Math.min(100,n));if(!teacherMode)studentLevel=level;else teacherWorld=Math.floor((level-1)/10);el('level').value=level;generate(level);pos={...start};program=[];selected=-1;steps=0;history=[];activeCommand=-1;renderProgram();renderBoard();el('advance').disabled=level>=100||(!teacherMode&&!completed.has(level));if(teacherMode)drawTeacherPanel();drawLevelMap();el('missionInfo').textContent='🎯 '+difficultyFor(level).tier+' • Αποστολή '+(difficultyFor(level).local+1)+'/10 • Συντομότερη λύση: '+optimalSteps+' εντολές • Εμπόδια: '+board.flat().filter(Boolean).length;status('✨ Η αλεπού ξεκινά από το εσωτερικό του χάρτη. Στροφή + Μπροστά = κίνηση προς τη νέα κατεύθυνση.')}function status(s){el('status').textContent=s}function snapshot(){history.push([...program]);if(history.length>40)history.shift()}function renderProgram(){const host=el('program');host.innerHTML='';if(!program.length){host.innerHTML='<span style="color:#8b9ca9">Σύρε εδώ την πρώτη εντολή…</span>';return}program.forEach((c,i)=>{const b=document.createElement('button');b.className='token'+(selected===i?' selected':'')+(activeCommand===i?' active':'');b.classList.add(c.startsWith('F:')?'block-loop':c==='F'?'block-forward':c==='L'?'block-left':'block-right');const badge=document.createElement('span');badge.className='block-number';badge.textContent=String(i+1).padStart(2,'0');const glyph=document.createElement('span');glyph.className='block-glyph';glyph.textContent=c.startsWith('F:')?'⟳':({F:'↑',L:'↶',R:'↷'}[c]);const label=document.createElement('span');label.className='block-label';label.textContent=c.startsWith('F:')?'Μπροστά ×'+c.split(':')[1]:({F:'Μπροστά',L:'Αριστερά',R:'Δεξιά'}[c]);const grip=document.createElement('span');grip.className='block-grip';grip.textContent='⠿';b.append(badge,glyph,label,grip);b.dataset.index=i;b.title='Σύρε για μετακίνηση ή πάτησε για επιλογή';b.setAttribute('aria-pressed',selected===i?'true':'false');b.onclick=()=>{if(!running&&!suppressClick){selected=selected===i?-1:i;renderProgram();status(selected<0?'Επιλογή ακυρώθηκε.':'Επιλέχθηκε η εντολή '+(i+1)+'.')}};host.append(b)})}
+function load(n){if(running)return;el('victoryOverlay').hidden=true;el('victoryOverlay').classList.remove('grand-finale');let unlocked=1;while(unlocked<100&&completed.has(unlocked))unlocked++;if(!teacherMode&&n>unlocked){status('🔒 Ολοκλήρωσε πρώτα την πίστα '+unlocked+' για να ξεκλειδώσεις την επόμενη.');el('level').value=level;return}level=Math.max(1,Math.min(100,n));if(!teacherMode)studentLevel=level;else teacherWorld=Math.floor((level-1)/10);el('level').value=level;generate(level);pos={...start};program=[];selected=-1;steps=0;history=[];activeCommand=-1;renderProgram();renderBoard();el('advance').disabled=level>=100||(!teacherMode&&!completed.has(level));if(teacherMode)drawTeacherPanel();drawLevelMap();el('missionInfo').textContent='🎯 '+difficultyFor(level).tier+' • Αποστολή '+(difficultyFor(level).local+1)+'/10 • Συντομότερη λύση: '+optimalSteps+' εντολές • Εμπόδια: '+board.flat().filter(Boolean).length;status('🧭 Το βέλος δίπλα στην αλεπού δείχνει την κατεύθυνσή της. Βάλε εντολές δεξιά, πάτησε ▶ Εκτέλεση και φτάσε στο χρυσό αστέρι. Για βοήθεια πάτησε 💡 Υπόδειξη.')}function status(s){el('status').textContent=s}function snapshot(){history.push([...program]);if(history.length>40)history.shift()}function renderProgram(){const host=el('program');host.innerHTML='';if(!program.length){host.innerHTML='<span style="color:#8b9ca9">Σύρε εδώ την πρώτη εντολή…</span>';return}program.forEach((c,i)=>{const b=document.createElement('button');b.className='token'+(selected===i?' selected':'')+(activeCommand===i?' active':'');b.classList.add(c.startsWith('F:')?'block-loop':c==='F'?'block-forward':c==='L'?'block-left':'block-right');const badge=document.createElement('span');badge.className='block-number';badge.textContent=String(i+1).padStart(2,'0');const glyph=document.createElement('span');glyph.className='block-glyph';glyph.textContent=c.startsWith('F:')?'⟳':({F:'↑',L:'↶',R:'↷'}[c]);const label=document.createElement('span');label.className='block-label';label.textContent=c.startsWith('F:')?'Μπροστά ×'+c.split(':')[1]:({F:'Μπροστά',L:'Αριστερά',R:'Δεξιά'}[c]);const grip=document.createElement('span');grip.className='block-grip';grip.textContent='⠿';b.append(badge,glyph,label,grip);b.dataset.index=i;b.title='Σύρε για μετακίνηση ή πάτησε για επιλογή';b.setAttribute('aria-pressed',selected===i?'true':'false');b.onclick=()=>{if(!running&&!suppressClick){selected=selected===i?-1:i;renderProgram();status(selected<0?'Επιλογή ακυρώθηκε.':'Επιλέχθηκε η εντολή '+(i+1)+'.')}};host.append(b)})}
 el('repeatCount').onchange=()=>{el('repeatCount').title='Επανάληψη '+el('repeatCount').value+' φορές'};el('repeatCount').onchange();el('repeatCount').addEventListener('pointerdown',e=>e.stopPropagation());el('repeatCount').addEventListener('click',e=>e.stopPropagation());document.querySelector('[data-repeat]').onclick=()=>{if(running||suppressClick)return;const c='F:'+el('repeatCount').value;if(selected>=0){snapshot();program[selected]=c;selected=-1}else if(program.length<90){snapshot();program.push(c)}renderProgram();status('🔁 Προστέθηκε επανάληψη '+el('repeatCount').value+' βημάτων.')};document.querySelectorAll('[data-c]').forEach(b=>b.onclick=()=>{if(running||suppressClick)return;if(selected>=0){snapshot();program[selected]=b.dataset.c;selected=-1;renderProgram();status('Η εντολή αντικαταστάθηκε!')}else if(program.length<90){snapshot();program.push(b.dataset.c);renderProgram()}});
 // Pointer drag/drop: ποντίκι, αφή και γραφίδα, με κοινό υπολογισμό θέσης.
 let drag=null,suppressClick=false;
@@ -548,7 +764,7 @@ function clearDrag(){host.querySelectorAll('.token').forEach(e=>e.classList.remo
 document.addEventListener('pointerdown',e=>{if(running||e.button!==0)return;const palette=e.target.closest('.cmd[data-c],.cmd[data-repeat]');const token=e.target.closest('#program .token');if(!palette&&!token)return;drag={source:token?'program':'palette',index:token?Number(token.dataset.index):-1,code:palette?(palette.dataset.repeat?'F:'+el('repeatCount').value:palette.dataset.c):program[Number(token.dataset.index)],x:e.clientX,y:e.clientY,moved:false,ghost:null,drop:0};});
 document.addEventListener('pointermove',e=>{if(!drag)return;if(!drag.moved&&Math.hypot(e.clientX-drag.x,e.clientY-drag.y)<9)return;if(!drag.moved){drag.moved=true;drag.ghost=document.createElement('div');drag.ghost.className='drag-ghost';drag.ghost.textContent=drag.code.startsWith('F:')?'🔁 Μπροστά ×'+drag.code.split(':')[1]:({F:'⬆️ Μπροστά',L:'↶ Αριστερά',R:'↷ Δεξιά'}[drag.code]);document.body.append(drag.ghost)}drag.ghost.style.left=e.clientX+14+'px';drag.ghost.style.top=e.clientY+14+'px';const rect=host.getBoundingClientRect();const inside=e.clientX>=rect.left-25&&e.clientX<=rect.right+25&&e.clientY>=rect.top-25&&e.clientY<=rect.bottom+25;host.classList.toggle('drag-target',inside);host.querySelectorAll('.token').forEach(t=>t.classList.remove('drop-before','drop-after'));if(inside){drag.drop=dropIndex(e.clientX,e.clientY);const ts=host.querySelectorAll('.token');if(ts.length){const at=drag.drop===ts.length?ts[ts.length-1]:ts[drag.drop];at.classList.add(drag.drop===ts.length?'drop-after':'drop-before')}}else drag.drop=null;e.preventDefault();},{passive:false});
 document.addEventListener('pointerup',e=>{if(!drag)return;const d=drag;if(d.moved){suppressClick=true;setTimeout(()=>suppressClick=false,80);if(d.drop!==null&&(d.source==='program'||program.length<90)){snapshot();if(d.source==='palette'){program.splice(d.drop,0,d.code)}else{program.splice(d.index,1);program.splice(d.drop>d.index?d.drop-1:d.drop,0,d.code)}selected=-1;status('✅ Η εντολή τοποθετήθηκε στη νέα θέση.')}else if(d.drop!==null&&d.source==='program'){snapshot();program.splice(d.index,1);program.splice(d.drop>d.index?d.drop-1:d.drop,0,d.code)}clearDrag();renderProgram()}else clearDrag()});document.addEventListener('pointercancel',clearDrag);
-el('clear').onclick=()=>{if(!running){snapshot();program=[];selected=-1;renderProgram();status('Το πρόγραμμα καθαρίστηκε.')}};el('deleteOne').onclick=()=>{if(running||selected<0)return;snapshot();program.splice(selected,1);selected=-1;renderProgram();status('Η επιλεγμένη εντολή διαγράφηκε.')};el('undo').onclick=()=>{if(running||!history.length)return;program=history.pop();selected=-1;renderProgram();status('Αναιρέθηκε η τελευταία αλλαγή.')};el('restart').onclick=()=>{if(!running){pos={...start};fox.position.set(cell(pos.x),0,cell(pos.z));fox.rotation.y=(2-pos.d)*Math.PI/2;status('↺ Ξεκινάμε ξανά!')}};el('prev').onclick=()=>load(level-1);el('nextLevel').onclick=()=>load(level+1);el('level').onchange=e=>load(Number(e.target.value)||1);el('advance').onclick=()=>load(level+1);el('victoryNext').onclick=()=>{el('victoryOverlay').hidden=true;if(level<100)load(level+1);else status('🏆 Συγχαρητήρια! Ολοκλήρωσες και τις 100 πίστες!')};function findSolution(){const queue=[[start.x,start.z,start.d,'']],seen=new Set([start.x+','+start.z+','+start.d]);for(let head=0;head<queue.length;head++){const [x,z,d,cmd]=queue[head];if(x===goal.x&&z===goal.z)return cmd;for(const [c,nd,nx,nz] of [['L',(d+3)%4,x,z],['R',(d+1)%4,x,z],['F',d,x+dirs[d][0],z+dirs[d][1]]]){if(nx<0||nz<0||nx>=size||nz>=size||board[nz][nx])continue;const key=nx+','+nz+','+nd;if(!seen.has(key)){seen.add(key);queue.push([nx,nz,nd,cmd+c])}}}return null}el('hint').onclick=()=>{if(running)return;const solution=findSolution();if(solution===null){status('⚠ Δεν βρέθηκε διαδρομή για αυτή την πίστα.');return}const names={F:'Μπροστά',L:'Αριστερά',R:'Δεξιά'};status('💡 Μια πιθανή πρώτη εντολή είναι: '+names[solution[0]]+'. Δοκίμασε να βρεις τις υπόλοιπες!')};const wait=ms=>new Promise(resolve=>setTimeout(resolve,ms));async function tween(target,rot){let from=fox.position.clone(),a=fox.rotation.y,delta=rot-a;while(delta>Math.PI)delta-=2*Math.PI;while(delta< -Math.PI)delta+=2*Math.PI;foxWalking=true;for(let k=1;k<=14;k++){let t=k/14,sm=t*t*(3-2*t);fox.position.lerpVectors(from,target,sm);fox.rotation.y=a+delta*sm;fox.position.y=Math.sin(t*Math.PI)*.11;await wait(20)}fox.position.copy(target);fox.position.y=0;fox.rotation.y=rot;foxWalking=false;fox.scale.set(1,1,1)}el('run').onclick=async()=>{if(running||!program.length)return;running=true;el('run').disabled=true;pos={...start};fox.position.set(cell(pos.x),0,cell(pos.z));fox.rotation.y=(2-pos.d)*Math.PI/2;status('▶ Ξεκινά η εκτέλεση από την αρχή');let success=false,failed=false,executedCount=0;
+el('clear').onclick=()=>{if(!running){snapshot();program=[];selected=-1;renderProgram();status('Το πρόγραμμα καθαρίστηκε.')}};el('deleteOne').onclick=()=>{if(running||selected<0)return;snapshot();program.splice(selected,1);selected=-1;renderProgram();status('Η επιλεγμένη εντολή διαγράφηκε.')};el('undo').onclick=()=>{if(running||!history.length)return;program=history.pop();selected=-1;renderProgram();status('Αναιρέθηκε η τελευταία αλλαγή.')};el('restart').onclick=()=>{if(!running){pos={...start};fox.position.set(cell(pos.x),.15,cell(pos.z));fox.rotation.y=(2-pos.d)*Math.PI/2;status('↺ Ξεκινάμε ξανά!')}};el('prev').onclick=()=>{if(!running)load(level-1)};el('nextLevel').onclick=()=>{if(!running)load(level+1)};el('level').onchange=e=>{if(!running)load(Number(e.target.value)||1)};el('advance').onclick=()=>{if(!running)load(level+1)};el('victoryNext').onclick=()=>{el('victoryOverlay').hidden=true;if(level<100)load(level+1);else status('🏆 Συγχαρητήρια! Ολοκλήρωσες και τις 100 πίστες!')};function findSolution(){const queue=[[start.x,start.z,start.d,'']],seen=new Set([start.x+','+start.z+','+start.d]);for(let head=0;head<queue.length;head++){const [x,z,d,cmd]=queue[head];if(x===goal.x&&z===goal.z)return cmd;for(const [c,nd,nx,nz] of [['L',(d+3)%4,x,z],['R',(d+1)%4,x,z],['F',d,x+dirs[d][0],z+dirs[d][1]]]){if(nx<0||nz<0||nx>=size||nz>=size||board[nz][nx])continue;const key=nx+','+nz+','+nd;if(!seen.has(key)){seen.add(key);queue.push([nx,nz,nd,cmd+c])}}}return null}el('hint').onclick=()=>{if(running)return;const solution=findSolution();if(solution===null){status('⚠ Δεν βρέθηκε διαδρομή για αυτή την πίστα.');return}const names={F:'Μπροστά',L:'Αριστερά',R:'Δεξιά'};status('💡 Μια πιθανή πρώτη εντολή είναι: '+names[solution[0]]+'. Δοκίμασε να βρεις τις υπόλοιπες!')};const wait=ms=>new Promise(resolve=>setTimeout(resolve,ms));async function tween(target,rot){let from=fox.position.clone(),a=fox.rotation.y,delta=rot-a;while(delta>Math.PI)delta-=2*Math.PI;while(delta< -Math.PI)delta+=2*Math.PI;foxWalking=true;for(let k=1;k<=14;k++){let t=k/14,sm=t*t*(3-2*t);fox.position.lerpVectors(from,target,sm);fox.rotation.y=a+delta*sm;fox.position.y=Math.sin(t*Math.PI)*.11;await wait(20)}fox.position.copy(target);fox.position.y=0;fox.rotation.y=rot;foxWalking=false;fox.scale.set(1,1,1)}el('run').onclick=async()=>{if(running||!program.length)return;running=true;el('run').disabled=true;pos={...start};fox.position.set(cell(pos.x),.15,cell(pos.z));fox.rotation.y=(2-pos.d)*Math.PI/2;status('▶ Ξεκινά η εκτέλεση από την αρχή');let success=false,failed=false,executedCount=0;
 const queue=[];for(let i=0;i<program.length;i++){const c=program[i];const count=c.startsWith('F:')?Math.min(20,Number(c.split(':')[1])||2):1;for(let k=0;k<count;k++)queue.push({c:c.startsWith('F:')?'F':c,i,rep:k,loops:count,inner:1,total:1})}
 for(const task of queue){if(failed||success)break;
  const {c,i,rep,loops,inner,total}=task;activeCommand=i;renderProgram();executedCount++;
@@ -560,6 +776,13 @@ for(const task of queue){if(failed||success)break;
  pos.x=nx;pos.z=nz;await tween(new T.Vector3(cell(nx),0,cell(nz)),(2-pos.d)*Math.PI/2);if(nx===goal.x&&nz===goal.z)success=true;
  }
 }
-if(success){if(!teacherMode)completed.add(level);try{if(!teacherMode)localStorage.setItem('cq3d_completed',JSON.stringify([...completed]))}catch{}el('progress').textContent='⭐ '+completed.size+' / 100 πίστες';drawLevelMap();el('advance').disabled=level===100;status('🎉 Μπράβο! Η αλεπού έφτασε στο αστέρι! Χρησιμοποίησες '+executedCount+' εντολές (βέλτιστη λύση: '+optimalSteps+').');el('victoryTitle').textContent=level===100?'🏆 Ολοκλήρωσες και τις 100 πίστες!':'🎉 Μπράβο! Πέρασες την πίστα '+level+'!';el('victoryDetails').textContent=(teacherMode?'Προεπισκόπηση εκπαιδευτικού — η πρόοδος δεν αποθηκεύτηκε. ':'')+'Η αλεπού έφτασε στο αστέρι! ⭐ Χρησιμοποίησες '+executedCount+' εντολές. Συντομότερη λύση: '+optimalSteps+'.';el('victoryNext').textContent=level===100?'Τέλος περιπέτειας 🏆':'Επόμενη πίστα ➜';el('victoryOverlay').hidden=false;el('victoryNext').focus()}else if(!failed)status('💡 Η αλεπού δεν έφτασε ακόμη στο αστέρι. Πρόσθεσε εντολές.');running=false;activeCommand=-1;renderProgram();if(failed){el('program').querySelector('[data-index="'+selected+'"]')?.classList.add('block-error')}el('run').disabled=false};function fitCamera(){const w=Math.max(1,el('scene').clientWidth),h=Math.max(1,el('scene').clientHeight),aspect=w/h;camera.aspect=aspect;camera.updateProjectionMatrix();const span=size*1.53+3.0;const vfov=camera.fov*Math.PI/180;const distV=(span*1.45)/(2*Math.tan(vfov/2));const distH=(span*1.45)/(2*Math.tan(vfov/2)*aspect);const dist=Math.max(distV,distH);const direction=new T.Vector3(.58,1.02,1).normalize();camera.position.copy(direction.multiplyScalar(dist));camera.lookAt(0,0,0);camera.updateProjectionMatrix()}
-function resize(){let w=Math.max(1,el('scene').clientWidth),h=Math.max(1,el('scene').clientHeight);renderer.setSize(w,h);camera.aspect=w/h;camera.updateProjectionMatrix();fitCamera()}window.addEventListener('resize',resize);load(1);resize();loadGLBAssets();function animate(t){requestAnimationFrame(animate);star.rotation.y+=.012;starGroup.position.y=Math.sin(t*.002)*.13;if(!foxWalking){fox.scale.y=1+Math.sin(t*.0028)*.014;fox.scale.x=1-Math.sin(t*.0028)*.006}else{fox.scale.y=1+Math.sin(t*.025)*.045;fox.scale.x=1-Math.sin(t*.025)*.025}renderer.render(scene,camera)}requestAnimationFrame(animate)})();
+if(success){if(!teacherMode)completed.add(level);try{if(!teacherMode)localStorage.setItem('cq3d_completed',JSON.stringify([...completed]))}catch{}el('progress').textContent='⭐ '+completed.size+' / 100 πίστες';drawLevelMap();el('advance').disabled=level===100;status('🎉 Μπράβο! Η αλεπού έφτασε στο αστέρι! Χρησιμοποίησες '+executedCount+' εντολές (βέλτιστη λύση: '+optimalSteps+').');const finalWin=level===100;
+el('victoryOverlay').classList.toggle('grand-finale',finalWin);
+el('victoryEmoji').textContent=finalWin?'🏆🦊🎓':'🦊🌟🎉';
+el('victoryTitle').textContent=finalWin?'ΣΥΓΧΑΡΗΤΗΡΙΑ!':'🎉 Μπράβο! Πέρασες την πίστα '+level+'!';el('victoryDetails').textContent=finalWin
+ ?(teacherMode?'🎓 Προεπισκόπηση εκπαιδευτικού — δεν αποθηκεύτηκε πρόοδος. ':'')+
+ '🎊 Ολοκλήρωσες και τις 100 πίστες του Fox-Code! Ταξίδεψες σε 10 κόσμους, έλυσες προκλήσεις και έμαθες να σκέφτεσαι σαν προγραμματιστής. Είσαι καταπληκτικός/ή! ⭐⭐⭐'
+ :(teacherMode?'Προεπισκόπηση εκπαιδευτικού — η πρόοδος δεν αποθηκεύτηκε. ':'')+
+ 'Η αλεπού έφτασε στο αστέρι! ⭐ Χρησιμοποίησες '+executedCount+' εντολές. Συντομότερη λύση: '+optimalSteps+'.';el('victoryNext').textContent=level===100?'🏆 Ολοκλήρωση περιπέτειας':'Επόμενη πίστα ➜';if(finalWin){const conf=el('finaleConfetti');conf.replaceChildren();const colors=['#ffd75e','#55e0e6','#ff7b9a','#a58dff','#8ce987'];for(let i=0;i<48;i++){const piece=document.createElement('i');piece.style.setProperty('--x',(i*37%100)+'%');piece.style.setProperty('--y',(i*29%95)+'%');piece.style.setProperty('--c',colors[i%colors.length]);piece.style.setProperty('--d',(3+(i%6)*.5)+'s');piece.style.setProperty('--delay',(-i*.17)+'s');piece.style.setProperty('--dx',((i%9)-4)*18+'px');conf.append(piece)}}el('victoryOverlay').hidden=false;el('victoryNext').focus()}else if(!failed)status('💡 Η αλεπού δεν έφτασε ακόμη στο αστέρι. Πρόσθεσε εντολές.');running=false;activeCommand=-1;renderProgram();if(failed){el('program').querySelector('[data-index="'+selected+'"]')?.classList.add('block-error')}el('run').disabled=false};function fitCamera(){const w=Math.max(1,el('scene').clientWidth),h=Math.max(1,el('scene').clientHeight),aspect=w/h;camera.aspect=aspect;camera.updateProjectionMatrix();const span=size*1.48+2.2;const vfov=camera.fov*Math.PI/180;const distV=(span*1.30)/(2*Math.tan(vfov/2));const distH=(span*1.30)/(2*Math.tan(vfov/2)*aspect);const dist=Math.max(distV,distH);const direction=new T.Vector3(.68,1.26,1).normalize();camera.position.copy(direction.multiplyScalar(dist));camera.lookAt(0,0,0);camera.updateProjectionMatrix()}
+function resize(){let w=Math.max(1,el('scene').clientWidth),h=Math.max(1,el('scene').clientHeight);renderer.setSize(w,h);camera.aspect=w/h;camera.updateProjectionMatrix();fitCamera()}window.addEventListener('resize',resize);load(1);resize();loadGLBAssets();function animate(t){requestAnimationFrame(animate);star.rotation.y+=.010;starGroup.position.y=Math.sin(t*.002)*.095;foxTailPivot.rotation.y=Math.sin(t*.0034)*.24;foxTailPivot.rotation.z=Math.sin(t*.0025)*.12;if(!foxWalking){fox.scale.y=1+Math.sin(t*.0028)*.014;fox.scale.x=1-Math.sin(t*.0028)*.006}else{fox.scale.y=1+Math.sin(t*.025)*.045;fox.scale.x=1-Math.sin(t*.025)*.025}renderer.render(scene,camera)}requestAnimationFrame(animate)})();
 </script></body></html>
